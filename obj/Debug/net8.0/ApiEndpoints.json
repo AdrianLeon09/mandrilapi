@@ -1,0 +1,189 @@
+[
+  {
+    "ContainingType": "MandrilAPI.Controllers.MandrilController",
+    "Method": "GetMandriles",
+    "RelativePath": "api/Mandril",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "MandrilAPI.Models.Mandril",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "MandrilAPI.Controllers.MandrilController",
+    "Method": "PostMandril",
+    "RelativePath": "api/Mandril",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "mandrilDto",
+        "Type": "MandrilAPI.Models.MandrilDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "MandrilAPI.Models.Mandril",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "MandrilAPI.Controllers.MandrilController",
+    "Method": "GetMandriles",
+    "RelativePath": "api/Mandril/{mandrilID}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "mandrilID",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "MandrilAPI.Models.Mandril",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "MandrilAPI.Controllers.MandrilController",
+    "Method": "PutMandril",
+    "RelativePath": "api/Mandril/{mandrilID}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "mandrilID",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "mandrilDto",
+        "Type": "MandrilAPI.Models.MandrilDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "MandrilAPI.Models.Mandril",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "MandrilAPI.Controllers.MandrilController",
+    "Method": "DeleteMandril",
+    "RelativePath": "api/Mandril/{mandrilID}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "mandrilID",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "MandrilAPI.Models.Mandril",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "MandrilAPI.Controllers.HabilidadController",
+    "Method": "GetHabilidad",
+    "RelativePath": "api/Mandril/{mandrilID}/Habilidad",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "mandrilID",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MandrilAPI.Controllers.HabilidadController",
+    "Method": "AgregarHabilidadMandril",
+    "RelativePath": "api/Mandril/{mandrilID}/Habilidad",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "mandrilID",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "habilidadNew",
+        "Type": "MandrilAPI.Models.Service.HabilidadDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MandrilAPI.Controllers.HabilidadController",
+    "Method": "GetHabilidad",
+    "RelativePath": "api/Mandril/{mandrilID}/Habilidad/{HabilidadID}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "mandrilID",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "HabilidadID",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]
