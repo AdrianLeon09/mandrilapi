@@ -3,10 +3,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MandrilAPI.Models.Service;
 
-public  class ContextDB : DbContext
+public  class MandrilContext : DbContext
 {
-    private string string2 = "texto prueba para crear rama 1"; 
+    public MandrilContext(DbContextOptions<MandrilContext> options) : base(options){
+    }
 
+
+public DbSet<Mandril> Mandrils { get; set; }
+public DbSet<Habilidad> Habilidades { get; set; }
+
+// ya hice la implementacion ahora tengo que probar y entender mejor como va la cosa
 };
   
   

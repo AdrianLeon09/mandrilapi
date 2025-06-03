@@ -66,10 +66,118 @@
             "description": "OK"
           }
         }
+      },
+      "put": {
+        "tags": [
+          "Habilidad"
+        ],
+        "parameters": [
+          {
+            "name": "mandrilID",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "HabilidadID",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
     "/api/Mandril/{mandrilID}/Habilidad/{HabilidadID}": {
       "get": {
+        "tags": [
+          "Habilidad"
+        ],
+        "parameters": [
+          {
+            "name": "mandrilID",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "HabilidadID",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Habilidad"
+        ],
+        "parameters": [
+          {
+            "name": "mandrilID",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "HabilidadID",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HabilidadDTOPotencia"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HabilidadDTOPotencia"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/HabilidadDTOPotencia"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
         "tags": [
           "Habilidad"
         ],
@@ -353,6 +461,16 @@
             "nullable": true
           },
           "intesidad": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "HabilidadDTOPotencia": {
+        "type": "object",
+        "properties": {
+          "potencia": {
             "type": "integer",
             "format": "int32"
           }

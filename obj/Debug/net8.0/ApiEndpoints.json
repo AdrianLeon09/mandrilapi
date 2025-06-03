@@ -146,7 +146,7 @@
   },
   {
     "ContainingType": "MandrilAPI.Controllers.HabilidadController",
-    "Method": "AgregarHabilidadMandril",
+    "Method": "NuevaHabilidadMandril",
     "RelativePath": "api/Mandril/{mandrilID}/Habilidad",
     "HttpMethod": "PATCH",
     "IsController": true,
@@ -167,9 +167,77 @@
   },
   {
     "ContainingType": "MandrilAPI.Controllers.HabilidadController",
+    "Method": "AgregarHabilidad",
+    "RelativePath": "api/Mandril/{mandrilID}/Habilidad",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "mandrilID",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "HabilidadID",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MandrilAPI.Controllers.HabilidadController",
     "Method": "GetHabilidad",
     "RelativePath": "api/Mandril/{mandrilID}/Habilidad/{HabilidadID}",
     "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "mandrilID",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "HabilidadID",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MandrilAPI.Controllers.HabilidadController",
+    "Method": "EditarHabilidad",
+    "RelativePath": "api/Mandril/{mandrilID}/Habilidad/{HabilidadID}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "mandrilID",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "HabilidadID",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "habilidadDto",
+        "Type": "MandrilAPI.Models.HabilidadDTOPotencia",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MandrilAPI.Controllers.HabilidadController",
+    "Method": "EliminarHabilidad",
+    "RelativePath": "api/Mandril/{mandrilID}/Habilidad/{HabilidadID}",
+    "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
     "Parameters": [

@@ -1,6 +1,7 @@
 
 using MandrilAPI.Models;
 using MandrilAPI.Models.Service;
+using Microsoft.EntityFrameworkCore;
 
 namespace MandrilAPI
 {
@@ -11,9 +12,9 @@ namespace MandrilAPI
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-
+            builder.Services.AddDbContext<MandrilContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("connection")));
+            
             builder.Services.AddControllers();
-
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
@@ -29,7 +30,7 @@ namespace MandrilAPI
             //Se inician todas las listas staticas que consumira la api
              Habilidad.IniciarListaHabilidades();
              MandrilDataStore.InicializarMandrilesData();
-                        ContextDB contextDb = new ContextDB();
+                    
                         
             
             app.UseHttpsRedirection();
