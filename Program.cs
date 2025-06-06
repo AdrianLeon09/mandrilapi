@@ -1,4 +1,5 @@
 
+using MandrilAPI.Controllers;
 using MandrilAPI.Models;
 using MandrilAPI.Models.Service;
 using Microsoft.EntityFrameworkCore;
@@ -9,9 +10,13 @@ namespace MandrilAPI
     {
         public static void Main(string[] args)
         {
+
+            MandrilContext contexto;
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            //ASP.NET administra las instancias puestas en la inyeccion de dependencias es decir cada vez que quiera una instanica
+            //Para usar el servicio solo necesito llamarlo desde el contructor de la clase.
             builder.Services.AddDbContext<MandrilContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("connection")));
             
             builder.Services.AddControllers();
@@ -30,18 +35,14 @@ namespace MandrilAPI
             //Se inician todas las listas staticas que consumira la api
              Habilidad.IniciarListaHabilidades();
              MandrilDataStore.InicializarMandrilesData();
-                    
-                        
+
+        
             
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-            
+
             app.MapControllers();
-
-            
-
-          
 
             //la logica del programa funciona/ seguir viendo el video
             
@@ -56,8 +57,17 @@ namespace MandrilAPI
            
                  // Console.WriteLine(mandril.UsarListaMandriles()[2].HabilidadMandril()[0].Nombre);
                 // Console.WriteLine(Habilidad.SeleccionarHabilidad()[1].Nombre);
+             
             
+
+               
+                
             app.Run();
+            
+            
+            
+            
+            
         }
     }
 }

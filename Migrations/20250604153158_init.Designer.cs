@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MandrilAPI.Migrations
 {
     [DbContext(typeof(MandrilContext))]
-    [Migration("20250603150454_init")]
+    [Migration("20250604153158_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -41,10 +41,6 @@ namespace MandrilAPI.Migrations
 
                     b.Property<int>("Potencia")
                         .HasColumnType("int");
-
-                    b.Property<string>("PotenciaString")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

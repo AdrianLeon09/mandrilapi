@@ -1,4 +1,6 @@
-﻿namespace MandrilAPI.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace MandrilAPI.Models
 {
     public class Habilidad
     {
@@ -9,7 +11,9 @@
 
         //Si se quiere mostrar la potencia en numero en el getMandriles de controller, cambiar el modificador de acceso a public
         public EPotencia Potencia { get; set; }
-        public string PotenciaString { get; set; }
+
+        [NotMapped]
+        internal string PotenciaString { get; set; }
         
       protected static List<Habilidad> ListaHabilidades = new List<Habilidad>();
 

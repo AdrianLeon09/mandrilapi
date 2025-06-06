@@ -493,4 +493,3 @@ C:\Users\adria\RiderProjects\mandrilapi\obj\Debug\net8.0\refint\MandrilAPI.dll
 C:\Users\adria\RiderProjects\mandrilapi\obj\Debug\net8.0\MandrilAPI.pdb
 C:\Users\adria\RiderProjects\mandrilapi\obj\Debug\net8.0\MandrilAPI.genruntimeconfig.cache
 C:\Users\adria\RiderProjects\mandrilapi\obj\Debug\net8.0\ref\MandrilAPI.dll
-C:\Users\adria\RiderProjects\mandrilapi\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

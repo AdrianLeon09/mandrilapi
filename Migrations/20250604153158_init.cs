@@ -32,7 +32,6 @@ namespace MandrilAPI.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Potencia = table.Column<int>(type: "int", nullable: false),
-                    PotenciaString = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Mandrilid = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>

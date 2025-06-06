@@ -39,10 +39,6 @@ namespace MandrilAPI.Migrations
                     b.Property<int>("Potencia")
                         .HasColumnType("int");
 
-                    b.Property<string>("PotenciaString")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("Mandrilid");

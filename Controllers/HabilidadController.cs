@@ -18,8 +18,12 @@ namespace MandrilAPI.Controllers;
 [ApiController]
 [Route("api/Mandril/{mandrilID}/[controller]")]
 
-public class HabilidadController : ControllerBase
+public class HabilidadController(MandrilContext contextHabilidad) : ControllerBase
 {
+    //Implementacion context DB
+    private readonly MandrilContext _context = contextHabilidad;
+    
+    
     //GET obtiene la lista de habilidades de un mandril especifico
     [HttpGet]
     public IActionResult GetHabilidad(int mandrilID)
@@ -32,7 +36,8 @@ public class HabilidadController : ControllerBase
         }
         else
         {
-            return Ok(habilidadMandril);
+            //context
+            return Ok(_context.Habilidades.ToList());
         }
     }
     

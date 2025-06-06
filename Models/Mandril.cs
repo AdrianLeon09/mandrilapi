@@ -29,8 +29,8 @@ namespace MandrilAPI.Models
         {
             this.Nombre = nombre; 
             this.Apellido = apellido;
-            this.id = ide;
-            ide++;
+            //this.id = ide;
+            //ide++;
 
         }
         
