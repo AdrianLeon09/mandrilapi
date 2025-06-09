@@ -14,6 +14,7 @@ namespace MandrilAPI.Models
 
         [NotMapped]
         internal string PotenciaString { get; set; }
+     //   public ICollection<Mandril> MandrilHabilidad = new List<Mandril>();
         
       protected static List<Habilidad> ListaHabilidades = new List<Habilidad>();
 
@@ -23,7 +24,7 @@ namespace MandrilAPI.Models
         //Al final se agrega automaticamente la habilidad nueva a una lista de habilidades 
         public Habilidad(string nombreHabilidad, int potenciaHabilidad)
         {
-
+    
             this.Id = ide;
             ide++;
             this.Nombre = nombreHabilidad;

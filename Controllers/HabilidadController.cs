@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace MandrilAPI.Controllers;
-
+//  IMPORTANTE ES NECESARIO AGREGAR UNA TABLA INTERMEDIA MANDRIL HABILIDADES PARA EVITAR LA DUPLICACION DE HABILIDADES POR MANDRIL TERMINADO ESO IMPLEMENTAR LA LOGICA DE HABILIDAD MANDRIL ACA.
 
 //Se configura la ruta para accesar a las habilidades de cada mandril por medio de Mandriles lo cual permitira desarollar la logica de
 //habilidad controller.
@@ -22,22 +24,33 @@ public class HabilidadController(MandrilContext contextHabilidad) : ControllerBa
 {
     //Implementacion context DB
     private readonly MandrilContext _context = contextHabilidad;
-    
+    //Comenzar la migracion de logica a base de datos..
     
     //GET obtiene la lista de habilidades de un mandril especifico
     [HttpGet]
     public IActionResult GetHabilidad(int mandrilID)
     {
-        var habilidadMandril = MandrilDataStore.Current.UsarListaMandriles().FirstOrDefault(m => m.id == mandrilID)
-            ?.Habilidades;
-        if (habilidadMandril == null)
+        var mandril = _context.Mandrils.Include(m =>m.Habilidades ) .FirstOrDefault(m=> m.id == mandrilID);
+        
+        //Verificacion si el mandril es null
+        if (mandril == null)
         {
             return BadRequest(DefaultsMessages.habilidadNotFound);
         }
         else
         {
-            //context
-            return Ok(_context.Habilidades.ToList());
+            //Verificacion si la habilidad es null
+            if (mandril.Habilidades.IsNullOrEmpty())
+            {
+                return BadRequest(DefaultsMessages.habilidadNotFound);
+            }
+            else
+            {
+// ok
+                return Ok(mandril.Habilidades);
+            }
+
+            
         }
     }
     
@@ -45,13 +58,12 @@ public class HabilidadController(MandrilContext contextHabilidad) : ControllerBa
     [HttpGet("{HabilidadID}")]
     public IActionResult GetHabilidad(int mandrilID, int HabilidadID)
     {
-        var seleccionMandril = MandrilDataStore.Current.UsarListaMandriles().FirstOrDefault(m => m.id == mandrilID);
-        var seleccionHabilidad = seleccionMandril?.Habilidades?.FirstOrDefault(h => h.Id == HabilidadID);
+        var seleccionMandril = _context.Mandrils.Include(m=> m.Habilidades).FirstOrDefault(m=> m.id == mandrilID);
+        var seleccionHabilidad = seleccionMandril?.Habilidades?.FirstOrDefault(h=> h.Id==HabilidadID);
 
         if (seleccionMandril == null)
         {
             return BadRequest(DefaultsMessages.mandrilNotFound);
-
         }
         else
         {
@@ -61,6 +73,7 @@ public class HabilidadController(MandrilContext contextHabilidad) : ControllerBa
             }
             else
             {
+                //ok
                 return Ok(seleccionHabilidad);
             }
         }
@@ -82,19 +95,21 @@ public class HabilidadController(MandrilContext contextHabilidad) : ControllerBa
     //
    
     
-    //Pach que crea una habilidad desde el body y la asigna a la base de datos
+    //PATCH Crea una habilidad desde el body y la asigna a la base de datos
     [HttpPatch]
     public IActionResult NuevaHabilidadMandril(int mandrilID, [FromBody] HabilidadDTO habilidadNew)
     {
-        var habiliadadVerificacion = Habilidad.SeleccionarHabilidad()
-            .FirstOrDefault(h =>
+        var habiliadadVerificacion = _context.Habilidades.FirstOrDefault(h =>
                 h.Nombre.Equals(habilidadNew.Nombre, StringComparison.CurrentCultureIgnoreCase));
-//analizar un poco esta parte del codigo
+        
+        //analizar un poco esta parte del codigo
+
+        //Si, la habilidad Ya existe
         if (habiliadadVerificacion != null)
         {
 
             return BadRequest(
-                DefaultsMessages.habilidadNotFound);
+                DefaultsMessages.habilidadAlreadyExists);
 
         }
         else

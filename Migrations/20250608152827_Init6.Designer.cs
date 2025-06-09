@@ -3,6 +3,7 @@ using MandrilAPI.Models.Service;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MandrilAPI.Migrations
 {
     [DbContext(typeof(MandrilContext))]
-    partial class MandrilContextModelSnapshot : ModelSnapshot
+    [Migration("20250608152827_Init6")]
+    partial class Init6
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,6 +32,9 @@ namespace MandrilAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int?>("Mandrilid")
+                        .HasColumnType("int");
+
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -37,6 +43,8 @@ namespace MandrilAPI.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Mandrilid");
 
                     b.ToTable("Habilidades");
                 });
@@ -85,6 +93,13 @@ namespace MandrilAPI.Migrations
                     b.ToTable("MandrilHabilidades");
                 });
 
+            modelBuilder.Entity("MandrilAPI.Models.Habilidad", b =>
+                {
+                    b.HasOne("MandrilAPI.Models.Mandril", null)
+                        .WithMany("Habilidades")
+                        .HasForeignKey("Mandrilid");
+                });
+
             modelBuilder.Entity("MandrilAPI.Models.MandrilHabilidades", b =>
                 {
                     b.HasOne("MandrilAPI.Models.Habilidad", "Habilidad")
@@ -102,6 +117,11 @@ namespace MandrilAPI.Migrations
                     b.Navigation("Habilidad");
 
                     b.Navigation("Mandril");
+                });
+
+            modelBuilder.Entity("MandrilAPI.Models.Mandril", b =>
+                {
+                    b.Navigation("Habilidades");
                 });
 #pragma warning restore 612, 618
         }

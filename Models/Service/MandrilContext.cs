@@ -22,7 +22,13 @@ public DbSet<Mandril> Mandrils { get; set; }
 
 //Representation of table mandril in the base data
 public DbSet<Habilidad> Habilidades { get; set; }
-
+public DbSet<MandrilHabilidades> MandrilHabilidades { get; set; }
+protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+    
+    
+    
+}
 
 };
   

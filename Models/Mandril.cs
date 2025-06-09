@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 using MandrilAPI.Models.Service;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,7 +12,8 @@ namespace MandrilAPI.Models
         public String Nombre { get; set; } = string.Empty;
         public String Apellido { get; set; } = string.Empty;
        //Si NO se quiere mostrar las Habiliades en el getMandriles de controller, cambiar el modificador de acceso a protected
-        public List<Habilidad>? Habilidades { get; set; }
+      [NotMapped]
+       public List<Habilidad>? Habilidades { get; set; }
 
         //constructor mandril que recibe una habilidad y luego hace una lista personalizada de habilidades
         public Mandril( string nombre, string apellido,Habilidad habilidad) {
