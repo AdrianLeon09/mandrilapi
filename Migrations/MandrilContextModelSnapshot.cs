@@ -64,23 +64,15 @@ namespace MandrilAPI.Migrations
 
             modelBuilder.Entity("MandrilAPI.Models.MandrilHabilidades", b =>
                 {
-                    b.Property<int>("MandrilHabilidadesid")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("Mandrilid")
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MandrilHabilidadesid"));
 
                     b.Property<int>("Habilidadid")
                         .HasColumnType("int");
 
-                    b.Property<int>("Mandrilid")
-                        .HasColumnType("int");
-
-                    b.HasKey("MandrilHabilidadesid");
+                    b.HasKey("Mandrilid", "Habilidadid");
 
                     b.HasIndex("Habilidadid");
-
-                    b.HasIndex("Mandrilid");
 
                     b.ToTable("MandrilHabilidades");
                 });

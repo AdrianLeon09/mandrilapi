@@ -8,14 +8,16 @@ namespace MandrilAPI.Models
        public  int Id { get; set; }
        static int ide = 0;
         public string Nombre { get; set; }
-
+        
+        
+       // public List<Mandril> Mandriles { get; set; }
         //Si se quiere mostrar la potencia en numero en el getMandriles de controller, cambiar el modificador de acceso a public
         public EPotencia Potencia { get; set; }
 
         [NotMapped]
         internal string PotenciaString { get; set; }
      //   public ICollection<Mandril> MandrilHabilidad = new List<Mandril>();
-        
+        [NotMapped]
       protected static List<Habilidad> ListaHabilidades = new List<Habilidad>();
 
        

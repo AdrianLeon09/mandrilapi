@@ -22,13 +22,13 @@ public DbSet<Mandril> Mandrils { get; set; }
 
 //Representation of table mandril in the base data
 public DbSet<Habilidad> Habilidades { get; set; }
-public DbSet<MandrilHabilidades> MandrilHabilidades { get; set; }
-protected override void OnModelCreating(ModelBuilder modelBuilder)
-{
-    
-    
-    
-}
+ public DbSet<MandrilHabilidades> MandrilHabilidades { get; set; }
+ protected override void OnModelCreating(ModelBuilder modelBuilder)
+ {
+     modelBuilder.Entity<MandrilHabilidades>()
+         .HasKey(mh => new { mh.Mandrilid, mh.Habilidadid });
+ }
+
 
 };
   

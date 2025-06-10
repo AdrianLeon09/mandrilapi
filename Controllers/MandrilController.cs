@@ -16,22 +16,24 @@ namespace MandrilAPI.Controllers
        //Implentacion exitosa de context 
        private readonly MandrilContext _context = context;
         
+       //GET PARA VER TODOS LOS MANDRILES
        
         [HttpGet]
     public ActionResult<Mandril> GetMandriles()
     {
-
-
     //Ya que EF no carga las relaciones automaticamente se usa Include para cargarlas
-        return Ok(_context.Mandrils.Include(m => m.Habilidades));
+    
+        return Ok(_context.MandrilHabilidades.Include(m=>m.Mandril)
+            .Include(h =>h.Habilidad ));
     }
-
+    //GET para obtener un mandril por su ID
     [HttpGet("{mandrilID}")]
     public ActionResult<Mandril> GetMandriles(int mandrilID)
     {
-        var mandrilSelect = _context.Mandrils.Include(h => h.Habilidades).FirstOrDefault(mandril => mandril.id == mandrilID );
+        var mandrilSelect = _context.MandrilHabilidades.Include(m => m.Mandril)
+            .Include(h=> h.Habilidad ).Where(m=> m.Mandrilid == mandrilID).ToList();
 
-        if (mandrilSelect != null)
+        if (mandrilSelect.Count != 0)
         {
             return Ok(mandrilSelect);
         }
@@ -41,10 +43,11 @@ namespace MandrilAPI.Controllers
         }
     }
 
+    //PUT para editar un mandril existente
     [HttpPut("{mandrilID}")]
     public ActionResult<Mandril> PutMandril(int mandrilID, [FromBody] MandrilDTO mandrilDto)
     {
-        var mandril = _context.Mandrils.Include(h => h.Habilidades ).FirstOrDefault(x => x.id == mandrilID);
+        var mandril = _context.Mandrils.FirstOrDefault(m => m.id == mandrilID);
         if (mandril == null)
         {
             return NotFound("No se encontrado el mandril seleccionado");
@@ -57,13 +60,13 @@ namespace MandrilAPI.Controllers
             return Ok("Los datos se han editado correctamente");
         }
     }
-
+    //DELETE para eliminar un mandril existente
     [HttpDelete("{mandrilID}")]
     public ActionResult<Mandril> DeleteMandril(int mandrilID)
     {
 
 
-        var mandrilDelete = _context.Mandrils.Include(h=> h.Habilidades).FirstOrDefault(x => x.id == mandrilID);
+        var mandrilDelete = _context.Mandrils.FirstOrDefault(m=> m.id == mandrilID);
         if (mandrilDelete == null)
         {
             return NotFound("No se encontrado el mandril seleccionado");
@@ -74,12 +77,7 @@ namespace MandrilAPI.Controllers
             _context.SaveChanges();
             return Ok("El mandril se ha eliminado correctamente");
         }
-
-
     }
-
-
-
     [HttpPost]
 
     //Se piden dos atributos especificos de la clase creada mandrilInsert

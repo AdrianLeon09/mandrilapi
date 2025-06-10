@@ -30,24 +30,25 @@ public class HabilidadController(MandrilContext contextHabilidad) : ControllerBa
     [HttpGet]
     public IActionResult GetHabilidad(int mandrilID)
     {
-        var mandril = _context.Mandrils.Include(m =>m.Habilidades ) .FirstOrDefault(m=> m.id == mandrilID);
+      //necesario adaptar desde la clase mandril el comportamient de mapeamento e datos a bd
+        var mandril = _context.Mandrils.Include(m=>m.Habilidades).FirstOrDefault(m=>m.id==mandrilID);
         
         //Verificacion si el mandril es null
         if (mandril == null)
         {
-            return BadRequest(DefaultsMessages.habilidadNotFound);
+            return BadRequest(DefaultsMessages.mandrilNotFound);
         }
         else
         {
             //Verificacion si la habilidad es null
-            if (mandril.Habilidades.IsNullOrEmpty())
+            if (mandril.Habilidades == null)
             {
                 return BadRequest(DefaultsMessages.habilidadNotFound);
             }
             else
             {
 // ok
-                return Ok(mandril.Habilidades);
+                return Ok(mandril);
             }
 
             
