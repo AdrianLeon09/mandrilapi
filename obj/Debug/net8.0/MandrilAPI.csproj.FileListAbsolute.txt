@@ -475,6 +475,7 @@ C:\Users\adria\RiderProjects\mandrilapi\bin\Debug\net8.0\runtimes\win\lib\net6.0
 C:\Users\adria\RiderProjects\mandrilapi\bin\Debug\net8.0\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
 C:\Users\adria\RiderProjects\mandrilapi\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
 C:\Users\adria\RiderProjects\mandrilapi\obj\Debug\net8.0\MandrilAPI.csproj.AssemblyReference.cache
+C:\Users\adria\RiderProjects\mandrilapi\obj\Debug\net8.0\rpswa.dswa.cache.json
 C:\Users\adria\RiderProjects\mandrilapi\obj\Debug\net8.0\MandrilAPI.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\adria\RiderProjects\mandrilapi\obj\Debug\net8.0\MandrilAPI.AssemblyInfoInputs.cache
 C:\Users\adria\RiderProjects\mandrilapi\obj\Debug\net8.0\MandrilAPI.AssemblyInfo.cs
@@ -482,6 +483,9 @@ C:\Users\adria\RiderProjects\mandrilapi\obj\Debug\net8.0\MandrilAPI.csproj.CoreC
 C:\Users\adria\RiderProjects\mandrilapi\obj\Debug\net8.0\MandrilAPI.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\adria\RiderProjects\mandrilapi\obj\Debug\net8.0\MandrilAPI.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\adria\RiderProjects\mandrilapi\obj\Debug\net8.0\MandrilAPI.sourcelink.json
+C:\Users\adria\RiderProjects\mandrilapi\obj\Debug\net8.0\rjimswa.dswa.cache.json
+C:\Users\adria\RiderProjects\mandrilapi\obj\Debug\net8.0\rjsmrazor.dswa.cache.json
+C:\Users\adria\RiderProjects\mandrilapi\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json
 C:\Users\adria\RiderProjects\mandrilapi\obj\Debug\net8.0\scopedcss\bundle\MandrilAPI.styles.css
 C:\Users\adria\RiderProjects\mandrilapi\obj\Debug\net8.0\staticwebassets.build.json
 C:\Users\adria\RiderProjects\mandrilapi\obj\Debug\net8.0\staticwebassets.build.json.cache
@@ -493,3 +497,4 @@ C:\Users\adria\RiderProjects\mandrilapi\obj\Debug\net8.0\refint\MandrilAPI.dll
 C:\Users\adria\RiderProjects\mandrilapi\obj\Debug\net8.0\MandrilAPI.pdb
 C:\Users\adria\RiderProjects\mandrilapi\obj\Debug\net8.0\MandrilAPI.genruntimeconfig.cache
 C:\Users\adria\RiderProjects\mandrilapi\obj\Debug\net8.0\ref\MandrilAPI.dll
+C:\Users\adria\RiderProjects\mandrilapi\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

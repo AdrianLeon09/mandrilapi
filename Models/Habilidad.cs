@@ -1,17 +1,22 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace MandrilAPI.Models
 {
     public class Habilidad
     {
         //Cada habilidad tiene su potencia que es medida por el enum Epotencia
-       public  int Id { get; set; }
+       public  int id { get; set; }
        static int ide = 0;
         public string Nombre { get; set; }
         
         
        // public List<Mandril> Mandriles { get; set; }
         //Si se quiere mostrar la potencia en numero en el getMandriles de controller, cambiar el modificador de acceso a public
+     [JsonIgnore]
+     //Potencia es inutil aca lo ideal seria que se referencie en la talbla intermedia de MandrilHabilidades
+     //y en una clase aparte se maneje el uso de ese nivel segun la habilidad por ejemplo dano, resistencia etc.
+     //solo que es un proyecto de practica por ahora lo dejare asi.
         public EPotencia Potencia { get; set; }
 
         [NotMapped]
@@ -27,7 +32,7 @@ namespace MandrilAPI.Models
         public Habilidad(string nombreHabilidad, int potenciaHabilidad)
         {
     
-            this.Id = ide;
+            this.id = ide;
             ide++;
             this.Nombre = nombreHabilidad;
             this.Potencia = (EPotencia)potenciaHabilidad;
@@ -40,7 +45,7 @@ namespace MandrilAPI.Models
         //constructor vacio
         public Habilidad()
         {
-            this.Id = ide;
+            this.id = ide;
             ide++;
             ListaHabilidades.Add(this);
         }

@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 
 namespace MandrilAPI.Models;
@@ -31,4 +32,14 @@ public class MandrilHabilidades
     //Se crea un objeto de referencia para poder acceder a la base de datos padre desde el codigo
     public  Habilidad Habilidad {get; set;}
     
+    public int  PotenciaMH { get; set; }
+
+    public static bool MandrilIsValid(MandrilHabilidades mandrilObj)
+    {
+        if (mandrilObj != null  && mandrilObj.Mandril != null && mandrilObj.Habilidad != null && mandrilObj.PotenciaMH <= 0)
+        {
+            return true;
+
+        }else {return false;}
+    }
 }

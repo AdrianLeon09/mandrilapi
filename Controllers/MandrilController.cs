@@ -1,9 +1,11 @@
-﻿ 
+﻿
+using MandrilAPI.Interfaces;
 using MandrilAPI.Models;
 using MandrilAPI.Models.Service;
  
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Data.Common;
 
 
 namespace MandrilAPI.Controllers
@@ -11,20 +13,33 @@ namespace MandrilAPI.Controllers
     [ApiController]
     [Route("api/[controller]")]
 
-    public class MandrilController(MandrilContext  context) : ControllerBase
+    public class MandrilController(MandrilContext  context, IRepositoryQueryMandrilHabilidades RepositoryMandrilHabilidades) : ControllerBase
     {
        //Implentacion exitosa de context 
        private readonly MandrilContext _context = context;
+        //Controlador ya consume las funciones del repositorio.
+        private readonly IRepositoryQueryMandrilHabilidades _RepositoryMandrilHabilidades = RepositoryMandrilHabilidades;
         
        //GET PARA VER TODOS LOS MANDRILES
        
         [HttpGet]
     public ActionResult<Mandril> GetMandriles()
     {
-    //Ya que EF no carga las relaciones automaticamente se usa Include para cargarlas
-    
-        return Ok(_context.MandrilHabilidades.Include(m=>m.Mandril)
-            .Include(h =>h.Habilidad ));
+            //Ya que EF no carga las relaciones automaticamente se usa Include para cargarlas
+
+            // return Ok(_context.MandrilHabilidades.Include(m=>m.Mandril)
+            //   .Include(h =>h.Habilidad ));
+
+     
+            var mandriles = _RepositoryMandrilHabilidades.SelectAllMandrilsFromDb(); ;
+            if (mandriles.Count is 0) { 
+                return NotFound(DefaultsUserMessage.mandrilNotFound);
+            }
+            else {
+                return Ok(mandriles);}
+            
+            
+           
     }
     //GET para obtener un mandril por su ID
     [HttpGet("{mandrilID}")]

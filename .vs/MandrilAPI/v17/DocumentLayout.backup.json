@@ -3,8 +3,35 @@
   "WorkspaceRootPath": "C:\\Users\\adria\\RiderProjects\\mandrilapi\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{C41B0357-1585-4926-8819-FD5423F651A9}|MandrilAPI.csproj|c:\\users\\adria\\riderprojects\\mandrilapi\\models\\mandrilhabilidades.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C41B0357-1585-4926-8819-FD5423F651A9}|MandrilAPI.csproj|solutionrelative:models\\mandrilhabilidades.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C41B0357-1585-4926-8819-FD5423F651A9}|MandrilAPI.csproj|c:\\users\\adria\\riderprojects\\mandrilapi\\controllers\\mandrilcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C41B0357-1585-4926-8819-FD5423F651A9}|MandrilAPI.csproj|solutionrelative:controllers\\mandrilcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C41B0357-1585-4926-8819-FD5423F651A9}|MandrilAPI.csproj|c:\\users\\adria\\riderprojects\\mandrilapi\\interfaces\\irepositoryquerymandrilhabilidades.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C41B0357-1585-4926-8819-FD5423F651A9}|MandrilAPI.csproj|solutionrelative:interfaces\\irepositoryquerymandrilhabilidades.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C41B0357-1585-4926-8819-FD5423F651A9}|MandrilAPI.csproj|c:\\users\\adria\\riderprojects\\mandrilapi\\models\\service\\repositoryquerymandrilhabilidades.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C41B0357-1585-4926-8819-FD5423F651A9}|MandrilAPI.csproj|solutionrelative:models\\service\\repositoryquerymandrilhabilidades.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C41B0357-1585-4926-8819-FD5423F651A9}|MandrilAPI.csproj|c:\\users\\adria\\riderprojects\\mandrilapi\\models\\service\\defaultsmessagedevs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C41B0357-1585-4926-8819-FD5423F651A9}|MandrilAPI.csproj|solutionrelative:models\\service\\defaultsmessagedevs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C41B0357-1585-4926-8819-FD5423F651A9}|MandrilAPI.csproj|c:\\users\\adria\\riderprojects\\mandrilapi\\jsonfiltroexcepcion\\jsonexcepcionfiltro.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C41B0357-1585-4926-8819-FD5423F651A9}|MandrilAPI.csproj|solutionrelative:jsonfiltroexcepcion\\jsonexcepcionfiltro.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C41B0357-1585-4926-8819-FD5423F651A9}|MandrilAPI.csproj|c:\\users\\adria\\riderprojects\\mandrilapi\\models\\service\\defaultsusermessage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C41B0357-1585-4926-8819-FD5423F651A9}|MandrilAPI.csproj|solutionrelative:models\\service\\defaultsusermessage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C41B0357-1585-4926-8819-FD5423F651A9}|MandrilAPI.csproj|c:\\users\\adria\\riderprojects\\mandrilapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C41B0357-1585-4926-8819-FD5423F651A9}|MandrilAPI.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|ViewDataWindow_MSSQL__/localhost/mandrilDB/True/SqlTable/dbo.Mandrils.sql||{0058A1F7-65F3-4DB9-B3D0-CA7E64DD73CD}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,19 +41,128 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
+          "SelectedChildIndex": 5,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "DefaultsMessageDevs.cs",
+              "DocumentMoniker": "C:\\Users\\adria\\RiderProjects\\mandrilapi\\Models\\Service\\DefaultsMessageDevs.cs",
+              "RelativeDocumentMoniker": "Models\\Service\\DefaultsMessageDevs.cs",
+              "ToolTip": "C:\\Users\\adria\\RiderProjects\\mandrilapi\\Models\\Service\\DefaultsMessageDevs.cs*",
+              "RelativeToolTip": "Models\\Service\\DefaultsMessageDevs.cs*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-23T23:18:27.844Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "DefaultsUserMessage.cs",
+              "DocumentMoniker": "C:\\Users\\adria\\RiderProjects\\mandrilapi\\Models\\Service\\DefaultsUserMessage.cs",
+              "RelativeDocumentMoniker": "Models\\Service\\DefaultsUserMessage.cs",
+              "ToolTip": "C:\\Users\\adria\\RiderProjects\\mandrilapi\\Models\\Service\\DefaultsUserMessage.cs*",
+              "RelativeToolTip": "Models\\Service\\DefaultsUserMessage.cs*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAABBAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-23T23:16:56.765Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\adria\\RiderProjects\\mandrilapi\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\adria\\RiderProjects\\mandrilapi\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAAB0AAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-23T22:07:35.898Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "JsonExcepcionFiltro.cs",
+              "DocumentMoniker": "C:\\Users\\adria\\RiderProjects\\mandrilapi\\JsonFiltroExcepcion\\JsonExcepcionFiltro.cs",
+              "RelativeDocumentMoniker": "JsonFiltroExcepcion\\JsonExcepcionFiltro.cs",
+              "ToolTip": "C:\\Users\\adria\\RiderProjects\\mandrilapi\\JsonFiltroExcepcion\\JsonExcepcionFiltro.cs",
+              "RelativeToolTip": "JsonFiltroExcepcion\\JsonExcepcionFiltro.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAYwA8AAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-23T21:36:57.575Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MandrilController.cs",
+              "DocumentMoniker": "C:\\Users\\adria\\RiderProjects\\mandrilapi\\Controllers\\MandrilController.cs",
+              "RelativeDocumentMoniker": "Controllers\\MandrilController.cs",
+              "ToolTip": "C:\\Users\\adria\\RiderProjects\\mandrilapi\\Controllers\\MandrilController.cs*",
+              "RelativeToolTip": "Controllers\\MandrilController.cs*",
+              "ViewState": "AgIAABUAAAAAAAAAAADwvyUAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-23T20:21:25.518Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "RepositoryQueryMandrilHabilidades.cs",
+              "DocumentMoniker": "C:\\Users\\adria\\RiderProjects\\mandrilapi\\Models\\Service\\RepositoryQueryMandrilHabilidades.cs",
+              "RelativeDocumentMoniker": "Models\\Service\\RepositoryQueryMandrilHabilidades.cs",
+              "ToolTip": "C:\\Users\\adria\\RiderProjects\\mandrilapi\\Models\\Service\\RepositoryQueryMandrilHabilidades.cs*",
+              "RelativeToolTip": "Models\\Service\\RepositoryQueryMandrilHabilidades.cs*",
+              "ViewState": "AgIAACUAAAAAAAAAAAAAwDMAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-22T14:59:22.406Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "IRepositoryQueryMandrilHabilidades.cs",
+              "DocumentMoniker": "C:\\Users\\adria\\RiderProjects\\mandrilapi\\Interfaces\\IRepositoryQueryMandrilHabilidades.cs",
+              "RelativeDocumentMoniker": "Interfaces\\IRepositoryQueryMandrilHabilidades.cs",
+              "ToolTip": "C:\\Users\\adria\\RiderProjects\\mandrilapi\\Interfaces\\IRepositoryQueryMandrilHabilidades.cs",
+              "RelativeToolTip": "Interfaces\\IRepositoryQueryMandrilHabilidades.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAkAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-22T14:49:17.575Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "FloatingWindowState": {
+        "Id": "8db53244-4591-418f-aa87-3ca25e54ca10",
+        "Display": 0,
+        "X": 260,
+        "Y": 169,
+        "Width": 1569,
+        "Height": 758,
+        "WindowState": 0
+      },
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
           "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "MandrilHabilidades.cs",
-              "DocumentMoniker": "C:\\Users\\adria\\RiderProjects\\mandrilapi\\Models\\MandrilHabilidades.cs",
-              "RelativeDocumentMoniker": "Models\\MandrilHabilidades.cs",
-              "ToolTip": "C:\\Users\\adria\\RiderProjects\\mandrilapi\\Models\\MandrilHabilidades.cs*",
-              "RelativeToolTip": "Models\\MandrilHabilidades.cs*",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAACAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-08T14:57:53.291Z",
+              "DocumentIndex": 7,
+              "Title": "dbo.Mandrils [Dados]",
+              "DocumentMoniker": "ViewDataWindow_MSSQL__/localhost/mandrilDB/True/SqlTable/dbo.Mandrils.sql",
+              "ToolTip": "dbo.Mandrils [Dados]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
+              "WhenOpened": "2025-06-23T21:33:34.957Z",
               "EditorCaption": ""
             }
           ]

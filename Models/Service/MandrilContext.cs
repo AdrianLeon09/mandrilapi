@@ -27,6 +27,7 @@ public DbSet<Habilidad> Habilidades { get; set; }
  {
      modelBuilder.Entity<MandrilHabilidades>()
          .HasKey(mh => new { mh.Mandrilid, mh.Habilidadid });
+     modelBuilder.Entity<MandrilHabilidades>().HasCheckConstraint("CK_MandrilHabilidad_Potencia_Max4", "[Potencia] <= 4");
  }
 
 
