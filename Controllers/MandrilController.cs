@@ -13,17 +13,17 @@ namespace MandrilAPI.Controllers
     [ApiController]
     [Route("api/[controller]")]
 
-    public class MandrilController(MandrilContext  context, IRepositoryQueryMandrilHabilidades RepositoryMandrilHabilidades) : ControllerBase
+    public class MandrilController(MandrilContext  context, IMandrilHabilidadReadRepository RepositoryMandrilHabilidades) : ControllerBase
     {
        //Implentacion exitosa de context 
        private readonly MandrilContext _context = context;
         //Controlador ya consume las funciones del repositorio.
-        private readonly IRepositoryQueryMandrilHabilidades _RepositoryMandrilHabilidades = RepositoryMandrilHabilidades;
+        private readonly IMandrilHabilidadReadRepository _RepositoryReadMandrilHabilidades = RepositoryMandrilHabilidades;
         
        //GET PARA VER TODOS LOS MANDRILES
        
         [HttpGet]
-    public ActionResult<Mandril> GetMandriles()
+    public ActionResult<Mandril> GetAllMandriles()
     {
             //Ya que EF no carga las relaciones automaticamente se usa Include para cargarlas
 
@@ -31,9 +31,9 @@ namespace MandrilAPI.Controllers
             //   .Include(h =>h.Habilidad ));
 
      
-            var mandriles = _RepositoryMandrilHabilidades.SelectAllMandrilsFromDb(); ;
+            var mandriles = _RepositoryReadMandrilHabilidades.SelectAllMandrilsFromDb(); ;
             if (mandriles.Count is 0) { 
-                return NotFound(DefaultsUserMessage.mandrilNotFound);
+                return NotFound(DefaultsMessageUsers.mandrilNotFound);
             }
             else {
                 return Ok(mandriles);}
@@ -43,33 +43,30 @@ namespace MandrilAPI.Controllers
     }
     //GET para obtener un mandril por su ID
     [HttpGet("{mandrilID}")]
-    public ActionResult<Mandril> GetMandriles(int mandrilID)
+    public ActionResult<Mandril> GetMandrilById(int targetMandrilId)
     {
-        var mandrilSelect = _context.MandrilHabilidades.Include(m => m.Mandril)
-            .Include(h=> h.Habilidad ).Where(m=> m.Mandrilid == mandrilID).ToList();
+            var mandril = _RepositoryReadMandrilHabilidades.SelectOneMandrilsFromDb(targetMandrilId);
 
-        if (mandrilSelect.Count != 0)
+        if (mandril.Count is  0)
         {
-            return Ok(mandrilSelect);
+            return BadRequest("No se ha encontrado el mandril seleccionado");  
         }
-        else
-        {
-            return BadRequest("No se ha encontrado el mandril seleccionado");
-        }
+            return Ok(mandril);
+              
     }
 
     //PUT para editar un mandril existente
     [HttpPut("{mandrilID}")]
-    public ActionResult<Mandril> PutMandril(int mandrilID, [FromBody] MandrilDTO mandrilDto)
+    public ActionResult<Mandril> UpdateMandril(int targetMandrilId, [FromBody] MandrilDTO mandrilDto)
     {
-        var mandril = _context.Mandrils.FirstOrDefault(m => m.id == mandrilID);
-        if (mandril == null)
+            var MandrilUpdate = _RepositoryReadMandrilHabilidades.SelectOneMandrilsFromDb(targetMandrilId);
+        if (MandrilUpdate.Count is 0)
         {
             return NotFound("No se encontrado el mandril seleccionado");
         }
         else{
         
-            mandril.Nombre = mandrilDto.Nombre;
+            MandrilUpdate.Nombre = mandrilDto.Nombre; // seguir logica de escritura repositorio aca
             mandril.Apellido = mandrilDto.Apellido;
             _context.SaveChanges();
             return Ok("Los datos se han editado correctamente");

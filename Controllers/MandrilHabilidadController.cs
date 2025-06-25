@@ -24,13 +24,13 @@ namespace MandrilAPI.Controllers;
 [ApiController]
 [Route("api/Mandril/{mandrilID}/[controller]")]
 
-public class MandrilHabilidadController(MandrilContext contextHabilidad, IRepositoryQueryMandrilHabilidades repositoryQueryMandrilHabilidades) : ControllerBase
+public class MandrilHabilidadController(MandrilContext contextHabilidad, IMandrilHabilidadReadRepository repositoryQueryMandrilHabilidades) : ControllerBase
 {
    private readonly MandrilContext _context = contextHabilidad;
     //Implementacion context DB
 
     //Comenzar la migracion de logica a base de datos..
-    private readonly IRepositoryQueryMandrilHabilidades _RepositoryMandrilHabilidades = repositoryQueryMandrilHabilidades;
+    private readonly IMandrilHabilidadReadRepository _RepositoryMandrilHabilidades = repositoryQueryMandrilHabilidades;
 
     //GET obtiene la lista de habilidades de un mandril especifico
     [HttpGet]
@@ -44,7 +44,7 @@ public class MandrilHabilidadController(MandrilContext contextHabilidad, IReposi
         //Verificacion si el mandril existe en la tabla intermedia y tiene una habilidad
         if (mandril.Count == 0)
         {
-            return BadRequest(DefaultsUserMessage.mandrilNotFound);
+            return BadRequest(DefaultsMessageUsers.mandrilNotFound);
         }
         else
         {
@@ -54,7 +54,7 @@ public class MandrilHabilidadController(MandrilContext contextHabilidad, IReposi
             //Se deja por que aun asi funciona Jaja
             if (mandril.Exists(h => h.Habilidadid == null))
             {
-                return BadRequest(DefaultsUserMessage.habilidadNotFound);
+                return BadRequest(DefaultsMessageUsers.habilidadNotFound);
             }
             else
             {
@@ -79,7 +79,7 @@ public class MandrilHabilidadController(MandrilContext contextHabilidad, IReposi
         if (seleccionMandril == null)
         {
             
-            return BadRequest(DefaultsUserMessage.mandrilNotFound + " \n " + DefaultsUserMessage.habilidadNotFound);
+            return BadRequest(DefaultsMessageUsers.mandrilNotFound + " \n " + DefaultsMessageUsers.habilidadNotFound);
         }
         else
         {
@@ -157,13 +157,13 @@ public class MandrilHabilidadController(MandrilContext contextHabilidad, IReposi
         var busquedaHabilidad = _context.Habilidades.FirstOrDefault(h => h.id == HabilidadID);
         if (busquedaMandril == null)
         {
-            return BadRequest(DefaultsUserMessage.mandrilNotFound);
+            return BadRequest(DefaultsMessageUsers.mandrilNotFound);
         }
         else
         {
             if (busquedaHabilidad == null)
             {
-                return BadRequest(DefaultsUserMessage.habilidadNotFound);
+                return BadRequest(DefaultsMessageUsers.habilidadNotFound);
             }
             else
             {
@@ -203,10 +203,10 @@ public class MandrilHabilidadController(MandrilContext contextHabilidad, IReposi
             }
             else
             {
-                return BadRequest(DefaultsUserMessage.mandrilNotFound);
+                return BadRequest(DefaultsMessageUsers.mandrilNotFound);
             }
         }
-        else return BadRequest(DefaultsUserMessage.PotenciaNotValid);
+        else return BadRequest(DefaultsMessageUsers.PotenciaNotValid);
     }
 
 
@@ -229,7 +229,7 @@ public class MandrilHabilidadController(MandrilContext contextHabilidad, IReposi
         
         if (mandril == null)
         {
-            return BadRequest(DefaultsUserMessage.mandrilNotFound + DefaultsUserMessage.habilidadNotFound);
+            return BadRequest(DefaultsMessageUsers.mandrilNotFound + DefaultsMessageUsers.habilidadNotFound);
         }
         else
         {

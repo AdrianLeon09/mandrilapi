@@ -31,7 +31,7 @@ namespace MandrilAPI
          //   builder.Services.AddControllers().ConfigureApiBehaviorOptions(options => options.SuppressModelStateInvalidFilter = false);
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-            builder.Services.AddScoped<IRepositoryQueryMandrilHabilidades, RepositoryQueryMandrilHabilidades>();
+            builder.Services.AddScoped<IMandrilHabilidadReadRepository, MandrilHabilidadReadRepository>();
             //builder.Services.AddTransient<ExepcionesJsonMiddleware>();
 
             var app = builder.Build();
