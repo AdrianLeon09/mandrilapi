@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MandrilAPI.Migrations
 {
-    [DbContext(typeof(MandrilContext))]
+    [DbContext(typeof(MandrilDbContext))]
     partial class MandrilContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

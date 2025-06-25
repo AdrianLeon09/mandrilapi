@@ -13,12 +13,12 @@ namespace MandrilAPI.Controllers
     [ApiController]
     [Route("api/[controller]")]
 
-    public class MandrilController(MandrilContext  context, IMandrilHabilidadReadRepository RepositoryMandrilHabilidades) : ControllerBase
+    public class MandrilController(MandrilDbContext  context, IMandrilAndSkillsReadRepository RepositoryMandrilHabilidades) : ControllerBase
     {
        //Implentacion exitosa de context 
-       private readonly MandrilContext _context = context;
+       private readonly MandrilDbContext _context = context;
         //Controlador ya consume las funciones del repositorio.
-        private readonly IMandrilHabilidadReadRepository _RepositoryReadMandrilHabilidades = RepositoryMandrilHabilidades;
+        private readonly IMandrilAndSkillsReadRepository _RepositoryReadMandrilHabilidades = RepositoryMandrilHabilidades;
         
        //GET PARA VER TODOS LOS MANDRILES
        
@@ -31,7 +31,7 @@ namespace MandrilAPI.Controllers
             //   .Include(h =>h.Habilidad ));
 
      
-            var mandriles = _RepositoryReadMandrilHabilidades.SelectAllMandrilsFromDb(); ;
+            var mandriles = _RepositoryReadMandrilHabilidades.GetAllMandrilsFromDb(); ;
             if (mandriles.Count is 0) { 
                 return NotFound(DefaultsMessageUsers.mandrilNotFound);
             }
@@ -45,7 +45,7 @@ namespace MandrilAPI.Controllers
     [HttpGet("{mandrilID}")]
     public ActionResult<Mandril> GetMandrilById(int targetMandrilId)
     {
-            var mandril = _RepositoryReadMandrilHabilidades.SelectOneMandrilsFromDb(targetMandrilId);
+            var mandril = _RepositoryReadMandrilHabilidades.GetOneMandrilsFromDb(targetMandrilId);
 
         if (mandril.Count is  0)
         {
@@ -59,15 +59,15 @@ namespace MandrilAPI.Controllers
     [HttpPut("{mandrilID}")]
     public ActionResult<Mandril> UpdateMandril(int targetMandrilId, [FromBody] MandrilDTO mandrilDto)
     {
-            var MandrilUpdate = _RepositoryReadMandrilHabilidades.SelectOneMandrilsFromDb(targetMandrilId);
+            var MandrilUpdate = _RepositoryReadMandrilHabilidades.GetOneMandrilsFromDb(targetMandrilId);
         if (MandrilUpdate.Count is 0)
         {
             return NotFound("No se encontrado el mandril seleccionado");
         }
         else{
         
-            MandrilUpdate.Nombre = mandrilDto.Nombre; // seguir logica de escritura repositorio aca
-            mandril.Apellido = mandrilDto.Apellido;
+        //    MandrilUpdate.Nombre = mandrilDto.Nombre; // seguir logica de escritura repositorio aca
+         //   mandril.Apellido = mandrilDto.Apellido;
             _context.SaveChanges();
             return Ok("Los datos se han editado correctamente");
         }

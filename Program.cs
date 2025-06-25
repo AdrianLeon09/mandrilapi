@@ -18,11 +18,11 @@ namespace MandrilAPI
             // Add services to the container.
             //ASP.NET administra las instancias puestas en la inyeccion de dependencias es decir cada vez que quiera una instanica
             //Para usar el servicio solo necesito llamarlo desde el contructor de la clase.
-            builder.Services.AddDbContext<MandrilContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("connection")));
+            builder.Services.AddDbContext<MandrilDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("connection")));
 
             builder.Services.AddControllers(options => 
             {
-               options.Filters.Add<JsonExcepcionFiltro>();})
+               options.Filters.Add<JsonExcepcionFilter>();})
                 .ConfigureApiBehaviorOptions(options =>
             {
              options.SuppressModelStateInvalidFilter = true;
@@ -31,7 +31,7 @@ namespace MandrilAPI
          //   builder.Services.AddControllers().ConfigureApiBehaviorOptions(options => options.SuppressModelStateInvalidFilter = false);
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-            builder.Services.AddScoped<IMandrilHabilidadReadRepository, MandrilHabilidadReadRepository>();
+            builder.Services.AddScoped<IMandrilAndSkillsReadRepository, MandrilSkillsReadRepository>();
             //builder.Services.AddTransient<ExepcionesJsonMiddleware>();
 
             var app = builder.Build();

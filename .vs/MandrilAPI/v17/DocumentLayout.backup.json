@@ -3,33 +3,24 @@
   "WorkspaceRootPath": "C:\\Users\\adria\\RiderProjects\\mandrilapi\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{C41B0357-1585-4926-8819-FD5423F651A9}|MandrilAPI.csproj|c:\\users\\adria\\riderprojects\\mandrilapi\\models\\mandrilwithskills.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C41B0357-1585-4926-8819-FD5423F651A9}|MandrilAPI.csproj|solutionrelative:models\\mandrilwithskills.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C41B0357-1585-4926-8819-FD5423F651A9}|MandrilAPI.csproj|c:\\users\\adria\\riderprojects\\mandrilapi\\models\\service\\mandrilskillswriterepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C41B0357-1585-4926-8819-FD5423F651A9}|MandrilAPI.csproj|solutionrelative:models\\service\\mandrilskillswriterepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{C41B0357-1585-4926-8819-FD5423F651A9}|MandrilAPI.csproj|c:\\users\\adria\\riderprojects\\mandrilapi\\controllers\\mandrilcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C41B0357-1585-4926-8819-FD5423F651A9}|MandrilAPI.csproj|solutionrelative:controllers\\mandrilcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C41B0357-1585-4926-8819-FD5423F651A9}|MandrilAPI.csproj|c:\\users\\adria\\riderprojects\\mandrilapi\\interfaces\\imandrilhabilidadwriterepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C41B0357-1585-4926-8819-FD5423F651A9}|MandrilAPI.csproj|solutionrelative:interfaces\\imandrilhabilidadwriterepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C41B0357-1585-4926-8819-FD5423F651A9}|MandrilAPI.csproj|c:\\users\\adria\\riderprojects\\mandrilapi\\models\\skill.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C41B0357-1585-4926-8819-FD5423F651A9}|MandrilAPI.csproj|solutionrelative:models\\skill.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C41B0357-1585-4926-8819-FD5423F651A9}|MandrilAPI.csproj|c:\\users\\adria\\riderprojects\\mandrilapi\\models\\service\\mandrilhabilidadwriterepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C41B0357-1585-4926-8819-FD5423F651A9}|MandrilAPI.csproj|solutionrelative:models\\service\\mandrilhabilidadwriterepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C41B0357-1585-4926-8819-FD5423F651A9}|MandrilAPI.csproj|c:\\users\\adria\\riderprojects\\mandrilapi\\models\\service\\mandrilhabilidadreadrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C41B0357-1585-4926-8819-FD5423F651A9}|MandrilAPI.csproj|solutionrelative:models\\service\\mandrilhabilidadreadrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C41B0357-1585-4926-8819-FD5423F651A9}|MandrilAPI.csproj|c:\\users\\adria\\riderprojects\\mandrilapi\\interfaces\\imandrilhabilidadreadrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C41B0357-1585-4926-8819-FD5423F651A9}|MandrilAPI.csproj|solutionrelative:interfaces\\imandrilhabilidadreadrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|ViewDataWindow_MSSQL__/localhost/mandrilDB/True/SqlTable/dbo.MandrilHabilidades.sql||{0058A1F7-65F3-4DB9-B3D0-CA7E64DD73CD}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|ViewDataWindow_MSSQL__/localhost/mandrilDB/True/SqlTable/dbo.Habilidades.sql||{0058A1F7-65F3-4DB9-B3D0-CA7E64DD73CD}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|ViewDataWindow_MSSQL__/localhost/mandrilDB/True/SqlTable/dbo.Mandrils.sql||{0058A1F7-65F3-4DB9-B3D0-CA7E64DD73CD}"
+      "AbsoluteMoniker": "D:0:0:{C41B0357-1585-4926-8819-FD5423F651A9}|MandrilAPI.csproj|c:\\users\\adria\\riderprojects\\mandrilapi\\interfaces\\imandrilandskillswriterepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C41B0357-1585-4926-8819-FD5423F651A9}|MandrilAPI.csproj|solutionrelative:interfaces\\imandrilandskillswriterepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -39,122 +30,71 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "IMandrilHabilidadWriteRepository.cs",
-              "DocumentMoniker": "C:\\Users\\adria\\RiderProjects\\mandrilapi\\Interfaces\\IMandrilHabilidadWriteRepository.cs",
-              "RelativeDocumentMoniker": "Interfaces\\IMandrilHabilidadWriteRepository.cs",
-              "ToolTip": "C:\\Users\\adria\\RiderProjects\\mandrilapi\\Interfaces\\IMandrilHabilidadWriteRepository.cs",
-              "RelativeToolTip": "Interfaces\\IMandrilHabilidadWriteRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAUAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-24T14:48:28.881Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "MandrilHabilidadWriteRepository.cs",
-              "DocumentMoniker": "C:\\Users\\adria\\RiderProjects\\mandrilapi\\Models\\Service\\MandrilHabilidadWriteRepository.cs",
-              "RelativeDocumentMoniker": "Models\\Service\\MandrilHabilidadWriteRepository.cs",
-              "ToolTip": "C:\\Users\\adria\\RiderProjects\\mandrilapi\\Models\\Service\\MandrilHabilidadWriteRepository.cs",
-              "RelativeToolTip": "Models\\Service\\MandrilHabilidadWriteRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-24T14:48:08.439Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "MandrilController.cs",
-              "DocumentMoniker": "C:\\Users\\adria\\RiderProjects\\mandrilapi\\Controllers\\MandrilController.cs",
-              "RelativeDocumentMoniker": "Controllers\\MandrilController.cs",
-              "ToolTip": "C:\\Users\\adria\\RiderProjects\\mandrilapi\\Controllers\\MandrilController.cs",
-              "RelativeToolTip": "Controllers\\MandrilController.cs",
-              "ViewState": "AgIAADAAAAAAAAAAAAAywEQAAABjAAAAAAAAAA==",
+              "Title": "MandrilWithSkills.cs",
+              "DocumentMoniker": "C:\\Users\\adria\\RiderProjects\\mandrilapi\\Models\\MandrilWithSkills.cs",
+              "RelativeDocumentMoniker": "Models\\MandrilWithSkills.cs",
+              "ToolTip": "C:\\Users\\adria\\RiderProjects\\mandrilapi\\Models\\MandrilWithSkills.cs",
+              "RelativeToolTip": "Models\\MandrilWithSkills.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-23T20:21:25.518Z",
+              "WhenOpened": "2025-06-25T16:44:00.816Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "MandrilHabilidadReadRepository.cs",
-              "DocumentMoniker": "C:\\Users\\adria\\RiderProjects\\mandrilapi\\Models\\Service\\MandrilHabilidadReadRepository.cs",
-              "RelativeDocumentMoniker": "Models\\Service\\MandrilHabilidadReadRepository.cs",
-              "ToolTip": "C:\\Users\\adria\\RiderProjects\\mandrilapi\\Models\\Service\\MandrilHabilidadReadRepository.cs",
-              "RelativeToolTip": "Models\\Service\\MandrilHabilidadReadRepository.cs",
-              "ViewState": "AgIAAEoAAAAAAAAAAAAmwGIAAAAMAAAAAAAAAA==",
+              "Title": "Skill.cs",
+              "DocumentMoniker": "C:\\Users\\adria\\RiderProjects\\mandrilapi\\Models\\Skill.cs",
+              "RelativeDocumentMoniker": "Models\\Skill.cs",
+              "ToolTip": "C:\\Users\\adria\\RiderProjects\\mandrilapi\\Models\\Skill.cs*",
+              "RelativeToolTip": "Models\\Skill.cs*",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABsAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-22T14:59:22.406Z",
+              "WhenOpened": "2025-06-25T16:03:01.823Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MandrilSkillsWriteRepository.cs",
+              "DocumentMoniker": "C:\\Users\\adria\\RiderProjects\\mandrilapi\\Models\\Service\\MandrilSkillsWriteRepository.cs",
+              "RelativeDocumentMoniker": "Models\\Service\\MandrilSkillsWriteRepository.cs",
+              "ToolTip": "C:\\Users\\adria\\RiderProjects\\mandrilapi\\Models\\Service\\MandrilSkillsWriteRepository.cs*",
+              "RelativeToolTip": "Models\\Service\\MandrilSkillsWriteRepository.cs*",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABYAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-25T15:47:18.919Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "MandrilController.cs",
+              "DocumentMoniker": "C:\\Users\\adria\\RiderProjects\\mandrilapi\\Controllers\\MandrilController.cs",
+              "RelativeDocumentMoniker": "Controllers\\MandrilController.cs",
+              "ToolTip": "C:\\Users\\adria\\RiderProjects\\mandrilapi\\Controllers\\MandrilController.cs",
+              "RelativeToolTip": "Controllers\\MandrilController.cs",
+              "ViewState": "AgIAADMAAAAAAAAAAAAywD4AAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-25T15:50:22.043Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "IMandrilHabilidadReadRepository.cs",
-              "DocumentMoniker": "C:\\Users\\adria\\RiderProjects\\mandrilapi\\Interfaces\\IMandrilHabilidadReadRepository.cs",
-              "RelativeDocumentMoniker": "Interfaces\\IMandrilHabilidadReadRepository.cs",
-              "ToolTip": "C:\\Users\\adria\\RiderProjects\\mandrilapi\\Interfaces\\IMandrilHabilidadReadRepository.cs",
-              "RelativeToolTip": "Interfaces\\IMandrilHabilidadReadRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAqwA0AAAAHAAAAAAAAAA==",
+              "Title": "IMandrilAndSkillsWriteRepository.cs",
+              "DocumentMoniker": "C:\\Users\\adria\\RiderProjects\\mandrilapi\\Interfaces\\IMandrilAndSkillsWriteRepository.cs",
+              "RelativeDocumentMoniker": "Interfaces\\IMandrilAndSkillsWriteRepository.cs",
+              "ToolTip": "C:\\Users\\adria\\RiderProjects\\mandrilapi\\Interfaces\\IMandrilAndSkillsWriteRepository.cs",
+              "RelativeToolTip": "Interfaces\\IMandrilAndSkillsWriteRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-22T14:49:17.575Z",
-              "EditorCaption": ""
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "Orientation": 0,
-      "VerticalTabListWidth": 256,
-      "FloatingWindowState": {
-        "Id": "9107a84b-9437-41e4-bfa8-fd3900ad4a74",
-        "Display": 0,
-        "X": 347,
-        "Y": 281,
-        "Width": 1882,
-        "Height": 957,
-        "WindowState": 0
-      },
-      "DocumentGroups": [
-        {
-          "DockedWidth": 200,
-          "SelectedChildIndex": 1,
-          "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "dbo.Mandrils [Dados]",
-              "DocumentMoniker": "ViewDataWindow_MSSQL__/localhost/mandrilDB/True/SqlTable/dbo.Mandrils.sql",
-              "ToolTip": "dbo.Mandrils [Dados]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
-              "WhenOpened": "2025-06-24T14:24:58.314Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "dbo.MandrilHabilidades [Dados]",
-              "DocumentMoniker": "ViewDataWindow_MSSQL__/localhost/mandrilDB/True/SqlTable/dbo.MandrilHabilidades.sql",
-              "ToolTip": "dbo.MandrilHabilidades [Dados]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
-              "WhenOpened": "2025-06-24T14:24:21.738Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "dbo.Habilidades [Dados]",
-              "DocumentMoniker": "ViewDataWindow_MSSQL__/localhost/mandrilDB/True/SqlTable/dbo.Habilidades.sql",
-              "ToolTip": "dbo.Habilidades [Dados]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
-              "WhenOpened": "2025-06-24T14:25:59.902Z",
+              "WhenOpened": "2025-06-25T15:47:08.903Z",
               "EditorCaption": ""
             }
           ]

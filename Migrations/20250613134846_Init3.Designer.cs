@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MandrilAPI.Migrations
 {
-    [DbContext(typeof(MandrilContext))]
+    [DbContext(typeof(MandrilDbContext))]
     [Migration("20250613134846_Init3")]
     partial class Init3
     {

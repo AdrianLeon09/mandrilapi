@@ -19,13 +19,13 @@ namespace MandrilAPI.Models
     [NotMapped] 
     [JsonIgnore]
     //LIST HABILIDADES para logica interna y manipulacion de POO
-    public List<Habilidad>? Habilidades { get; set; }
+    public List<Skill>? Habilidades { get; set; }
 
     //constructor mandril que recibe una habilidad y luego hace una lista personalizada de habilidades
-    public Mandril(string nombre, string apellido, Habilidad habilidad)
+    public Mandril(string nombre, string apellido, Skill habilidad)
     {
 
-        Habilidades = new List<Habilidad>()
+        Habilidades = new List<Skill>()
         {
         };
 
@@ -52,7 +52,7 @@ namespace MandrilAPI.Models
     }
 
     //Lista con las habiliades del objeto mandril creado
-    public List<Habilidad> HabilidadMandril()
+    public List<Skill> HabilidadMandril()
     {
         return Habilidades;
     }
