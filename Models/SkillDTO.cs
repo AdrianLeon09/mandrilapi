@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
-namespace MandrilAPI.Models.Service;
+namespace MandrilAPI.Models;
 
 public class SkillDTO
 {

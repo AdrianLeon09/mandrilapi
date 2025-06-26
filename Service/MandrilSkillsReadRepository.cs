@@ -1,4 +1,6 @@
-﻿using MandrilAPI.Interfaces;
+﻿using MandrilAPI.DbContext;
+using MandrilAPI.Interfaces;
+using MandrilAPI.Models;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Logging;
@@ -6,7 +8,7 @@ using System.Collections.Immutable;
 using System.Diagnostics.Eventing.Reader;
 using System.Threading.Tasks;
 
-namespace MandrilAPI.Models.Service
+namespace MandrilAPI.Service
 {
     public class MandrilSkillsReadRepository(MandrilDbContext contextDb, ILogger<MandrilSkillsReadRepository> logger) : IMandrilAndSkillsReadRepository
     {
@@ -16,7 +18,7 @@ namespace MandrilAPI.Models.Service
         {
             
             //testar
-            var HabilidadInDb = _contextDb.Skills.Where((h => h.id == targetHabilidadId)).AsNoTracking().ToList();
+            var HabilidadInDb = _contextDb.Skills.Where(h => h.id == targetHabilidadId).AsNoTracking().ToList();
             if (HabilidadInDb.Count is 0)
             {
                 _logger.LogWarning(DefaultsMessageUsers.habilidadNotFound, HabilidadInDb);
@@ -49,7 +51,7 @@ namespace MandrilAPI.Models.Service
         {
             //testar
 
-            var MandrilInDb = _contextDb.Mandrils.Where((m => m.id == targetMandrilId)).AsNoTracking().ToList();
+            var MandrilInDb = _contextDb.Mandrils.Where(m => m.id == targetMandrilId).AsNoTracking().ToList();
             if (MandrilInDb.Count is 0)
             {
                 _logger.LogWarning(DefaultsMessageDevs.DatabaseNull);
@@ -72,9 +74,9 @@ namespace MandrilAPI.Models.Service
 
         }
 
-        public IReadOnlyList<MandrilWithSkills> GetOneMandrilWithHabilidadesFromDb(int targetMandrilId, int targetHabilidadId)
+        public IReadOnlyList<MandrilWithSkillsIntermediateDb> GetOneMandrilWithHabilidadesFromDb(int targetMandrilId, int targetHabilidadId)
         {
-            var MandrilesWithHabilidades = _contextDb.MandrilHabilidades.Include(m => m.Mandril.id == targetMandrilId).Include(h => h.Habilidad.id == targetHabilidadId)
+            var MandrilesWithHabilidades = _contextDb.MandrilWithSkills.Include(m => m.Mandril.id == targetMandrilId).Include(h => h.Habilidad.id == targetHabilidadId)
                 .AsNoTracking().ToList();
             if (MandrilesWithHabilidades.Count is 0) { }
 
@@ -83,9 +85,9 @@ namespace MandrilAPI.Models.Service
             return MandrilesWithHabilidades;
         }
 
-        public IReadOnlyList<MandrilWithSkills> SelectAllMandrilWithHabilidadesFromDb()
+        public IReadOnlyList<MandrilWithSkillsIntermediateDb> SelectAllMandrilWithHabilidadesFromDb()
         {
-            var MandrilesAllWithHabilidades = _contextDb.MandrilHabilidades.Include(mandriles => mandriles.Mandril).Include(mandrilHabilidades => mandrilHabilidades.Habilidad)
+            var MandrilesAllWithHabilidades = _contextDb.MandrilWithSkills.Include(mandriles => mandriles.Mandril).Include(mandrilHabilidades => mandrilHabilidades.Habilidad)
                 //verificar las diferencias con y sin cargar
                 //Se Carga tambien la potencia de la habilidad para mas detalles
                 .Include(p => p.PotenciaMH)

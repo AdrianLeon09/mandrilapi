@@ -1,4 +1,4 @@
-﻿namespace MandrilAPI.Models.Service;
+﻿namespace MandrilAPI.Service;
 
 public class DefaultsMessageUsers
 {

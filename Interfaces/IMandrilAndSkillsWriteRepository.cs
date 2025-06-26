@@ -1,5 +1,4 @@
 ﻿using MandrilAPI.Models;
-using MandrilAPI.Models.Service;
 
 namespace MandrilAPI.Interfaces
 {
@@ -13,8 +12,8 @@ namespace MandrilAPI.Interfaces
       public Skill UpdateOneHabilidadToDb(int targetHabilidadId, SkillDTO habilidadDTO);
       public Skill DeleteOneHabilidadFromDb(int targetHabilidadId);
   
-      public MandrilWithSkills AssignExistingHabilidadToMandril(int targetMandrilId, int targetHabilidadId);
-      public MandrilWithSkills DeleteExistingHabilidadFromMandril(int targetHabilidadId);
-      public MandrilWithSkills UpdatePotenciaOfHabilidadForMandril(int targetMandrilId,int targetHabilidadId, int newPotencia);
+      public MandrilWithSkillsIntermediateDb AssignExistingHabilidadToMandril(int targetMandrilId, int targetHabilidadId);
+      public MandrilWithSkillsIntermediateDb DeleteHabilidadFromMandril(int targetHabilidadId);
+      public MandrilWithSkillsIntermediateDb UpdatePotenciaOfHabilidadForMandril(int targetMandrilId,int targetHabilidadId, int newPotencia);
     }
 }

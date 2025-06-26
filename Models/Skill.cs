@@ -5,32 +5,20 @@ namespace MandrilAPI.Models
 {
     public class Skill
     {
-        //Cada habilidad tiene su potencia que es medida por el enum Epotencia
+        //Cada habilidad tiene su potencia por default en 0
         public  int id { get; set; }
-        public string Nombre { get; set; }
-
-        [NotMapped]
-        internal int Power { get; set; } = 0;
-        
-    [NotMapped]
+        public string Nombre { get; set; } = string.Empty;
+        internal int Power { get; set; } = 0;      
         internal PowerEnum PotenciaAsString { get; set; }
-    
-
-       
-
-        //Constructor habilidad por cada habilidad creada se crea automaticamente el id
-        //Al final se agrega automaticamente la habilidad nueva a una lista de habilidades 
+          
         public Skill(string nameSkill)
         {
-            this.Nombre = nameSkill;
-            
+            Nombre = nameSkill;          
         }
-        public Skill()
-        {
+        public Skill() { }
 
-        }
-    //enum de la propiedad potencia en habilidad por ahora estara aca porque no tengo donde ponerla
-    public enum PowerEnum
+        //enum de la propiedad potencia en habilidad por ahora estara aca porque no tengo donde ponerla
+        public enum PowerEnum
     {
         Suave,
         Moderado,
@@ -38,7 +26,6 @@ namespace MandrilAPI.Models
         MuyIntenso,
         Extremo
         }
-
    }
 
 

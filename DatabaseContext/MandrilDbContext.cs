@@ -1,7 +1,8 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using MandrilAPI.Models;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
-namespace MandrilAPI.Models.Service;
+namespace MandrilAPI.DatabaseContext;
 
 public  class MandrilDbContext : DbContext
 {
@@ -22,12 +23,12 @@ public DbSet<Mandril> Mandrils { get; set; }
 
 //Representation of table mandril in the base data
 public DbSet<Skill> Skills { get; set; }
- public DbSet<MandrilWithSkills> MandrilHabilidades { get; set; }
+ public DbSet<MandrilWithSkillsIntermediateTable> MandrilWithSkills { get; set; }
  protected override void OnModelCreating(ModelBuilder modelBuilder)
  {
-     modelBuilder.Entity<MandrilWithSkills>()
+     modelBuilder.Entity<MandrilWithSkillsIntermediateTable>()
          .HasKey(mh => new { mh.Mandrilid, mh.Habilidadid });
-     modelBuilder.Entity<MandrilWithSkills>().HasCheckConstraint("CK_MandrilHabilidad_Potencia_Max4", "[Potencia] <= 4");
+     modelBuilder.Entity<MandrilWithSkillsIntermediateTable>().HasCheckConstraint("CK_MandrilHabilidad_Potencia_Max4", "[Potencia] <= 4");
  }
 
 

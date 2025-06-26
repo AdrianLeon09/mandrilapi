@@ -1,6 +1,8 @@
-﻿using MandrilAPI.Interfaces;
+﻿using MandrilAPI.DatabaseContext;
+using MandrilAPI.Interfaces;
+using MandrilAPI.Models;
 
-namespace MandrilAPI.Models.Service
+namespace MandrilAPI.Service
 {
     public class MandrilSkillsWriteRepository(MandrilDbContext contextDb) : IMandrilAndSkillsWriteRepository
     {
@@ -26,12 +28,21 @@ namespace MandrilAPI.Models.Service
             return mandril;
         }
 
-        public MandrilWithSkills AssignExistingHabilidadToMandril(int targetMandrilId, int targetHabilidadId)
+        public MandrilWithSkillsIntermediateTable AssignOneHabilidadToMandril(int targetMandrilId, int targetHabilidadId)
         {
+            var mandril = _contextDb.Mandrils.FirstOrDefault(m => m.id == targetMandrilId);
+            var skill = _contextDb.Skills.FirstOrDefault(h => h.id == targetHabilidadId);
+
+            var relation = new MandrilWithSkillsIntermediateTable();
+            relation.Mandrilid = targetMandrilId;
+            relation.Habilidadid = targetHabilidadId;
+            relation.PotenciaMH = 0; //default
+
+            _contextDb.SaveChanges();
              
         }
 
-        public MandrilWithSkills DeleteExistingHabilidadFromMandril(int targetHabilidadId)
+        public MandrilWithSkillsIntermediateTable DeleteHabilidadFromMandril(int targetHabilidadId)
         {
           
         }
@@ -56,7 +67,7 @@ namespace MandrilAPI.Models.Service
             
         }
 
-        public MandrilWithSkills UpdatePotenciaOfHabilidadForMandril(int targetMandrilId, int targetHabilidadId, int newPotencia)
+        public MandrilWithSkillsIntermediateTable UpdatePotenciaOfHabilidadForMandril(int targetMandrilId, int targetHabilidadId, int newPotencia)
         {
             
         }

@@ -1,11 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
+using MandrilAPI.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace MandrilAPI.Models;
+namespace MandrilAPI.DatabaseContext;
 //Creacion de una relacion explicita muchos a muchos con EF
-public class MandrilWithSkills
+public class MandrilWithSkillsIntermediateTable
 {
     //Se define la PK(Primary Key) de la clase actual
     
@@ -34,7 +35,7 @@ public class MandrilWithSkills
     
     public int  PotenciaMH { get; set; }
 
-    public static bool MandrilIsValid(MandrilWithSkills mandrilObj)
+    public static bool MandrilIsValid(MandrilWithSkillsIntermediateTable mandrilObj)
     {
         if (mandrilObj != null  && mandrilObj.Mandril != null && mandrilObj.Habilidad != null && mandrilObj.PotenciaMH <= 0)
         {
