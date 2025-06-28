@@ -21,7 +21,7 @@ namespace MandrilAPI.Models
 
             builder.Services.AddControllers(options => 
             {
-               options.Filters.Add<JsonExcepcionFilter>();})
+               options.Filters.Add<JsonFilterExeption>();})
                 .ConfigureApiBehaviorOptions(options =>
             {
              options.SuppressModelStateInvalidFilter = true;

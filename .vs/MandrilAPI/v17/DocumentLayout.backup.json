@@ -1,26 +1,14 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Adrian\\source\\repos\\mandrilapi\\",
+  "WorkspaceRootPath": "C:\\Users\\AdrianLeon\\source\\repos\\mandrilapi\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{C41B0357-1585-4926-8819-FD5423F651A9}|MandrilAPI.csproj|c:\\users\\adrian\\source\\repos\\mandrilapi\\service\\mandrilskillswriterepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{C41B0357-1585-4926-8819-FD5423F651A9}|MandrilAPI.csproj|c:\\users\\adrianleon\\source\\repos\\mandrilapi\\service\\defaultsmessagedevs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C41B0357-1585-4926-8819-FD5423F651A9}|MandrilAPI.csproj|solutionrelative:service\\defaultsmessagedevs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C41B0357-1585-4926-8819-FD5423F651A9}|MandrilAPI.csproj|c:\\users\\adrianleon\\source\\repos\\mandrilapi\\service\\mandrilskillswriterepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C41B0357-1585-4926-8819-FD5423F651A9}|MandrilAPI.csproj|solutionrelative:service\\mandrilskillswriterepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C41B0357-1585-4926-8819-FD5423F651A9}|MandrilAPI.csproj|c:\\users\\adrian\\source\\repos\\mandrilapi\\controllers\\mandrilwithskillscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C41B0357-1585-4926-8819-FD5423F651A9}|MandrilAPI.csproj|solutionrelative:controllers\\mandrilwithskillscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C41B0357-1585-4926-8819-FD5423F651A9}|MandrilAPI.csproj|c:\\users\\adrian\\source\\repos\\mandrilapi\\databasecontext\\mandrildbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C41B0357-1585-4926-8819-FD5423F651A9}|MandrilAPI.csproj|solutionrelative:databasecontext\\mandrildbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C41B0357-1585-4926-8819-FD5423F651A9}|MandrilAPI.csproj|c:\\users\\adrian\\source\\repos\\mandrilapi\\models\\skill.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C41B0357-1585-4926-8819-FD5423F651A9}|MandrilAPI.csproj|solutionrelative:models\\skill.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C41B0357-1585-4926-8819-FD5423F651A9}|MandrilAPI.csproj|c:\\users\\adrian\\source\\repos\\mandrilapi\\models\\mandril.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C41B0357-1585-4926-8819-FD5423F651A9}|MandrilAPI.csproj|solutionrelative:models\\mandril.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,71 +18,35 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 2,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "MandrilWithSkillsController.cs",
-              "DocumentMoniker": "C:\\Users\\Adrian\\source\\repos\\mandrilapi\\Controllers\\MandrilWithSkillsController.cs",
-              "RelativeDocumentMoniker": "Controllers\\MandrilWithSkillsController.cs",
-              "ToolTip": "C:\\Users\\Adrian\\source\\repos\\mandrilapi\\Controllers\\MandrilWithSkillsController.cs",
-              "RelativeToolTip": "Controllers\\MandrilWithSkillsController.cs",
-              "ViewState": "AgIAAJMAAAAAAAAAAAAowKoAAAAxAAAAAAAAAA==",
+              "Title": "MandrilSkillsWriteRepository.cs",
+              "DocumentMoniker": "C:\\Users\\AdrianLeon\\source\\repos\\mandrilapi\\Service\\MandrilSkillsWriteRepository.cs",
+              "RelativeDocumentMoniker": "Service\\MandrilSkillsWriteRepository.cs",
+              "ToolTip": "C:\\Users\\AdrianLeon\\source\\repos\\mandrilapi\\Service\\MandrilSkillsWriteRepository.cs",
+              "RelativeToolTip": "Service\\MandrilSkillsWriteRepository.cs",
+              "ViewState": "AgIAABsAAAAAAAAAAAAowCQAAAALAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-26T03:48:34.286Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-27T07:08:57.08Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "MandrilSkillsWriteRepository.cs",
-              "DocumentMoniker": "C:\\Users\\Adrian\\source\\repos\\mandrilapi\\Service\\MandrilSkillsWriteRepository.cs",
-              "RelativeDocumentMoniker": "Service\\MandrilSkillsWriteRepository.cs",
-              "ToolTip": "C:\\Users\\Adrian\\source\\repos\\mandrilapi\\Service\\MandrilSkillsWriteRepository.cs",
-              "RelativeToolTip": "Service\\MandrilSkillsWriteRepository.cs",
-              "ViewState": "AgIAABMAAAAAAAAAAAAgwCAAAAAuAAAAAAAAAA==",
+              "Title": "DefaultsMessageDevs.cs",
+              "DocumentMoniker": "C:\\Users\\AdrianLeon\\source\\repos\\mandrilapi\\Service\\DefaultsMessageDevs.cs",
+              "RelativeDocumentMoniker": "Service\\DefaultsMessageDevs.cs",
+              "ToolTip": "C:\\Users\\AdrianLeon\\source\\repos\\mandrilapi\\Service\\DefaultsMessageDevs.cs",
+              "RelativeToolTip": "Service\\DefaultsMessageDevs.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAABMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-26T02:55:16.583Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Skill.cs",
-              "DocumentMoniker": "C:\\Users\\Adrian\\source\\repos\\mandrilapi\\Models\\Skill.cs",
-              "RelativeDocumentMoniker": "Models\\Skill.cs",
-              "ToolTip": "C:\\Users\\Adrian\\source\\repos\\mandrilapi\\Models\\Skill.cs",
-              "RelativeToolTip": "Models\\Skill.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAKAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-26T02:44:58.871Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Mandril.cs",
-              "DocumentMoniker": "C:\\Users\\Adrian\\source\\repos\\mandrilapi\\Models\\Mandril.cs",
-              "RelativeDocumentMoniker": "Models\\Mandril.cs",
-              "ToolTip": "C:\\Users\\Adrian\\source\\repos\\mandrilapi\\Models\\Mandril.cs",
-              "RelativeToolTip": "Models\\Mandril.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-26T02:44:11.454Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "MandrilDbContext.cs",
-              "DocumentMoniker": "C:\\Users\\Adrian\\source\\repos\\mandrilapi\\DatabaseContext\\MandrilDbContext.cs",
-              "RelativeDocumentMoniker": "DatabaseContext\\MandrilDbContext.cs",
-              "ToolTip": "C:\\Users\\Adrian\\source\\repos\\mandrilapi\\DatabaseContext\\MandrilDbContext.cs",
-              "RelativeToolTip": "DatabaseContext\\MandrilDbContext.cs",
-              "ViewState": "AgIAAAQAAAAAAAAAAAAqwBkAAAA0AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-26T02:37:20.094Z",
+              "WhenOpened": "2025-06-27T06:06:00.762Z",
               "EditorCaption": ""
             }
           ]

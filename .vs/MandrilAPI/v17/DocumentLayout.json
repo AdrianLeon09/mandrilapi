@@ -1,12 +1,7 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Adrian\\source\\repos\\mandrilapi\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{C41B0357-1585-4926-8819-FD5423F651A9}|MandrilAPI.csproj|c:\\users\\adrian\\source\\repos\\mandrilapi\\databasecontext\\mandrildbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C41B0357-1585-4926-8819-FD5423F651A9}|MandrilAPI.csproj|solutionrelative:databasecontext\\mandrildbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    }
-  ],
+  "WorkspaceRootPath": "C:\\Users\\AdrianLeon\\source\\repos\\mandrilapi\\",
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -14,24 +9,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": -1,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "MandrilDbContext.cs",
-              "DocumentMoniker": "C:\\Users\\Adrian\\source\\repos\\mandrilapi\\DatabaseContext\\MandrilDbContext.cs",
-              "RelativeDocumentMoniker": "DatabaseContext\\MandrilDbContext.cs",
-              "ToolTip": "C:\\Users\\Adrian\\source\\repos\\mandrilapi\\DatabaseContext\\MandrilDbContext.cs",
-              "RelativeToolTip": "DatabaseContext\\MandrilDbContext.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAhAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-26T05:03:22.364Z",
-              "EditorCaption": ""
             }
           ]
         }

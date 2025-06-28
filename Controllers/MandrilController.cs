@@ -1,4 +1,4 @@
-﻿using MandrilAPI.DbContext;
+﻿using MandrilAPI.DatabaseContext;
 using MandrilAPI.Interfaces;
 using MandrilAPI.Models;
 using MandrilAPI.Service;
@@ -66,8 +66,7 @@ namespace MandrilAPI.Controllers
         }
         else{
         
-        //    MandrilUpdate.Nombre = mandrilDto.Nombre; // seguir logica de escritura repositorio aca
-         //   mandril.Apellido = mandrilDto.Apellido;
+       
             _context.SaveChanges();
             return Ok("Los datos se han editado correctamente");
         }

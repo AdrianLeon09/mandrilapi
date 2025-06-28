@@ -1,4 +1,4 @@
-﻿using MandrilAPI.DbContext;
+﻿using MandrilAPI.DatabaseContext;
 using MandrilAPI.Interfaces;
 using MandrilAPI.Models;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -74,9 +74,9 @@ namespace MandrilAPI.Service
 
         }
 
-        public IReadOnlyList<MandrilWithSkillsIntermediateDb> GetOneMandrilWithHabilidadesFromDb(int targetMandrilId, int targetHabilidadId)
+        public IReadOnlyList<MandrilWithSkillsIntermediateTable> GetOneMandrilWithHabilidadesFromDb(int targetMandrilId, int targetSkillId)
         {
-            var MandrilesWithHabilidades = _contextDb.MandrilWithSkills.Include(m => m.Mandril.id == targetMandrilId).Include(h => h.Habilidad.id == targetHabilidadId)
+            var MandrilesWithHabilidades = _contextDb.MandrilWithSkills.Include(m => m.Mandril.id == targetMandrilId).Include(h => h.Habilidad.id == targetSkillId)
                 .AsNoTracking().ToList();
             if (MandrilesWithHabilidades.Count is 0) { }
 
@@ -85,12 +85,12 @@ namespace MandrilAPI.Service
             return MandrilesWithHabilidades;
         }
 
-        public IReadOnlyList<MandrilWithSkillsIntermediateDb> SelectAllMandrilWithHabilidadesFromDb()
+        public IReadOnlyList<MandrilWithSkillsIntermediateTable> SelectAllMandrilWithHabilidadesFromDb()
         {
             var MandrilesAllWithHabilidades = _contextDb.MandrilWithSkills.Include(mandriles => mandriles.Mandril).Include(mandrilHabilidades => mandrilHabilidades.Habilidad)
                 //verificar las diferencias con y sin cargar
                 //Se Carga tambien la potencia de la habilidad para mas detalles
-                .Include(p => p.PotenciaMH)
+                .Include(p => p.PotenciaMS)
                 //Usa menos memoria ya que no carga los objetos en memoria. Ideal para solo lectura.
                 .AsNoTracking().ToList();
             

@@ -4,9 +4,10 @@ using MandrilAPI.Models;
 
 namespace MandrilAPI.Service
 {
-    public class MandrilSkillsWriteRepository(MandrilDbContext contextDb) : IMandrilAndSkillsWriteRepository
+    public class MandrilSkillsWriteRepository(MandrilDbContext contextDb, ILogger logger) : IMandrilAndSkillsWriteRepository
     {
         private readonly MandrilDbContext _contextDb = contextDb;
+        private readonly ILogger _logger = logger;
 
         public Skill AddNewHabilidadToDb(SkillDTO newSkillDto)
         {
@@ -28,26 +29,54 @@ namespace MandrilAPI.Service
             return mandril;
         }
 
-        public MandrilWithSkillsIntermediateTable AssignOneHabilidadToMandril(int targetMandrilId, int targetHabilidadId)
+        public MandrilWithSkillsIntermediateTable AssignOneHabilidadToMandril(int targetMandrilId, int targetSkillId)
         {
             var mandril = _contextDb.Mandrils.FirstOrDefault(m => m.id == targetMandrilId);
-            var skill = _contextDb.Skills.FirstOrDefault(h => h.id == targetHabilidadId);
-
+            var skill = _contextDb.Skills.FirstOrDefault(h => h.id == targetSkillId);
             var relation = new MandrilWithSkillsIntermediateTable();
+           
+            
+            if(mandril is null || skill is null)
+            {
+                _logger.LogWarning(DefaultsMessageDevs.DatabaseNull);
+                _logger.LogWarning(DefaultsMessageDevs.relationNotCreated_EntityNotFound, targetMandrilId, targetSkillId);
+                return relation;
+            }
+            else
+            {
             relation.Mandrilid = targetMandrilId;
-            relation.Habilidadid = targetHabilidadId;
-            relation.PotenciaMH = 0; //default
+            relation.Habilidadid = targetSkillId;
+            relation.PotenciaMS = 0; //default
 
-            _contextDb.SaveChanges();
-             
+                _logger.LogInformation(DefaultsMessageDevs.relationHasBeenCreated, targetMandrilId, targetSkillId, relation.PotenciaMS);
+                _contextDb.MandrilWithSkills.Add(relation);
+                _contextDb.SaveChanges();
+                return relation;
+
+            }
         }
 
-        public MandrilWithSkillsIntermediateTable DeleteHabilidadFromMandril(int targetHabilidadId)
+        public MandrilWithSkillsIntermediateTable DeleteSkillFromMandril(int targetMandrilId, int targetSkillId)
         {
-          
+            var relation = _contextDb.MandrilWithSkills
+                  .FirstOrDefault(m => m.Mandrilid == targetMandrilId && m.Habilidadid == targetSkillId);
+            if (relation is null)
+            {
+                _logger.LogWarning(DefaultsMessageDevs.DatabaseNull);
+                _logger.LogWarning(DefaultsMessageDevs.NotFoundRelationSkill, targetSkillId, targetMandrilId);
+                _logger.LogWarning(DefaultsMessageDevs.DeleteFailed);
+                return relation;
+            }
+            else
+            {
+                _contextDb.MandrilWithSkills.Remove(relation);
+                _contextDb.SaveChanges();
+                _logger.LogInformation(DefaultsMessageDevs.DeleteSucceeded);
+                return relation;
+            }
         }
 
-        public Skill DeleteOneHabilidadFromDb(int targetHabilidadId)
+        public Skill DeleteOneSkillFromDb(int targetSkillId)
         {
              
         }
@@ -57,7 +86,7 @@ namespace MandrilAPI.Service
             
         }
 
-        public Skill UpdateOneHabilidadToDb(int targetHabilidadId, SkillDTO habilidadDTO)
+        public Skill UpdateOneSkillToDb(int targetSkillId, SkillDTO habilidadDTO)
         {
              
         }
@@ -67,7 +96,7 @@ namespace MandrilAPI.Service
             
         }
 
-        public MandrilWithSkillsIntermediateTable UpdatePotenciaOfHabilidadForMandril(int targetMandrilId, int targetHabilidadId, int newPotencia)
+        public MandrilWithSkillsIntermediateTable UpdatePotenciaOfSkillForMandril(int targetMandrilId, int targetHabilidadId, int newPotencia)
         {
             
         }

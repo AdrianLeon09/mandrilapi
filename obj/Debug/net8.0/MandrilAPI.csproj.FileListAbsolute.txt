@@ -335,3 +335,12 @@ C:\Users\adria\RiderProjects\mandrilapi\obj\Debug\net8.0\MandrilAPI.csproj.CoreC
 C:\Users\adria\RiderProjects\mandrilapi\obj\Debug\net8.0\MandrilAPI.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\adria\RiderProjects\mandrilapi\obj\Debug\net8.0\MandrilAPI.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\adria\RiderProjects\mandrilapi\obj\Debug\net8.0\MandrilAPI.sourcelink.json
+C:\Users\AdrianLeon\Source\Repos\mandrilapi\obj\Debug\net8.0\MandrilAPI.csproj.AssemblyReference.cache
+C:\Users\AdrianLeon\Source\Repos\mandrilapi\obj\Debug\net8.0\rpswa.dswa.cache.json
+C:\Users\AdrianLeon\Source\Repos\mandrilapi\obj\Debug\net8.0\MandrilAPI.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\AdrianLeon\Source\Repos\mandrilapi\obj\Debug\net8.0\MandrilAPI.AssemblyInfoInputs.cache
+C:\Users\AdrianLeon\Source\Repos\mandrilapi\obj\Debug\net8.0\MandrilAPI.AssemblyInfo.cs
+C:\Users\AdrianLeon\Source\Repos\mandrilapi\obj\Debug\net8.0\MandrilAPI.csproj.CoreCompileInputs.cache
+C:\Users\AdrianLeon\Source\Repos\mandrilapi\obj\Debug\net8.0\MandrilAPI.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\AdrianLeon\Source\Repos\mandrilapi\obj\Debug\net8.0\MandrilAPI.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\AdrianLeon\Source\Repos\mandrilapi\obj\Debug\net8.0\MandrilAPI.sourcelink.json
