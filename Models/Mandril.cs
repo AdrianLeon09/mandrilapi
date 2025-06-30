@@ -9,7 +9,7 @@ namespace MandrilAPI.Models
 
     {
         public int id { get; set; }
-        public string Nombre { get; set; } = string.Empty
+        public string Nombre { get; set; } = string.Empty;
         public string Apellido { get; set; } = string.Empty;
 
         //Si NO se quiere mostrar las Habiliades en el getMandriles de controller, cambiar el modificador de acceso a protected
