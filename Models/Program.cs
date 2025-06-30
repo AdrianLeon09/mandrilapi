@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MandrilAPI.Models
 {
+    //test commit consola
     public class Program
     {
         public static void Main(string[] args)
