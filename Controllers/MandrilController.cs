@@ -120,7 +120,7 @@ namespace MandrilAPI.Controllers
         //El ultimo parametro devuelve el objeto de la clase creada MandrilInsert para mostrar solo los datos especificados
 
         //Caso contrario mostraria todos los datos no deseados de mandril
-        return CreatedAtAction(nameof(GetMandriles), new { mandrilID = newMandril.id }, mandrilDto);
+        return CreatedAtAction(nameof(GetMandrilById), new { mandrilID = newMandril.id }, mandrilDto);
 
     }
     }

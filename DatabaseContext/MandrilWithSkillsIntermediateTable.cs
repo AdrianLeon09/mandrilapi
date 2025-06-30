@@ -16,28 +16,28 @@ public class MandrilWithSkillsIntermediateTable
 
     //Se especifica la llave foranea de la tabla que se necesita como relacion
     //Por convencion seria mandrilId(que es igual a tabla mandril columna id)
-    [ForeignKey(nameof(Mandrilid))] 
+    [ForeignKey(nameof(MandrilId))] 
     
     //La PK es de tipo int y se llama MandrilId(Se usa la variable actual para identificar a la anterior mencionada)
-    public int Mandrilid {get; set;}
+    public int MandrilId {get; set;}
     
     //Se crea un objeto de referencia para poder manejar los objetos mediante la relacion de las tablas que hace EF
     //Automaticamente.
     public   Mandril Mandril { get; set; }
     
 //Se especifica la llave foranea de la tabla que se necesita como relacion
-    [ForeignKey(nameof(Habilidadid))]
+    [ForeignKey(nameof(SkillId))]
   
     //La PK es de tipo int y se llama MandrilId(Se usa la variable actual para identificar a la anterior mencionada)
-    public int Habilidadid {get; set;}
+    public int SkillId {get; set;}
     //Se crea un objeto de referencia para poder acceder a la base de datos padre desde el codigo
-    public  Skill Habilidad {get; set;}
+    public  Skill Skill{get; set;}
     
     public int  PotenciaMS { get; set; }
 
     public static bool MandrilIsValid(MandrilWithSkillsIntermediateTable mandrilObj)
     {
-        if (mandrilObj != null  && mandrilObj.Mandril != null && mandrilObj.Habilidad != null && mandrilObj.PotenciaMS <= 0)
+        if (mandrilObj != null  && mandrilObj.Mandril != null && mandrilObj.Skill != null && mandrilObj.PotenciaMS <= 0)
         {
             return true;
 

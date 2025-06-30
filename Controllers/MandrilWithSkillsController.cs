@@ -39,7 +39,7 @@ public class MandrilWithSkillsController(MandrilDbContext contextHabilidad, IMan
     {
         
          
-        var mandril = _context.MandrilWithSkills.Include(m => m.Mandril).Include(h => h.Habilidad)
+        var mandril = _context.MandrilWithSkills.Include(m => m.Mandril).Include(h => h.Skill)
             .Where(m => m.Mandril.id == mandrilID).ToList();
 
         //Verificacion si el mandril existe en la tabla intermedia y tiene una habilidad
@@ -53,7 +53,7 @@ public class MandrilWithSkillsController(MandrilDbContext contextHabilidad, IMan
             //esta verificacion es inutil ya que la tabla intermedia no permite que un mandril en esa tabla no tenga habilidades
             //Ademas que cuando es eliminada una habilidad o un mandril de la tabla principal este automaticamente es borrado de la tabla intermedia.
             //Se deja por que aun asi funciona Jaja
-            if (mandril.Exists(h => h.Habilidadid == null))
+            if (mandril.Exists(h => h.SkillId == null))
             {
                 return BadRequest(DefaultsMessageUsers.habilidadNotFound);
             }
@@ -71,8 +71,8 @@ public class MandrilWithSkillsController(MandrilDbContext contextHabilidad, IMan
     [HttpGet("{HabilidadID}")]
     public IActionResult GetHabilidad(int mandrilID, int HabilidadID)
     {
-        var seleccionMandril = _context.MandrilWithSkills.Include(m => m.Mandril).Include(h => h.Habilidad)
-            .FirstOrDefault(m => m.Mandrilid == mandrilID && m.Habilidadid == HabilidadID);
+        var seleccionMandril = _context.MandrilWithSkills.Include(m => m.Mandril).Include(h => h.Skill)
+            .FirstOrDefault(m => m.MandrilId == mandrilID && m.SkillId == HabilidadID);
 
         //Solo se requiere una verificacion ya que en la lista intermedia uno sin el otro no puede exisitir en la tabla por lo tanto al filtrar con where
         //todo se reduce a que no hay nullos para verificar habilidades inexistentes pero si resultados inexistentes.
@@ -168,35 +168,35 @@ public class MandrilWithSkillsController(MandrilDbContext contextHabilidad, IMan
             }
             else
             {
-                var relacion = new MandrilWithSkillsIntermediateDb();
+                var relacion = new MandrilWithSkillsIntermediateTable();
 
-                relacion.Mandrilid = busquedaMandril.id;
-                relacion.Habilidadid = busquedaHabilidad.id;
+                relacion.MandrilId = busquedaMandril.id;
+                relacion.SkillId = busquedaHabilidad.id;
 
                 _context.MandrilWithSkills.Add(relacion);
                 _context.SaveChanges();
-                return Ok("El mandril" + " " + relacion.Mandril.Nombre + " " + "ha agregado la habilidad" + " " + relacion.Habilidad.Nombre + " " + "exitosamente");
+                return Ok("El mandril" + " " + relacion.Mandril.Nombre + " " + "ha agregado la habilidad" + " " + relacion.Skill.Nombre + " " + "exitosamente");
             }
         }
     }
     //Aca es donde tengo que trabajar para el tratamientod de la excepcion
     //Adicionar un put para editar la potencia de un mandril ya creado siempre y cuando exista en la lista de MandrilHabilidades
-    [HttpPut("{HabilidadID}")]
+    [HttpPut("{targetSkillId}")]
 
-    public IActionResult EditarHabilidad(int mandrilID, int HabilidadID, PowerDTO habilidadDto)
+    public IActionResult EditarHabilidad(int mandrilID, int targetSkillId, PowerDTO habilidadDto)
 
     {
          
-        var mandrilP = _context.MandrilWithSkills.Include(m => m.Mandril).Include(h => h.Habilidad)
+        var mandrilP = _context.MandrilWithSkills.Include(m => m.Mandril).Include(h => h.Skill)
             
-            .FirstOrDefault(m => m.Mandril.id == mandrilID && m.Habilidad.id == HabilidadID);
+            .FirstOrDefault(m => m.Mandril.id == mandrilID && m.Skill.id == targetSkillId);
 
        
         
 
         if (habilidadDto.potenciaIsValid())
         {
-            if (MandrilWithSkillsIntermediateDb.MandrilIsValid(mandrilP))
+            if (MandrilWithSkillsIntermediateTable.MandrilIsValid(mandrilP))
             {
                 mandrilP.PotenciaMS = habilidadDto.Potencia;
                 _context.SaveChanges();
@@ -222,11 +222,11 @@ public class MandrilWithSkillsController(MandrilDbContext contextHabilidad, IMan
 
  
 
-    [HttpDelete("{HabilidadID}")]
+    [HttpDelete("{targetSkillId}")]
 //Delete. eliminar una habilidad de un mandril
-    public IActionResult EliminarHabilidad(int mandrilID, int HabilidadID)
+    public IActionResult EliminarHabilidad(int mandrilID, int targetSkillId)
     {
-        var mandril = _context.MandrilWithSkills.Include(m=>m.Mandril).Include(h=>h.Habilidad).FirstOrDefault(m => m.Mandril.id == mandrilID && m.Habilidad.id == HabilidadID );
+        var mandril = _context.MandrilWithSkills.Include(m=>m.Mandril).Include(h=>h.Skill).FirstOrDefault(m => m.Mandril.id == mandrilID && m.Skill.id == targetSkillId );
         
         if (mandril == null)
         {

@@ -9,7 +9,7 @@ namespace MandrilAPI.Service
         private readonly MandrilDbContext _contextDb = contextDb;
         private readonly ILogger _logger = logger;
 
-        public Skill AddNewHabilidadToDb(SkillDTO newSkillDto)
+        public Skill AddNewSkillToDb(SkillDTO newSkillDto)
         {
             Skill skill = new Skill();
             skill.Nombre = newSkillDto.Nombre;
@@ -29,7 +29,7 @@ namespace MandrilAPI.Service
             return mandril;
         }
 
-        public MandrilWithSkillsIntermediateTable AssignOneHabilidadToMandril(int targetMandrilId, int targetSkillId)
+        public MandrilWithSkillsIntermediateTable AssignOneSkillToMandril(int targetMandrilId, int targetSkillId)
         {
             var mandril = _contextDb.Mandrils.FirstOrDefault(m => m.id == targetMandrilId);
             var skill = _contextDb.Skills.FirstOrDefault(h => h.id == targetSkillId);
@@ -44,8 +44,8 @@ namespace MandrilAPI.Service
             }
             else
             {
-            relation.Mandrilid = targetMandrilId;
-            relation.Habilidadid = targetSkillId;
+            relation.MandrilId = targetMandrilId;
+            relation.SkillId = targetSkillId;
             relation.PotenciaMS = 0; //default
 
                 _logger.LogInformation(DefaultsMessageDevs.relationHasBeenCreated, targetMandrilId, targetSkillId, relation.PotenciaMS);
@@ -59,7 +59,7 @@ namespace MandrilAPI.Service
         public MandrilWithSkillsIntermediateTable DeleteSkillFromMandril(int targetMandrilId, int targetSkillId)
         {
             var relation = _contextDb.MandrilWithSkills
-                  .FirstOrDefault(m => m.Mandrilid == targetMandrilId && m.Habilidadid == targetSkillId);
+                  .FirstOrDefault(m => m.MandrilId == targetMandrilId && m.SkillId == targetSkillId);
             if (relation is null)
             {
                 _logger.LogWarning(DefaultsMessageDevs.DatabaseNull);
@@ -86,7 +86,7 @@ namespace MandrilAPI.Service
             
         }
 
-        public Skill UpdateOneSkillToDb(int targetSkillId, SkillDTO habilidadDTO)
+        public Skill UpdateOneSkillToDb(int targetSkillId, SkillDTO skillDto)
         {
              
         }
@@ -96,7 +96,7 @@ namespace MandrilAPI.Service
             
         }
 
-        public MandrilWithSkillsIntermediateTable UpdatePotenciaOfSkillForMandril(int targetMandrilId, int targetHabilidadId, int newPotencia)
+        public MandrilWithSkillsIntermediateTable UpdatePotenciaOfSkillForMandril(int targetMandrilId, int targetSkillId, int newPotencia)
         {
             
         }

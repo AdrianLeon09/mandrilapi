@@ -76,7 +76,7 @@ namespace MandrilAPI.Service
 
         public IReadOnlyList<MandrilWithSkillsIntermediateTable> GetOneMandrilWithHabilidadesFromDb(int targetMandrilId, int targetSkillId)
         {
-            var MandrilesWithHabilidades = _contextDb.MandrilWithSkills.Include(m => m.Mandril.id == targetMandrilId).Include(h => h.Habilidad.id == targetSkillId)
+            var MandrilesWithHabilidades = _contextDb.MandrilWithSkills.Include(m => m.Mandril.id == targetMandrilId).Include(h => h.Skill.id == targetSkillId)
                 .AsNoTracking().ToList();
             if (MandrilesWithHabilidades.Count is 0) { }
 
@@ -87,7 +87,7 @@ namespace MandrilAPI.Service
 
         public IReadOnlyList<MandrilWithSkillsIntermediateTable> SelectAllMandrilWithHabilidadesFromDb()
         {
-            var MandrilesAllWithHabilidades = _contextDb.MandrilWithSkills.Include(mandriles => mandriles.Mandril).Include(mandrilHabilidades => mandrilHabilidades.Habilidad)
+            var MandrilesAllWithHabilidades = _contextDb.MandrilWithSkills.Include(mandriles => mandriles.Mandril).Include(mandrilSkills => mandrilSkills.Skill)
                 //verificar las diferencias con y sin cargar
                 //Se Carga tambien la potencia de la habilidad para mas detalles
                 .Include(p => p.PotenciaMS)

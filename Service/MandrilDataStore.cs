@@ -15,9 +15,9 @@ namespace MandrilAPI.Service
         public static List<Mandril> InicializarMandrilesData()
         {
 
-            mandriles.Add(new Mandril("Adrian", "leon", Skill.SeleccionarHabilidad()[0]));
-            mandriles.Add(new Mandril("Jose", "Alcachofa", Skill.SeleccionarHabilidad()[1]));
-            mandriles.Add(new Mandril("Paola", "Hernandez", Skill.SeleccionarHabilidad()[2]));
+            // mandriles.Add(new Mandril("Adrian", "leon", Skill.SeleccionarHabilidad()[0]));
+            // mandriles.Add(new Mandril("Jose", "Alcachofa", Skill.SeleccionarHabilidad()[1]));
+            // mandriles.Add(new Mandril("Paola", "Hernandez", Skill.SeleccionarHabilidad()[2]));
 
             return mandriles;
         }
