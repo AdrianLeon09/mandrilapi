@@ -78,7 +78,7 @@ namespace MandrilAPI.Service
 
         public Skill DeleteOneSkillFromDb(int targetSkillId)
         {
-             _contextDb
+             _contextDb.Skills
         }
 
         public Mandril DeleteOneMandrilFromDb(int targetIdMandril)
