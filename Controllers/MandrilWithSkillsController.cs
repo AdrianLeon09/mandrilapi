@@ -198,7 +198,7 @@ public class MandrilWithSkillsController(MandrilDbContext contextHabilidad, IMan
         {
             if (MandrilWithSkillsIntermediateTable.MandrilIsValid(mandrilP))
             {
-                mandrilP.PotenciaMS = habilidadDto.Potencia;
+                mandrilP.PowerMS = habilidadDto.Potencia;
                 _context.SaveChanges();
                 return Ok(mandrilP);
             }

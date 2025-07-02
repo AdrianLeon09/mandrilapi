@@ -90,7 +90,7 @@ namespace MandrilAPI.Service
             var MandrilesAllWithHabilidades = _contextDb.MandrilWithSkills.Include(mandriles => mandriles.Mandril).Include(mandrilSkills => mandrilSkills.Skill)
                 //verificar las diferencias con y sin cargar
                 //Se Carga tambien la potencia de la habilidad para mas detalles
-                .Include(p => p.PotenciaMS)
+                .Include(p => p.PowerMS)
                 //Usa menos memoria ya que no carga los objetos en memoria. Ideal para solo lectura.
                 .AsNoTracking().ToList();
             

@@ -46,9 +46,9 @@ namespace MandrilAPI.Service
             {
             relation.MandrilId = targetMandrilId;
             relation.SkillId = targetSkillId;
-            relation.PotenciaMS = 0; //default
+            relation.PowerMS = 0; //default
 
-                _logger.LogInformation(DefaultsMessageDevs.relationHasBeenCreated, targetMandrilId, targetSkillId, relation.PotenciaMS);
+                _logger.LogInformation(DefaultsMessageDevs.relationHasBeenCreated, targetMandrilId, targetSkillId, relation.PowerMS);
                 _contextDb.MandrilWithSkills.Add(relation);
                 _contextDb.SaveChanges();
                 return relation;
@@ -78,27 +78,27 @@ namespace MandrilAPI.Service
 
         public Skill DeleteOneSkillFromDb(int targetSkillId)
         {
-             _contextDb.Skills
+            return null;
         }
 
         public Mandril DeleteOneMandrilFromDb(int targetIdMandril)
         {
-            
+            return null;
         }
 
         public Skill UpdateOneSkillToDb(int targetSkillId, SkillDTO skillDto)
         {
-             
+             return null;
         }
 
         public Mandril UpdateOneMandrilToDb(int targetMandrilId, MandrilDTO mandrilDto)
         {
-            
+            return null;
         }
 
         public MandrilWithSkillsIntermediateTable UpdatePotenciaOfSkillForMandril(int targetMandrilId, int targetSkillId, int newPotencia)
         {
-            
+            return null;
         }
     }
 }

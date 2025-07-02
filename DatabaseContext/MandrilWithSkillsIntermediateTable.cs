@@ -33,11 +33,11 @@ public class MandrilWithSkillsIntermediateTable
     //Se crea un objeto de referencia para poder acceder a la base de datos padre desde el codigo
     public  Skill Skill{get; set;}
     
-    public int  PotenciaMS { get; set; }
+    public int  PowerMS { get; set; }
 
     public static bool MandrilIsValid(MandrilWithSkillsIntermediateTable mandrilObj)
     {
-        if (mandrilObj != null  && mandrilObj.Mandril != null && mandrilObj.Skill != null && mandrilObj.PotenciaMS <= 0)
+        if (mandrilObj != null  && mandrilObj.Mandril != null && mandrilObj.Skill != null && mandrilObj.PowerMS <= 0)
         {
             return true;
 

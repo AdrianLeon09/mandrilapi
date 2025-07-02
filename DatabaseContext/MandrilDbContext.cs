@@ -28,7 +28,7 @@ public DbSet<Skill> Skills { get; set; }
  {
      modelBuilder.Entity<MandrilWithSkillsIntermediateTable>()
          .HasKey(mh => new { Mandrilid = mh.MandrilId, mh.SkillId });
-     modelBuilder.Entity<MandrilWithSkillsIntermediateTable>().HasCheckConstraint("CK_MandrilHabilidad_Power_Max4", "[Power <= 4");
+     modelBuilder.Entity<MandrilWithSkillsIntermediateTable>().HasCheckConstraint("CK_MandrilPower_Power_Max4", "PowerMS <= 4");
  }
 
 
