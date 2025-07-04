@@ -5158,24 +5158,31 @@
     ]
   },
   "packageFolders": {
-    "/home/adrian-ubuntu/.nuget/packages/": {}
+    "C:\\Users\\Adrian\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/adrian-ubuntu/RiderProjects/mandrilapi/MandrilAPI.csproj",
+      "projectUniqueName": "C:\\Users\\Adrian\\source\\repos\\mandrilapi\\MandrilAPI.csproj",
       "projectName": "MandrilAPI",
-      "projectPath": "/home/adrian-ubuntu/RiderProjects/mandrilapi/MandrilAPI.csproj",
-      "packagesPath": "/home/adrian-ubuntu/.nuget/packages/",
-      "outputPath": "/home/adrian-ubuntu/RiderProjects/mandrilapi/obj/",
+      "projectPath": "C:\\Users\\Adrian\\source\\repos\\mandrilapi\\MandrilAPI.csproj",
+      "packagesPath": "C:\\Users\\Adrian\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Adrian\\source\\repos\\mandrilapi\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "/home/adrian-ubuntu/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\Adrian\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -5188,7 +5195,13 @@
         "warnAsError": [
           "NU1605"
         ]
-      }
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
+      },
+      "SdkAnalysisLevel": "9.0.300"
     },
     "frameworks": {
       "net8.0": {
@@ -5232,7 +5245,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.117/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

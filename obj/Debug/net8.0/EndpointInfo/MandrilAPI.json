@@ -87,12 +87,19 @@
         ],
         "parameters": [
           {
+            "name": "targetMandrilId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
             "name": "mandrilID",
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer",
-              "format": "int32"
+              "type": "string"
             }
           }
         ],
@@ -125,12 +132,19 @@
         ],
         "parameters": [
           {
+            "name": "targetMandrilId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
             "name": "mandrilID",
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer",
-              "format": "int32"
+              "type": "string"
             }
           }
         ],
@@ -215,10 +229,10 @@
         }
       }
     },
-    "/api/Mandril/{mandrilID}/MandrilHabilidad": {
+    "/api/Mandril/{mandrilID}/MandrilWithSkills": {
       "get": {
         "tags": [
-          "MandrilHabilidad"
+          "MandrilWithSkills"
         ],
         "parameters": [
           {
@@ -239,7 +253,7 @@
       },
       "put": {
         "tags": [
-          "MandrilHabilidad"
+          "MandrilWithSkills"
         ],
         "parameters": [
           {
@@ -267,89 +281,10 @@
         }
       }
     },
-    "/api/Mandril/{mandrilID}/MandrilHabilidad/{HabilidadID}": {
+    "/api/Mandril/{mandrilID}/MandrilWithSkills/{HabilidadID}": {
       "get": {
         "tags": [
-          "MandrilHabilidad"
-        ],
-        "parameters": [
-          {
-            "name": "mandrilID",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "HabilidadID",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "MandrilHabilidad"
-        ],
-        "parameters": [
-          {
-            "name": "mandrilID",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "HabilidadID",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/HabilidadDTOPotencia"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/HabilidadDTOPotencia"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/HabilidadDTOPotencia"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "MandrilHabilidad"
+          "MandrilWithSkills"
         ],
         "parameters": [
           {
@@ -378,10 +313,91 @@
         }
       }
     },
-    "/api/Mandril/{mandrilID}/MandrilHabilidad/jsonexepcion": {
+    "/api/Mandril/{mandrilID}/MandrilWithSkills/{targetSkillId}": {
+      "put": {
+        "tags": [
+          "MandrilWithSkills"
+        ],
+        "parameters": [
+          {
+            "name": "mandrilID",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "targetSkillId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PowerDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PowerDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PowerDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "MandrilWithSkills"
+        ],
+        "parameters": [
+          {
+            "name": "mandrilID",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "targetSkillId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Mandril/{mandrilID}/MandrilWithSkills/jsonexepcion": {
       "get": {
         "tags": [
-          "MandrilHabilidad"
+          "MandrilWithSkills"
         ],
         "parameters": [
           {
@@ -400,10 +416,10 @@
         }
       }
     },
-    "/api/teste/jsonexeption": {
+    "/api/test/jsonexeption": {
       "get": {
         "tags": [
-          "teste"
+          "test"
         ],
         "responses": {
           "200": {
@@ -415,19 +431,6 @@
   },
   "components": {
     "schemas": {
-      "HabilidadDTOPotencia": {
-        "required": [
-          "potencia"
-        ],
-        "type": "object",
-        "properties": {
-          "potencia": {
-            "type": "integer",
-            "format": "int32"
-          }
-        },
-        "additionalProperties": false
-      },
       "Mandril": {
         "type": "object",
         "properties": {
@@ -462,6 +465,19 @@
             "maxLength": 50,
             "minLength": 0,
             "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PowerDTO": {
+        "required": [
+          "potencia"
+        ],
+        "type": "object",
+        "properties": {
+          "potencia": {
+            "type": "integer",
+            "format": "int32"
           }
         },
         "additionalProperties": false
