@@ -12,11 +12,16 @@
         public static string DeleteSucceeded = "Los datos han sido eliminados exitosamente.";
 
         
-        public static string relationHasBeenCreated = "Se ha generado una relacion entre Mandril ID : {EntityMandril} y Skill ID : {EntitySkill}. \n" +
-            "La potencia de la habilidad para el mandril es : {PotenciaMH}";
+        public static string relationHasBeenCreated = "Se ha generado una relacion entre Skill ID : {EntitySkillID}. y Mandril ID {EntityMandrilID} \n" +
+            "La potencia de la habilidad para el mandril se ha establecido en los valores por defecto = {PotenciaMH}";
         public static string relationNotCreated_EntityNotFound = "No se ha podido generar una relacion entre Mandril ID : {EntityMandril} y Skill ID : {EntitySkill}. \n" +
             "Uno o mas elementos no existen en la base de datos.  ";
-        
+
+        public static string UpdateSkillSucceeded = "Se ha actualizado la habilidad con ID {EntitySkillID} exitosamente.";
+        public static string UpdateMandrilSucceeded = "Se ha actualizado el mandril con ID {EntityMandrilID} exitosamente.";
+        public static string UpdateFailed = "No se ha podido actualizar el objeto con ID {EntityID}. Verifique que la informacion exista. O los tipos de datos coincida.";
+        public static string UpdateRelationFailed = "No se ha podido actualizar la potencia de la habilidad {EntitySkillID} en el mandril {EntityMandrilID}. Verifique que la informacion exista. O los tipos de datos coincida.";
+        public static string UpdatePowerSucceeded = "Se ha actualizado la potencia de la habilidad {EntitySkillID} en el mandril {EntityMandrilID} exitosamente. El nuevo valor es {EntityPower}";
 
     }
 }

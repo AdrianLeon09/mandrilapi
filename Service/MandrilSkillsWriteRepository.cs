@@ -44,9 +44,8 @@ namespace MandrilAPI.Service
             }
             else
             {
-            relation.MandrilId = targetMandrilId;
-            relation.SkillId = targetSkillId;
-            relation.PowerMS = 0; //default
+                relation.MandrilId = targetMandrilId;
+                relation.SkillId = targetSkillId;
 
                 _logger.LogInformation(DefaultsMessageDevs.relationHasBeenCreated, targetMandrilId, targetSkillId, relation.PowerMS);
                 _contextDb.MandrilWithSkills.Add(relation);
@@ -78,27 +77,102 @@ namespace MandrilAPI.Service
 
         public Skill DeleteOneSkillFromDb(int targetSkillId)
         {
-            return null;
+            var skill = _contextDb.Skills.FirstOrDefault(s => s.id == targetSkillId);
+            
+            if (skill is not null)
+            {
+                _contextDb.Skills.Remove(skill); 
+                _contextDb.SaveChanges();
+                _logger.LogInformation(DefaultsMessageDevs.DeleteSucceeded);
+                return skill;
+            }
+            else
+            {
+                _logger.LogWarning(DefaultsMessageDevs.NotFoundSkill);
+                _logger.LogWarning(DefaultsMessageDevs.DeleteFailed);
+                return skill;
+            }
+            
         }
 
-        public Mandril DeleteOneMandrilFromDb(int targetIdMandril)
+        public Mandril DeleteOneMandrilFromDb(int targetMandrilId)
         {
-            return null;
+            var mandril = _contextDb.Mandrils.FirstOrDefault(m => m.id == targetMandrilId);
+
+            if (mandril is not null)
+            {
+                _contextDb.Mandrils.Remove(mandril);
+                _contextDb.SaveChanges();
+                _logger.LogInformation(DefaultsMessageDevs.DeleteSucceeded);
+                return mandril;
+            }
+            else
+            {
+                _logger.LogWarning(DefaultsMessageDevs.NotFoundSkill);
+                _logger.LogWarning(DefaultsMessageDevs.DeleteFailed);
+                
+                return mandril;
+            }
+
+            
         }
 
         public Skill UpdateOneSkillToDb(int targetSkillId, SkillDTO skillDto)
         {
-             return null;
+            var skill = _contextDb.Skills.FirstOrDefault(s => s.id == targetSkillId);
+            if (skill is not null)
+            {
+                skill.Nombre = skillDto.Nombre;
+                _contextDb.Skills.Update(skill);
+                _contextDb.SaveChanges();
+                _logger.LogInformation(DefaultsMessageDevs.UpdateSkillSucceeded);
+                return skill;
+            }
+            else
+            {
+                _logger.LogWarning(DefaultsMessageDevs.NotFoundSkill, targetSkillId);
+                return null;
+            }
+          
         }
 
         public Mandril UpdateOneMandrilToDb(int targetMandrilId, MandrilDTO mandrilDto)
         {
-            return null;
+            var mandril = _contextDb.Mandrils.FirstOrDefault(m => m.id == targetMandrilId);
+            if (mandril is not null) {
+                mandril.Nombre = mandrilDto.Nombre;
+                mandril.Apellido = mandrilDto.Apellido;
+                _contextDb.Mandrils.Update(mandril);
+                _contextDb.SaveChanges();
+                _logger.LogInformation(DefaultsMessageDevs.UpdateMandrilSucceeded);
+                return mandril;
+            }
+            else
+            {
+                _logger.LogWarning(DefaultsMessageDevs.NotFoundMandril, targetMandrilId);
+                _logger.LogWarning(DefaultsMessageDevs.UpdateFailed, targetMandrilId);
+                return null;
+            }
+           
         }
 
-        public MandrilWithSkillsIntermediateTable UpdatePotenciaOfSkillForMandril(int targetMandrilId, int targetSkillId, int newPotencia)
+        public MandrilWithSkillsIntermediateTable UpdatePotenciaOfSkillForMandril(int targetMandrilId, int targetSkillId, int newPower)
         {
-            return null;
+            var relation = _contextDb.MandrilWithSkills.FirstOrDefault(m => m.MandrilId == targetMandrilId && m.SkillId == targetSkillId);
+            if (relation is not null)
+            {
+                relation.PowerMS = newPower;
+                _contextDb.MandrilWithSkills.Update(relation);
+                _contextDb.SaveChanges();
+                _logger.LogInformation(DefaultsMessageDevs.UpdatePowerSucceeded,targetSkillId, targetMandrilId, newPower);
+                return relation;
+            }
+            else
+            {
+                _logger.LogWarning(DefaultsMessageDevs.NotFoundRelationSkill, targetSkillId, targetMandrilId);
+                _logger.LogWarning(DefaultsMessageDevs.UpdateRelationFailed, targetSkillId, targetMandrilId);
+            }
+            return relation;
         }
     }
 }

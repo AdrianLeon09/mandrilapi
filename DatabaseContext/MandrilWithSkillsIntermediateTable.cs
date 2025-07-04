@@ -32,8 +32,8 @@ public class MandrilWithSkillsIntermediateTable
     public int SkillId {get; set;}
     //Se crea un objeto de referencia para poder acceder a la base de datos padre desde el codigo
     public  Skill Skill{get; set;}
-    
-    public int  PowerMS { get; set; }
+
+    public int PowerMS { get; set; } = 0; //Potencia de la habilidad para el mandril, por defecto es 0
 
     public static bool MandrilIsValid(MandrilWithSkillsIntermediateTable mandrilObj)
     {
