@@ -21,7 +21,7 @@
   },
   {
     "ContainingType": "MandrilAPI.Controllers.MandrilController",
-    "Method": "PostMandril",
+    "Method": "AddMandril",
     "RelativePath": "api/Mandril",
     "HttpMethod": "POST",
     "IsController": true,
@@ -30,99 +30,6 @@
       {
         "Name": "mandrilDto",
         "Type": "MandrilAPI.Models.MandrilDTO",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "MandrilAPI.Models.Mandril",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "MandrilAPI.Controllers.MandrilController",
-    "Method": "GetMandrilById",
-    "RelativePath": "api/Mandril/{mandrilID}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "targetMandrilId",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "mandrilID",
-        "Type": "",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "MandrilAPI.Models.Mandril",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "MandrilAPI.Controllers.MandrilController",
-    "Method": "UpdateMandril",
-    "RelativePath": "api/Mandril/{mandrilID}",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "targetMandrilId",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "mandrilDto",
-        "Type": "MandrilAPI.Models.MandrilDTO",
-        "IsRequired": true
-      },
-      {
-        "Name": "mandrilID",
-        "Type": "",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "MandrilAPI.Models.Mandril",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "MandrilAPI.Controllers.MandrilController",
-    "Method": "DeleteMandril",
-    "RelativePath": "api/Mandril/{mandrilID}",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "mandrilID",
-        "Type": "System.Int32",
         "IsRequired": true
       }
     ],
@@ -258,6 +165,89 @@
       }
     ],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MandrilAPI.Controllers.MandrilController",
+    "Method": "GetMandrilById",
+    "RelativePath": "api/Mandril/{targetMandrilId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "targetMandrilId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "MandrilAPI.Models.Mandril",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "MandrilAPI.Controllers.MandrilController",
+    "Method": "UpdateMandril",
+    "RelativePath": "api/Mandril/{targetMandrilId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "targetMandrilId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "mandrilDto",
+        "Type": "MandrilAPI.Models.MandrilDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "MandrilAPI.Models.Mandril",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "MandrilAPI.Controllers.MandrilController",
+    "Method": "DeleteMandril",
+    "RelativePath": "api/Mandril/{targetMandrilId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "targetMandrilId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "MandrilAPI.Models.Mandril",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "MandrilAPI.Controllers.test",

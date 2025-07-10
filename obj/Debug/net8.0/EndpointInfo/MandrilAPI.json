@@ -80,7 +80,7 @@
         }
       }
     },
-    "/api/Mandril/{mandrilID}": {
+    "/api/Mandril/{targetMandrilId}": {
       "get": {
         "tags": [
           "Mandril"
@@ -88,18 +88,11 @@
         "parameters": [
           {
             "name": "targetMandrilId",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "mandrilID",
             "in": "path",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "integer",
+              "format": "int32"
             }
           }
         ],
@@ -133,18 +126,11 @@
         "parameters": [
           {
             "name": "targetMandrilId",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "mandrilID",
             "in": "path",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "integer",
+              "format": "int32"
             }
           }
         ],
@@ -196,7 +182,7 @@
         ],
         "parameters": [
           {
-            "name": "mandrilID",
+            "name": "targetMandrilId",
             "in": "path",
             "required": true,
             "schema": {
@@ -438,11 +424,11 @@
             "type": "integer",
             "format": "int32"
           },
-          "nombre": {
+          "name": {
             "type": "string",
             "nullable": true
           },
-          "apellido": {
+          "lastName": {
             "type": "string",
             "nullable": true
           }
@@ -451,19 +437,19 @@
       },
       "MandrilDTO": {
         "required": [
-          "apellido",
-          "nombre"
+          "lastName",
+          "name"
         ],
         "type": "object",
         "properties": {
-          "nombre": {
-            "maxLength": 50,
-            "minLength": 0,
+          "name": {
+            "maxLength": 25,
+            "minLength": 3,
             "type": "string"
           },
-          "apellido": {
-            "maxLength": 50,
-            "minLength": 0,
+          "lastName": {
+            "maxLength": 25,
+            "minLength": 3,
             "type": "string"
           }
         },
