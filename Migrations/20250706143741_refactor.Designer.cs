@@ -3,6 +3,7 @@ using MandrilAPI.DatabaseContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MandrilAPI.Migrations
 {
     [DbContext(typeof(MandrilDbContext))]
-    partial class MandrilDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250706143741_refactor")]
+    partial class refactor
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,10 +39,7 @@ namespace MandrilAPI.Migrations
 
                     b.HasIndex("SkillId");
 
-                    b.ToTable("MandrilWithSkills", null, t =>
-                        {
-                            t.HasCheckConstraint("power_limit_4", "PowerMS <= 4");
-                        });
+                    b.ToTable("CK_MandrilPower_Power_Max4 , PowerMS <= 4", (string)null);
                 });
 
             modelBuilder.Entity("MandrilAPI.Models.Mandril", b =>

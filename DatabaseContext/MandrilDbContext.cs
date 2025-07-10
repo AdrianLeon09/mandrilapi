@@ -24,14 +24,13 @@ public DbSet<Mandril> Mandrils { get; set; }
 //Representation of table mandril in the base data
 public DbSet<Skill> Skills { get; set; }
  public DbSet<MandrilWithSkillsIntermediateTable> MandrilWithSkills { get; set; }
- protected override void OnModelCreating(ModelBuilder modelBuilder)
- {
-     modelBuilder.Entity<MandrilWithSkillsIntermediateTable>()
-         .HasKey(mh => new { Mandrilid = mh.MandrilId, mh.SkillId });
-     modelBuilder.Entity<MandrilWithSkillsIntermediateTable>().HasCheckConstraint("CK_MandrilPower_Power_Max4", "PowerMS <= 4");
- }
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<MandrilWithSkillsIntermediateTable>().ToTable("MandrilWithSkills")
+          .HasKey(mh => new {mh.MandrilId, mh.SkillId });
 
-
+        modelBuilder.Entity<MandrilWithSkillsIntermediateTable>().ToTable("MandrilWithSkills", builder => builder.HasCheckConstraint("power_limit_4", "PowerMS <= 4"));
+    }
 };
   
   

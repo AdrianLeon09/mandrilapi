@@ -21,7 +21,7 @@ namespace MandrilAPI.Service
             var HabilidadInDb = _contextDb.Skills.Where(h => h.id == targetHabilidadId).AsNoTracking().ToList();
             if (HabilidadInDb.Count is 0)
             {
-                _logger.LogWarning(DefaultsMessageUsers.habilidadNotFound, HabilidadInDb);
+                _logger.LogWarning(DefaultsMessageUsers.HabilidadNotFound, HabilidadInDb);
                 
                 return HabilidadInDb;
             }
@@ -38,7 +38,7 @@ namespace MandrilAPI.Service
             var HabilidadesInDb = _contextDb.Skills.AsNoTracking().ToList();
             if (HabilidadesInDb.Count is 0)
             {
-                _logger.LogWarning(DefaultsMessageUsers.habilidadNotFound, HabilidadesInDb);
+                _logger.LogWarning(DefaultsMessageUsers.HabilidadNotFound, HabilidadesInDb);
 
                 return HabilidadesInDb;
 

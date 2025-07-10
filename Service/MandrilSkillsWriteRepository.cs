@@ -1,19 +1,20 @@
 ﻿using MandrilAPI.DatabaseContext;
 using MandrilAPI.Interfaces;
 using MandrilAPI.Models;
+using System.Reflection.Metadata.Ecma335;
 
 namespace MandrilAPI.Service
 {
-    public class MandrilSkillsWriteRepository(MandrilDbContext contextDb, ILogger logger) : IMandrilAndSkillsWriteRepository
+    public class MandrilSkillsWriteRepository(MandrilDbContext contextDb, ILogger<MandrilSkillsWriteRepository> logger) : IMandrilAndSkillsWriteRepository
     {
         private readonly MandrilDbContext _contextDb = contextDb;
         private readonly ILogger _logger = logger;
 
         public Skill AddNewSkillToDb(SkillDTO newSkillDto)
         {
+
             Skill skill = new Skill();
-            skill.Nombre = newSkillDto.Nombre;
-           
+            skill.name = newSkillDto.name.Trim();
             _contextDb.Skills.Add(skill);
             _contextDb.SaveChanges();
             return skill;
@@ -22,7 +23,13 @@ namespace MandrilAPI.Service
         public Mandril AddNewMandrilToDb(MandrilDTO newMandrilDto)
         {
             Mandril mandril = new Mandril();
-            mandril.Nombre = newMandrilDto.Nombre;
+          
+             
+         
+
+            
+            mandril.name = newMandrilDto.name;
+            mandril.lastName = newMandrilDto.lastName;
 
             _contextDb.Mandrils.Add(mandril);
             _contextDb.SaveChanges();
@@ -122,7 +129,7 @@ namespace MandrilAPI.Service
             var skill = _contextDb.Skills.FirstOrDefault(s => s.id == targetSkillId);
             if (skill is not null)
             {
-                skill.Nombre = skillDto.Nombre;
+                skill.name = skillDto.name;
                 _contextDb.Skills.Update(skill);
                 _contextDb.SaveChanges();
                 _logger.LogInformation(DefaultsMessageDevs.UpdateSkillSucceeded);
@@ -140,8 +147,8 @@ namespace MandrilAPI.Service
         {
             var mandril = _contextDb.Mandrils.FirstOrDefault(m => m.id == targetMandrilId);
             if (mandril is not null) {
-                mandril.Nombre = mandrilDto.Nombre;
-                mandril.Apellido = mandrilDto.Apellido;
+                mandril.name = mandrilDto.name;
+                mandril.lastName = mandrilDto.lastName;
                 _contextDb.Mandrils.Update(mandril);
                 _contextDb.SaveChanges();
                 _logger.LogInformation(DefaultsMessageDevs.UpdateMandrilSucceeded);

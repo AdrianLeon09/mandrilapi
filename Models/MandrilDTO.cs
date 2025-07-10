@@ -1,24 +1,24 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using MandrilAPI.Service;
+using System.ComponentModel.DataAnnotations;
 
 namespace MandrilAPI.Models;
 
 public class MandrilDTO
-{
-    
-    [Required]
-    [StringLength(50)]
-    public string Nombre { get; set; }
-    [Required]
-    [StringLength(50)]
-    public string Apellido { get; set; }
+{ 
+        
+        
+   
+[Required(ErrorMessage = DefaultsMessageUsers.EntryInvalid)]
+   
+    [StringLength(25, ErrorMessage = DefaultsMessageUsers.EntryInvalid)]
+    [MinLength(3, ErrorMessage = DefaultsMessageUsers.EntryInvalid)]
+    public string name { get; set; } = String.Empty;
 
-    // public string message { get; } = "El objeto se ha creado exitosamente";
+  
+    [Required(ErrorMessage = DefaultsMessageUsers.EntryInvalid)]
     
-   
-   
-   // public MandrilInsert(String nombre, String apellido)
-    // {
-    //     this.Nombre = nombre;
-    //     this.Apellido = apellido;
-    // }
+    [StringLength(25, ErrorMessage = DefaultsMessageUsers.EntryInvalid)]
+    [MinLength(3, ErrorMessage = DefaultsMessageUsers.EntryInvalid)]
+
+    public string lastName { get; set; } = string.Empty;
 }

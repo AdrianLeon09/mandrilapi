@@ -25,13 +25,16 @@ namespace MandrilAPI.Models
                options.Filters.Add<JsonFilterExeption>();})
                 .ConfigureApiBehaviorOptions(options =>
             {
-             options.SuppressModelStateInvalidFilter = true;
+             options.SuppressModelStateInvalidFilter = false;
             });
             
+
+
          //   builder.Services.AddControllers().ConfigureApiBehaviorOptions(options => options.SuppressModelStateInvalidFilter = false);
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             builder.Services.AddScoped<IMandrilAndSkillsReadRepository, MandrilSkillsReadRepository>();
+            builder.Services.AddScoped<IMandrilAndSkillsWriteRepository, MandrilSkillsWriteRepository>();
             //builder.Services.AddTransient<ExepcionesJsonMiddleware>();
 
             var app = builder.Build();

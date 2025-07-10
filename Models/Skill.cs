@@ -7,24 +7,24 @@ namespace MandrilAPI.Models
     {
         //Cada habilidad tiene su potencia por default en 0
         public  int id { get; set; }
-        public string Nombre { get; set; } = string.Empty;
+        public string name { get; set; } = string.Empty;
         internal int Power { get; set; } = 0;      
         internal PowerEnum PotenciaAsString { get; set; }
           
         public Skill(string nameSkill)
         {
-            Nombre = nameSkill;          
+            name = nameSkill;          
         }
         public Skill() { }
 
         //enum de la propiedad potencia en habilidad por ahora estara aca porque no tengo donde ponerla
         public enum PowerEnum
     {
-        Suave,
-        Moderado,
-        Intenso,
-        MuyIntenso,
-        Extremo
+        veryLow,
+        Moderate,
+        High,
+        Intense,
+        Extreme
         }
    }
 

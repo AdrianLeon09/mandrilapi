@@ -45,7 +45,7 @@ public class MandrilWithSkillsController(MandrilDbContext contextHabilidad, IMan
         //Verificacion si el mandril existe en la tabla intermedia y tiene una habilidad
         if (mandril.Count == 0)
         {
-            return BadRequest(DefaultsMessageUsers.mandrilNotFound);
+            return BadRequest(DefaultsMessageUsers.MandrilNotFound);
         }
         else
         {
@@ -55,7 +55,7 @@ public class MandrilWithSkillsController(MandrilDbContext contextHabilidad, IMan
             //Se deja por que aun asi funciona Jaja
             if (mandril.Exists(h => h.SkillId == null))
             {
-                return BadRequest(DefaultsMessageUsers.habilidadNotFound);
+                return BadRequest(DefaultsMessageUsers.HabilidadNotFound);
             }
             else
             {
@@ -80,7 +80,7 @@ public class MandrilWithSkillsController(MandrilDbContext contextHabilidad, IMan
         if (seleccionMandril == null)
         {
             
-            return BadRequest(DefaultsMessageUsers.mandrilNotFound + " \n " + DefaultsMessageUsers.habilidadNotFound);
+            return BadRequest(DefaultsMessageUsers.MandrilNotFound + " \n " + DefaultsMessageUsers.HabilidadNotFound);
         }
         else
         {
@@ -158,13 +158,13 @@ public class MandrilWithSkillsController(MandrilDbContext contextHabilidad, IMan
         var busquedaHabilidad = _context.Skills.FirstOrDefault(h => h.id == HabilidadID);
         if (busquedaMandril == null)
         {
-            return BadRequest(DefaultsMessageUsers.mandrilNotFound);
+            return BadRequest(DefaultsMessageUsers.MandrilNotFound);
         }
         else
         {
             if (busquedaHabilidad == null)
             {
-                return BadRequest(DefaultsMessageUsers.habilidadNotFound);
+                return BadRequest(DefaultsMessageUsers.HabilidadNotFound);
             }
             else
             {
@@ -175,7 +175,7 @@ public class MandrilWithSkillsController(MandrilDbContext contextHabilidad, IMan
 
                 _context.MandrilWithSkills.Add(relacion);
                 _context.SaveChanges();
-                return Ok("El mandril" + " " + relacion.Mandril.Nombre + " " + "ha agregado la habilidad" + " " + relacion.Skill.Nombre + " " + "exitosamente");
+                return Ok("El mandril" + " " + relacion.Mandril.name + " " + "ha agregado la habilidad" + " " + relacion.Skill.name + " " + "exitosamente");
             }
         }
     }
@@ -204,10 +204,10 @@ public class MandrilWithSkillsController(MandrilDbContext contextHabilidad, IMan
             }
             else
             {
-                return BadRequest(DefaultsMessageUsers.mandrilNotFound);
+                return BadRequest(DefaultsMessageUsers.MandrilNotFound);
             }
         }
-        else return BadRequest(DefaultsMessageUsers.PotenciaNotValid);
+        else return BadRequest(DefaultsMessageUsers.PotenciaInvalid);
     }
 
 
@@ -230,7 +230,7 @@ public class MandrilWithSkillsController(MandrilDbContext contextHabilidad, IMan
         
         if (mandril == null)
         {
-            return BadRequest(DefaultsMessageUsers.mandrilNotFound + DefaultsMessageUsers.habilidadNotFound);
+            return BadRequest(DefaultsMessageUsers.MandrilNotFound + DefaultsMessageUsers.HabilidadNotFound);
         }
         else
         {

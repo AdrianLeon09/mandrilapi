@@ -3,6 +3,7 @@ using MandrilAPI.Interfaces;
 using MandrilAPI.Models;
 using MandrilAPI.Service;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 using System.Data.Common;
 
@@ -12,15 +13,16 @@ namespace MandrilAPI.Controllers
     [ApiController]
     [Route("api/[controller]")]
 
-    public class MandrilController(MandrilDbContext  context, IMandrilAndSkillsReadRepository RepositoryMandrilHabilidades) : ControllerBase
+    public class MandrilController(MandrilDbContext  context, IMandrilAndSkillsReadRepository RepositoryRead, IMandrilAndSkillsWriteRepository RepositoryWrite) : ControllerBase
     {
-       //Implentacion exitosa de context 
-       private readonly MandrilDbContext _context = context;
+    
         //Controlador ya consume las funciones del repositorio.
-        private readonly IMandrilAndSkillsReadRepository _RepositoryReadMandrilHabilidades = RepositoryMandrilHabilidades;
-        
-       //GET PARA VER TODOS LOS MANDRILES
-       
+        private readonly IMandrilAndSkillsReadRepository _RepositoryReadMandrilSkills = RepositoryRead;
+        private readonly IMandrilAndSkillsWriteRepository _RepositoryWriteMandrilSkills = RepositoryWrite;
+        private readonly MandrilDbContext _context = context; 
+
+        //GET PARA VER TODOS LOS MANDRILES
+
         [HttpGet]
     public ActionResult<Mandril> GetAllMandriles()
     {
@@ -30,9 +32,9 @@ namespace MandrilAPI.Controllers
             //   .Include(h =>h.Habilidad ));
 
      
-            var mandriles = _RepositoryReadMandrilHabilidades.GetAllMandrilsFromDb(); ;
+            var mandriles = _RepositoryReadMandrilSkills.GetAllMandrilsFromDb(); ;
             if (mandriles.Count is 0) { 
-                return NotFound(DefaultsMessageUsers.mandrilNotFound);
+                return NotFound(DefaultsMessageUsers.MandrilNotFound);
             }
             else {
                 return Ok(mandriles);}
@@ -41,10 +43,10 @@ namespace MandrilAPI.Controllers
            
     }
     //GET para obtener un mandril por su ID
-    [HttpGet("{mandrilID}")]
+    [HttpGet("{targetMandrilId}")]
     public ActionResult<Mandril> GetMandrilById(int targetMandrilId)
     {
-            var mandril = _RepositoryReadMandrilHabilidades.GetOneMandrilsFromDb(targetMandrilId);
+            var mandril = _RepositoryReadMandrilSkills.GetOneMandrilsFromDb(targetMandrilId);
 
         if (mandril.Count is  0)
         {
@@ -55,52 +57,51 @@ namespace MandrilAPI.Controllers
     }
 
     //PUT para editar un mandril existente
-    //ME QUEDE POR ACA
-    [HttpPut("{mandrilID}")]
+    
+    [HttpPut("{targetMandrilId}")]
     public ActionResult<Mandril> UpdateMandril(int targetMandrilId, [FromBody] MandrilDTO mandrilDto)
     {
-            var MandrilUpdate = _RepositoryReadMandrilHabilidades.GetOneMandrilsFromDb(targetMandrilId);
-        if (MandrilUpdate.Count is 0)
+            var Mandril = _RepositoryWriteMandrilSkills.UpdateOneMandrilToDb(targetMandrilId, mandrilDto);
+        if (Mandril is null)
         {
-            return NotFound("No se encontrado el mandril seleccionado");
+            return NotFound(DefaultsMessageUsers.MandrilNotFound);
         }
         else{
-        
-       
-            _context.SaveChanges();
-            return Ok("Los datos se han editado correctamente");
+                return Ok(DefaultsMessageUsers.MandrilUpdateSucceeded);
         }
     }
     //DELETE para eliminar un mandril existente
-    [HttpDelete("{mandrilID}")]
-    public ActionResult<Mandril> DeleteMandril(int mandrilID)
+    //me quede por aca.
+    [HttpDelete("{targetMandrilId}")]
+    public ActionResult<Mandril> DeleteMandril(int targetMandrilId)
     {
-
-
-        var mandrilDelete = _context.Mandrils.FirstOrDefault(m=> m.id == mandrilID);
-        if (mandrilDelete == null)
-        {
-            return NotFound("No se encontrado el mandril seleccionado");
-        }
-        else
-        {
-            _context.Mandrils.Remove(mandrilDelete);
-            _context.SaveChanges();
-            return Ok("El mandril se ha eliminado correctamente");
+            var checkDelete = _RepositoryReadMandrilSkills.GetOneMandrilsFromDb(targetMandrilId);
+            if (checkDelete.Count is 0)
+            { 
+            return NotFound(DefaultsMessageUsers.MandrilNotFound);
+            }
+            else
+            {
+            _RepositoryWriteMandrilSkills.DeleteOneMandrilFromDb(targetMandrilId);
+           
+            return Ok(DefaultsMessageUsers.DeleteMandrilSucceeded);
         }
     }
     [HttpPost]
 
-    //Se piden dos atributos especificos de la clase creada mandrilInsert
-    public ActionResult<Mandril> PostMandril(MandrilDTO mandrilDto)
-    {
-        //Se crea una instancia mandril con esos atributos
-        var newMandril = new Mandril(mandrilDto.Nombre, mandrilDto.Apellido);
-        //Se agrega el mandril a  Base de datos
-       _context.Mandrils.Add(newMandril);
-       //Save changes 
-       _context.SaveChanges();
+    //Post para crear un mandril en la DB
+    public ActionResult<Mandril> AddMandril(MandrilDTO mandrilDto)
+        {
+            if (ModelState.IsValid)
+            {
+                _RepositoryWriteMandrilSkills.AddNewMandrilToDb(mandrilDto);
 
+                return Ok(DefaultsMessageUsers.MandrilCreated);
+            }
+           //ahora solo falta el repositorio con la logica adicional de validaciones
+            return BadRequest(ModelState);
+
+            }
         //El primer parametro le indica que metodo usara para generar la url
 
         //-------------------
@@ -120,9 +121,9 @@ namespace MandrilAPI.Controllers
         //El ultimo parametro devuelve el objeto de la clase creada MandrilInsert para mostrar solo los datos especificados
 
         //Caso contrario mostraria todos los datos no deseados de mandril
-        return CreatedAtAction(nameof(GetMandrilById), new { mandrilID = newMandril.id }, mandrilDto);
+      
 
     }
     }
-}
+
 
