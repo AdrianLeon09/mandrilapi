@@ -13,13 +13,13 @@ namespace MandrilAPI.Controllers
     [ApiController]
     [Route("api/[controller]")]
 
-    public class MandrilController(MandrilDbContext  context, IMandrilAndSkillsReadRepository RepositoryRead, IMandrilAndSkillsWriteRepository RepositoryWrite) : ControllerBase
+    public class MandrilController(IMandrilAndSkillsReadRepository RepositoryRead, IMandrilAndSkillsWriteRepository RepositoryWrite) : ControllerBase
     {
     
         //Controlador ya consume las funciones del repositorio.
         private readonly IMandrilAndSkillsReadRepository _RepositoryReadMandrilSkills = RepositoryRead;
         private readonly IMandrilAndSkillsWriteRepository _RepositoryWriteMandrilSkills = RepositoryWrite;
-        private readonly MandrilDbContext _context = context; 
+    
 
         //GET PARA VER TODOS LOS MANDRILES
 
@@ -56,24 +56,42 @@ namespace MandrilAPI.Controllers
               
     }
 
-    //PUT para editar un mandril existente
+   
     
     [HttpPut("{targetMandrilId}")]
     public ActionResult<Mandril> UpdateMandril(int targetMandrilId, [FromBody] MandrilDTO mandrilDto)
     {
-            var Mandril = _RepositoryWriteMandrilSkills.UpdateOneMandrilToDb(targetMandrilId, mandrilDto);
-        if (Mandril is null)
-        {
-            return NotFound(DefaultsMessageUsers.MandrilNotFound);
-        }
-        else{
-                return Ok(DefaultsMessageUsers.MandrilUpdateSucceeded);
-        }
+
+            
+            var qryMandril = _RepositoryReadMandrilSkills.GetOneMandrilsFromDb(targetMandrilId);
+
+            if (qryMandril.Count is 0)
+            {
+                return NotFound(DefaultsMessageUsers.MandrilNotFound);
+            }
+            else
+            {
+                mandrilDto.name = mandrilDto.name.Replace(" ", "");
+                mandrilDto.lastName = mandrilDto.lastName.Replace(" ", "");
+
+                if (mandrilDto.name.Length < 3 || mandrilDto.lastName.Length < 3)
+                {
+                    return BadRequest(DefaultsMessageUsers.EntryInvalid);
+
+                }
+                else
+                {
+                    _RepositoryWriteMandrilSkills.UpdateOneMandrilToDb(targetMandrilId, mandrilDto);
+
+                    return Ok(DefaultsMessageUsers.MandrilUpdateSucceeded);
+
+                }
+            }
     }
     //DELETE para eliminar un mandril existente
-    //me quede por aca.
+    
     [HttpDelete("{targetMandrilId}")]
-    public ActionResult<Mandril> DeleteMandril(int targetMandrilId)
+        public ActionResult<Mandril> DeleteMandril(int targetMandrilId)
     {
             var checkDelete = _RepositoryReadMandrilSkills.GetOneMandrilsFromDb(targetMandrilId);
             if (checkDelete.Count is 0)
@@ -87,21 +105,25 @@ namespace MandrilAPI.Controllers
             return Ok(DefaultsMessageUsers.DeleteMandrilSucceeded);
         }
     }
-    [HttpPost]
+        [HttpPost]
 
-    //Post para crear un mandril en la DB
-    public ActionResult<Mandril> AddMandril(MandrilDTO mandrilDto)
+        //Post para crear un mandril en la DB
+        public ActionResult<Mandril> AddMandril([FromBody]MandrilDTO mandrilDto)
         {
-            if (ModelState.IsValid)
+            mandrilDto.name = mandrilDto.name.Replace(" ", "");
+            mandrilDto.lastName = mandrilDto.lastName.Replace(" ", "");
+            if (mandrilDto.name.Length < 3 || mandrilDto.lastName.Length < 3)
             {
-                _RepositoryWriteMandrilSkills.AddNewMandrilToDb(mandrilDto);
-
-                return Ok(DefaultsMessageUsers.MandrilCreated);
+                return BadRequest(DefaultsMessageUsers.EntryInvalid);
             }
-           //ahora solo falta el repositorio con la logica adicional de validaciones
-            return BadRequest(ModelState);
+            else
+            {
+            _RepositoryWriteMandrilSkills.AddNewMandrilToDb(mandrilDto);
 
+                 return Ok(DefaultsMessageUsers.MandrilCreatedSuccessfully);
             }
+        }
+        
         //El primer parametro le indica que metodo usara para generar la url
 
         //-------------------

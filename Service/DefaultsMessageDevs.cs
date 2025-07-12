@@ -4,6 +4,7 @@
     {
         public const string DatabaseNull = "La informacion no se ha encontrado en la base de datos.";
         public const string ObjectIsNull = "El objeto devuelto {EntityType} es null.";
+        public const string EntryInvalid = "Datos invalidos verifique que los campos no esten vacios o tengan minimo 3 caracteres.";
 
         public const string NotFoundMandril = "El objeto de tipo Mandril con ID {EntityID} no se ha encontrado o no existe.";
         public const string NotFoundSkill = "La Habilidad con ID {EntityID} no se ha encontrado o no existe.";
@@ -21,5 +22,9 @@
         public const string UpdateFailed = "No se ha podido actualizar el objeto con ID {EntityID}. Verifique que la informacion exista. O los tipos de datos coincida.";
         public const string UpdateRelationFailed = "No se ha podido actualizar la potencia de la habilidad {EntitySkillID} en el mandril {EntityMandrilID}. Verifique que la informacion exista. O los tipos de datos coincida.";
         public const string UpdatePowerSucceeded = "Se ha actualizado la potencia de la habilidad {EntitySkillID} en el mandril {EntityMandrilID} exitosamente. El nuevo valor es {EntityPower}";
+
+         public const string MandrilAddedSuccessfully = "El mandril se ha creado correctamente.";
+        public const string NotCreatedMandril = "No se ha podido crear el mandril en la base de datos. verifique si los datos cumplen los requisitos";
     }
+
 }
