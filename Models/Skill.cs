@@ -8,7 +8,7 @@ namespace MandrilAPI.Models
         //Cada habilidad tiene su potencia por default en 0
         public  int id { get; set; }
         public string name { get; set; } = string.Empty;
-        internal int Power { get; set; } = 0;      
+        internal int Power { get; set; } = 0; //default power value     
         internal PowerEnum PotenciaAsString { get; set; }
           
         public Skill(string nameSkill)

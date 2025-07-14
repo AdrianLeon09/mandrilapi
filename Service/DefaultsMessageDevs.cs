@@ -8,14 +8,17 @@
 
         public const string NotFoundMandril = "El objeto de tipo Mandril con ID {EntityID} no se ha encontrado o no existe.";
         public const string NotFoundSkill = "La Habilidad con ID {EntityID} no se ha encontrado o no existe.";
-        public const string NotFoundRelationSkill = "No se ha encontrado una habilidad {targetSkillId} relacionada al mandril {targetMandrilId} especificado.";
+        public const string NotFoundSkills = "No se han encontrado habilidades.";
+        public const string NotFoundRelationSkill = "No se ha encontrado una habilidad ID {targetSkillId} relacionada al mandril ID {targetMandrilId} especificado.";
         public const string DeleteFailed = "No se han podido eliminar los datos. verifique que la informacion exista o sea accesible.";
         public const string DeleteSucceeded = "Los datos han sido eliminados exitosamente.";
 
-        public const string relationHasBeenCreated = "Se ha generado una relacion entre Skill ID : {EntitySkillID}. y Mandril ID {EntityMandrilID} \n" +
+        public const string RelationHasBeenCreated = "Se ha generado una relacion entre Skill ID : {EntitySkillID}. y Mandril ID {EntityMandrilID} \n" +
             "La potencia de la habilidad para el mandril se ha establecido en los valores por defecto = {PotenciaMH}";
-        public const string relationNotCreated_EntityNotFound = "No se ha podido generar una relacion entre Mandril ID : {EntityMandril} y Skill ID : {EntitySkill}. \n" +
+        public const string RelationNotCreated_EntityNotFound = "No se ha podido generar una relacion entre Mandril ID : {EntityMandril} y Skill ID : {EntitySkill}. \n" +
             "Uno o mas elementos no existen en la base de datos.  ";
+        public const string RelationNotCreated_EntityAlreadyExists = "No se ha podido generar una relacion entre Mandril ID : {EntityMandril} y Skill ID : {EntitySkill}. \n" +
+            "La relacion ya existe en la base de datos. ";
 
         public const string UpdateSkillSucceeded = "Se ha actualizado la habilidad con ID {EntitySkillID} exitosamente.";
         public const string UpdateMandrilSucceeded = "Se ha actualizado el mandril con ID {EntityMandrilID} exitosamente.";
@@ -24,7 +27,9 @@
         public const string UpdatePowerSucceeded = "Se ha actualizado la potencia de la habilidad {EntitySkillID} en el mandril {EntityMandrilID} exitosamente. El nuevo valor es {EntityPower}";
 
          public const string MandrilAddedSuccessfully = "El mandril se ha creado correctamente.";
+         public const string SkillAddedSuccessfully = "La habilidad se ha creado correctamente.";
         public const string NotCreatedMandril = "No se ha podido crear el mandril en la base de datos. verifique si los datos cumplen los requisitos";
+        public const string NotCreatedSkill = "No se ha podido crear la habilidad en la base de datos. verifique si los datos cumplen los requisitos";
     }
 
 }

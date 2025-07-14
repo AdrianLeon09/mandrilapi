@@ -5,10 +5,13 @@ namespace MandrilAPI.Interfaces
 {
     public interface IMandrilAndSkillsReadRepository
     {
-        public  IReadOnlyList<MandrilWithSkillsIntermediateTable> GetOneMandrilWithHabilidadesFromDb(int targetMandrilId, int targetHabilidadId);
+        public  IReadOnlyList<MandrilWithSkillsIntermediateTable> GetOneMandrilWithOneSkillFromDb(int targetMandrilId, int targetHabilidadId);
         public  IReadOnlyList<Mandril> GetOneMandrilsFromDb(int targetMandrilId);
-    public IReadOnlyList<Skill> GetOneHabilidadesFromDb(int targetHabilidadId);
+    public IReadOnlyList<Skill> GetOneSkillFromDb(int targetHabilidadId);
           public IReadOnlyList<Mandril> GetAllMandrilsFromDb();
-        public IReadOnlyList<Skill> GetAllHabilidadesFromDb();
+        public IReadOnlyList<Skill> GetAllSkillsFromDb();
+
+        IReadOnlyList<MandrilWithSkillsIntermediateTable> SelectAllMandrilWithSkills();
+        IReadOnlyList<MandrilWithSkillsIntermediateTable> SelectOneMandrilWithAllSkills(int targetMandrilId);
 }
     }  

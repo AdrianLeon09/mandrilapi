@@ -57,7 +57,7 @@ namespace MandrilAPI.Models
             //la logica del programa funciona/ seguir viendo el video
             
             //bug no se esta mostrando las habilidades en el orden correcto parece ser que se esta duplicando bola de fuego
-            //bug resuelto verificar comentarios en la clase Habilidades
+            //bug resuelto verificar comentarios en la clase HabiSystem.ArgumentException: 'The route parameter name 'targetMandrilId' appears more than one time in the route template. (Parameter 'lidades
          
             app.Run();
             

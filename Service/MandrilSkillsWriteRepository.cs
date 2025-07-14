@@ -1,6 +1,7 @@
 ﻿using MandrilAPI.DatabaseContext;
 using MandrilAPI.Interfaces;
 using MandrilAPI.Models;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics.Eventing.Reader;
 using System.Reflection.Metadata.Ecma335;
 
@@ -16,27 +17,59 @@ namespace MandrilAPI.Service
             // ahora implementar las validaciones de seguridad para las skills
             Skill skill = new Skill();
             skill.name = newSkillDto.name.Replace(" ", "");
-            _contextDb.Skills.Add(skill);
-            _contextDb.SaveChanges();
-            return skill;
+
+            if (!string.IsNullOrWhiteSpace(newSkillDto.name))
+            {
+                if (newSkillDto.name.Length < 3)
+                {
+                    _logger.LogWarning(DefaultsMessageDevs.EntryInvalid);
+                    _logger.LogWarning(DefaultsMessageDevs.NotCreatedSkill);
+                    return null;
+                }
+                else {
+                    _contextDb.Skills.Add(skill);
+                    _contextDb.SaveChanges();
+                    _logger.LogInformation(DefaultsMessageDevs.SkillAddedSuccessfully);
+                    return skill;
+                }
+
+            }
+            else { _logger.LogError(DefaultsMessageDevs.EntryInvalid);
+
+                return null;
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         }
 
         public Mandril AddNewMandrilToDb(MandrilDTO newMandrilDto)
         {
             newMandrilDto.name = newMandrilDto.name.Replace(" ", "");
-            newMandrilDto.lastName = newMandrilDto.lastName.Replace(" ","");
+            newMandrilDto.lastName = newMandrilDto.lastName.Replace(" ", "");
 
             if (string.IsNullOrWhiteSpace(newMandrilDto.name) || string.IsNullOrWhiteSpace(newMandrilDto.lastName))
             {
 
-              _logger.LogWarning(DefaultsMessageDevs.ObjectIsNull, newMandrilDto);
+                _logger.LogWarning(DefaultsMessageDevs.ObjectIsNull, newMandrilDto);
                 return null;
-              
+
             }
             else
             {
 
-                if (newMandrilDto.name.Length < 3 ||  newMandrilDto.lastName.Length < 3)
+                if (newMandrilDto.name.Length < 3 || newMandrilDto.lastName.Length < 3)
                 {
                     _logger.LogWarning(DefaultsMessageDevs.EntryInvalid);
                     _logger.LogWarning(DefaultsMessageDevs.NotCreatedMandril);
@@ -44,7 +77,7 @@ namespace MandrilAPI.Service
                 }
                 else
                 {
-                 Mandril mandril = new Mandril();
+                    Mandril mandril = new Mandril();
                     mandril.name = newMandrilDto.name;
                     mandril.lastName = newMandrilDto.lastName;
 
@@ -60,29 +93,42 @@ namespace MandrilAPI.Service
 
         public MandrilWithSkillsIntermediateTable AssignOneSkillToMandril(int targetMandrilId, int targetSkillId)
         {
-            var mandril = _contextDb.Mandrils.FirstOrDefault(m => m.id == targetMandrilId);
-            var skill = _contextDb.Skills.FirstOrDefault(h => h.id == targetSkillId);
-            var relation = new MandrilWithSkillsIntermediateTable();
-           
-            
-            if(mandril is null || skill is null)
+            var mandrilExists = _contextDb.Mandrils.FirstOrDefault(m => m.id == targetMandrilId);
+            var skillExists = _contextDb.Skills.FirstOrDefault(h => h.id == targetSkillId);   
+            var relationExist = _contextDb.MandrilWithSkills.Where(r => r.MandrilId == targetMandrilId && r.SkillId == targetSkillId).ToList();
+
+            var newRelation = new MandrilWithSkillsIntermediateTable();
+
+            if (mandrilExists is null || skillExists is null)
             {
                 _logger.LogWarning(DefaultsMessageDevs.DatabaseNull);
-                _logger.LogWarning(DefaultsMessageDevs.relationNotCreated_EntityNotFound, targetMandrilId, targetSkillId);
-                return relation;
+                _logger.LogWarning(DefaultsMessageDevs.RelationNotCreated_EntityNotFound, targetMandrilId, targetSkillId);
+                return null;
+            }
+            else if (relationExist.Count > 0 )
+            {
+                _logger.LogWarning(DefaultsMessageDevs.RelationNotCreated_EntityAlreadyExists, targetMandrilId, targetSkillId);
+                return null;
             }
             else
             {
-                relation.MandrilId = targetMandrilId;
-                relation.SkillId = targetSkillId;
+                newRelation.MandrilId = targetMandrilId;
+                newRelation.SkillId = targetSkillId;
 
-                _logger.LogInformation(DefaultsMessageDevs.relationHasBeenCreated, targetMandrilId, targetSkillId, relation.PowerMS);
-                _contextDb.MandrilWithSkills.Add(relation);
+
+                _logger.LogInformation(DefaultsMessageDevs.RelationHasBeenCreated, targetMandrilId, targetSkillId, newRelation.PowerMS);
+                _contextDb.MandrilWithSkills.Add(newRelation);
                 _contextDb.SaveChanges();
-                return relation;
+                return newRelation;
 
-            }
         }
+
+    }
+    
+
+
+
+        
 
         public MandrilWithSkillsIntermediateTable DeleteSkillFromMandril(int targetMandrilId, int targetSkillId)
         {
@@ -137,7 +183,7 @@ namespace MandrilAPI.Service
             }
             else
             {
-                _logger.LogWarning(DefaultsMessageDevs.NotFoundSkill);
+                _logger.LogWarning(DefaultsMessageDevs.NotFoundSkill, targetMandrilId);
                 _logger.LogWarning(DefaultsMessageDevs.DeleteFailed);
                 
                 return null;
@@ -151,11 +197,34 @@ namespace MandrilAPI.Service
             var skill = _contextDb.Skills.FirstOrDefault(s => s.id == targetSkillId);
             if (skill is not null)
             {
-                skill.name = skillDto.name;
-                _contextDb.Skills.Update(skill);
-                _contextDb.SaveChanges();
-                _logger.LogInformation(DefaultsMessageDevs.UpdateSkillSucceeded);
-                return skill;
+                skillDto.name = skillDto.name.Replace(" ", "");
+
+               if (!string.IsNullOrEmpty(skillDto.name))
+                {
+                  
+                    if (skillDto.name.Length < 3)
+                    {
+                        _logger.LogWarning(DefaultsMessageDevs.EntryInvalid);
+                        _logger.LogWarning(DefaultsMessageDevs.UpdateFailed, targetSkillId);
+                        return null;
+                    }
+                    else
+                    {
+                        skill.name = skillDto.name;
+                        _contextDb.Skills.Update(skill);
+                        _contextDb.SaveChanges();
+                        _logger.LogInformation(DefaultsMessageDevs.UpdateSkillSucceeded, targetSkillId);
+                        return skill;
+                    }
+                }
+                else
+                {
+                    _logger.LogWarning(DefaultsMessageDevs.EntryInvalid);
+                    return null;
+                }
+
+
+
             }
             else
             {

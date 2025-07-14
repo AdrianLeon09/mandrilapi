@@ -42,7 +42,7 @@ namespace MandrilAPI.Controllers
 
         if (mandril.Count is  0)
         {
-            return BadRequest("No se ha encontrado el mandril seleccionado");  
+            return BadRequest(DefaultsMessageUsers.MandrilNotFound);  
         }
             return Ok(mandril);
               
