@@ -23,7 +23,7 @@ namespace MandrilAPI.Controllers
                 var Skills = _RepositoryReadMandrilSkills.GetAllSkillsFromDb(); ;
                 if (Skills.Count is 0)
                 {
-                    return NotFound(DefaultsMessageUsers.SkillNotFound);
+                    return NotFound(MessageDefaultsUsers.SkillNotFound);
                 }
                 else
                 {
@@ -41,7 +41,7 @@ namespace MandrilAPI.Controllers
 
                 if (Skill.Count is 0)
                 {
-                    return BadRequest(DefaultsMessageUsers.SkillNotFound);
+                    return BadRequest(MessageDefaultsUsers.SkillNotFound);
                 }
                 return Ok(Skill);
 
@@ -56,7 +56,7 @@ namespace MandrilAPI.Controllers
 
                 if (qrySkill.Count is 0)
                 {
-                    return NotFound(DefaultsMessageUsers.SkillNotFound);
+                    return NotFound(MessageDefaultsUsers.SkillNotFound);
                 }
                 else
                 {
@@ -65,14 +65,14 @@ namespace MandrilAPI.Controllers
 
                     if (SkillDto.name.Length < 3)
                     {
-                        return BadRequest(DefaultsMessageUsers.EntryInvalid);
+                        return BadRequest(MessageDefaultsUsers.EntryInvalid);
 
                     }
                     else
                     {
                         _RepositoryWriteMandrilSkills.UpdateOneSkillToDb(targetSkillId, SkillDto);
 
-                        return Ok(DefaultsMessageUsers.SkillUpdateSucceeded);
+                        return Ok(MessageDefaultsUsers.SkillUpdateSucceeded);
 
                     }
                 }
@@ -85,13 +85,13 @@ namespace MandrilAPI.Controllers
                 var checkDelete = _RepositoryReadMandrilSkills.GetOneSkillFromDb(targetSkillId);
                 if (checkDelete.Count is 0)
                 {
-                    return NotFound(DefaultsMessageUsers.SkillNotFound);
+                    return NotFound(MessageDefaultsUsers.SkillNotFound);
                 }
                 else
                 {
                     _RepositoryWriteMandrilSkills.DeleteOneSkillFromDb(targetSkillId);
 
-                    return Ok(DefaultsMessageUsers.DeleteSkillSucceeded);
+                    return Ok(MessageDefaultsUsers.DeleteSkillSucceeded);
                 }
             }
             [HttpPost]
@@ -104,13 +104,13 @@ namespace MandrilAPI.Controllers
                 if (SkillDto.name.Length < 3)
                 {
 
-                    return BadRequest(DefaultsMessageUsers.DeleteSkillIsNotSucceeded +  "\n" +  DefaultsMessageUsers.DeleteIsNotSucceeded);
+                    return BadRequest(MessageDefaultsUsers.DeleteSkillIsNotSucceeded +  "\n" +  MessageDefaultsUsers.DeleteIsNotSucceeded);
                 }
                 else
                 {
                     _RepositoryWriteMandrilSkills.AddNewSkillToDb(SkillDto);
 
-                    return Ok(DefaultsMessageUsers.SkillCreatedSuccessfully);
+                    return Ok(MessageDefaultsUsers.SkillCreatedSuccessfully);
                 }
             }
 

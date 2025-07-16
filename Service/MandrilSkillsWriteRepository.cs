@@ -14,7 +14,6 @@ namespace MandrilAPI.Service
 
         public Skill AddNewSkillToDb(SkillDTO newSkillDto)
         {
-            // ahora implementar las validaciones de seguridad para las skills
             Skill skill = new Skill();
             skill.name = newSkillDto.name.Replace(" ", "");
 
@@ -22,36 +21,23 @@ namespace MandrilAPI.Service
             {
                 if (newSkillDto.name.Length < 3)
                 {
-                    _logger.LogWarning(DefaultsMessageDevs.EntryInvalid);
-                    _logger.LogWarning(DefaultsMessageDevs.NotCreatedSkill);
+                    _logger.LogWarning(MessageDefaultsDevs.InvalidEntry);
+                    _logger.LogWarning(MessageDefaultsDevs.SkillCreationError);                                //me quede por aca refactorizar los loggers
                     return null;
                 }
-                else {
+                else
+                {
                     _contextDb.Skills.Add(skill);
                     _contextDb.SaveChanges();
-                    _logger.LogInformation(DefaultsMessageDevs.SkillAddedSuccessfully);
+                    _logger.LogInformation(MessageDefaultsDevs.SkillCreated);
                     return skill;
                 }
-
             }
-            else { _logger.LogError(DefaultsMessageDevs.EntryInvalid);
-
+            else
+            {
+                _logger.LogError(MessageDefaultsDevs.InvalidEntry);
                 return null;
             }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         }
 
         public Mandril AddNewMandrilToDb(MandrilDTO newMandrilDto)
@@ -61,18 +47,16 @@ namespace MandrilAPI.Service
 
             if (string.IsNullOrWhiteSpace(newMandrilDto.name) || string.IsNullOrWhiteSpace(newMandrilDto.lastName))
             {
-
-                _logger.LogWarning(DefaultsMessageDevs.ObjectIsNull, newMandrilDto);
+                _logger.LogWarning(MessageDefaultsDevs.InvalidEntry);
+                _logger.LogWarning(MessageDefaultsDevs.MandrilCreationError);
                 return null;
-
             }
             else
             {
-
                 if (newMandrilDto.name.Length < 3 || newMandrilDto.lastName.Length < 3)
                 {
-                    _logger.LogWarning(DefaultsMessageDevs.EntryInvalid);
-                    _logger.LogWarning(DefaultsMessageDevs.NotCreatedMandril);
+                    _logger.LogWarning(MessageDefaultsDevs.InvalidEntry);
+                    _logger.LogWarning(MessageDefaultsDevs.MandrilCreationError);
                     return null;
                 }
                 else
@@ -83,52 +67,43 @@ namespace MandrilAPI.Service
 
                     _contextDb.Mandrils.Add(mandril);
                     _contextDb.SaveChanges();
-                    _logger.LogInformation(DefaultsMessageDevs.MandrilAddedSuccessfully);
+                    _logger.LogInformation(MessageDefaultsDevs.MandrilCreated);
 
                     return mandril;
                 }
-
             }
         }
 
         public MandrilWithSkillsIntermediateTable AssignOneSkillToMandril(int targetMandrilId, int targetSkillId)
         {
             var mandrilExists = _contextDb.Mandrils.FirstOrDefault(m => m.id == targetMandrilId);
-            var skillExists = _contextDb.Skills.FirstOrDefault(h => h.id == targetSkillId);   
+            var skillExists = _contextDb.Skills.FirstOrDefault(h => h.id == targetSkillId);
             var relationExist = _contextDb.MandrilWithSkills.Where(r => r.MandrilId == targetMandrilId && r.SkillId == targetSkillId).ToList();
 
-            var newRelation = new MandrilWithSkillsIntermediateTable();
+            var relation = new MandrilWithSkillsIntermediateTable();
 
             if (mandrilExists is null || skillExists is null)
             {
-                _logger.LogWarning(DefaultsMessageDevs.DatabaseNull);
-                _logger.LogWarning(DefaultsMessageDevs.RelationNotCreated_EntityNotFound, targetMandrilId, targetSkillId);
+                _logger.LogWarning(MessageDefaultsDevs.ReturnedObjectIsNull, nameof(relationExist));
+                _logger.LogWarning(MessageDefaultsDevs.RelationCreationEntityNotFound, targetMandrilId, targetSkillId);
                 return null;
             }
-            else if (relationExist.Count > 0 )
+            else if (relationExist.Count > 0)
             {
-                _logger.LogWarning(DefaultsMessageDevs.RelationNotCreated_EntityAlreadyExists, targetMandrilId, targetSkillId);
+                _logger.LogWarning(MessageDefaultsDevs.RelationAlreadyExists, targetMandrilId, targetSkillId);
                 return null;
             }
             else
             {
-                newRelation.MandrilId = targetMandrilId;
-                newRelation.SkillId = targetSkillId;
+                relation.MandrilId = targetMandrilId;
+                relation.SkillId = targetSkillId;
 
-
-                _logger.LogInformation(DefaultsMessageDevs.RelationHasBeenCreated, targetMandrilId, targetSkillId, newRelation.PowerMS);
-                _contextDb.MandrilWithSkills.Add(newRelation);
+                _logger.LogInformation(MessageDefaultsDevs.RelationCreated, targetMandrilId, targetSkillId, relation.PowerMS);
+                _contextDb.MandrilWithSkills.Add(relation);
                 _contextDb.SaveChanges();
-                return newRelation;
-
+                return relation;
+            }
         }
-
-    }
-    
-
-
-
-        
 
         public MandrilWithSkillsIntermediateTable DeleteSkillFromMandril(int targetMandrilId, int targetSkillId)
         {
@@ -136,16 +111,16 @@ namespace MandrilAPI.Service
                   .FirstOrDefault(m => m.MandrilId == targetMandrilId && m.SkillId == targetSkillId);
             if (relation is null)
             {
-                _logger.LogWarning(DefaultsMessageDevs.DatabaseNull);
-                _logger.LogWarning(DefaultsMessageDevs.NotFoundRelationSkill, targetSkillId, targetMandrilId);
-                _logger.LogWarning(DefaultsMessageDevs.DeleteFailed);
+                _logger.LogWarning(MessageDefaultsDevs.DatabaseNotFound);
+                _logger.LogWarning(MessageDefaultsDevs.RelationMandrilWithSkillNotFound, targetSkillId, targetMandrilId);
+                _logger.LogWarning(MessageDefaultsDevs.DeleteError);
                 return null;
             }
             else
             {
                 _contextDb.MandrilWithSkills.Remove(relation);
                 _contextDb.SaveChanges();
-                _logger.LogInformation(DefaultsMessageDevs.DeleteSucceeded);
+                _logger.LogInformation(MessageDefaultsDevs.DeleteSuccess);
                 return relation;
             }
         }
@@ -153,21 +128,20 @@ namespace MandrilAPI.Service
         public Skill DeleteOneSkillFromDb(int targetSkillId)
         {
             var skill = _contextDb.Skills.FirstOrDefault(s => s.id == targetSkillId);
-            
+
             if (skill is not null)
             {
-                _contextDb.Skills.Remove(skill); 
+                _contextDb.Skills.Remove(skill);
                 _contextDb.SaveChanges();
-                _logger.LogInformation(DefaultsMessageDevs.DeleteSucceeded);
+                _logger.LogInformation(MessageDefaultsDevs.DeleteSuccess);
                 return skill;
             }
             else
             {
-                _logger.LogWarning(DefaultsMessageDevs.NotFoundSkill, targetSkillId);
-                _logger.LogWarning(DefaultsMessageDevs.DeleteFailed);
+                _logger.LogWarning(MessageDefaultsDevs.SkillNotFound, targetSkillId);
+                _logger.LogWarning(MessageDefaultsDevs.DeleteError);
                 return null;
             }
-            
         }
 
         public Mandril DeleteOneMandrilFromDb(int targetMandrilId)
@@ -178,18 +152,15 @@ namespace MandrilAPI.Service
             {
                 _contextDb.Mandrils.Remove(mandril);
                 _contextDb.SaveChanges();
-                _logger.LogInformation(DefaultsMessageDevs.DeleteSucceeded);
+                _logger.LogInformation(MessageDefaultsDevs.DeleteSuccess);
                 return mandril;
             }
             else
             {
-                _logger.LogWarning(DefaultsMessageDevs.NotFoundSkill, targetMandrilId);
-                _logger.LogWarning(DefaultsMessageDevs.DeleteFailed);
-                
+                _logger.LogWarning(MessageDefaultsDevs.SkillNotFound, targetMandrilId);
+                _logger.LogWarning(MessageDefaultsDevs.DeleteError);
                 return null;
             }
-
-            
         }
 
         public Skill UpdateOneSkillToDb(int targetSkillId, SkillDTO skillDto)
@@ -199,13 +170,12 @@ namespace MandrilAPI.Service
             {
                 skillDto.name = skillDto.name.Replace(" ", "");
 
-               if (!string.IsNullOrEmpty(skillDto.name))
+                if (!string.IsNullOrEmpty(skillDto.name))
                 {
-                  
                     if (skillDto.name.Length < 3)
                     {
-                        _logger.LogWarning(DefaultsMessageDevs.EntryInvalid);
-                        _logger.LogWarning(DefaultsMessageDevs.UpdateFailed, targetSkillId);
+                        _logger.LogWarning(MessageDefaultsDevs.InvalidEntry);
+                        _logger.LogWarning(MessageDefaultsDevs.UpdateError, targetSkillId);
                         return null;
                     }
                     else
@@ -213,25 +183,22 @@ namespace MandrilAPI.Service
                         skill.name = skillDto.name;
                         _contextDb.Skills.Update(skill);
                         _contextDb.SaveChanges();
-                        _logger.LogInformation(DefaultsMessageDevs.UpdateSkillSucceeded, targetSkillId);
+                        _logger.LogInformation(MessageDefaultsDevs.SkillUpdateSuccess, targetSkillId);
                         return skill;
                     }
+
                 }
                 else
                 {
-                    _logger.LogWarning(DefaultsMessageDevs.EntryInvalid);
+                    _logger.LogWarning(MessageDefaultsDevs.InvalidEntry);
                     return null;
                 }
-
-
-
             }
             else
             {
-                _logger.LogWarning(DefaultsMessageDevs.NotFoundSkill, targetSkillId);
+                _logger.LogWarning(MessageDefaultsDevs.SkillNotFound, targetSkillId);
                 return null;
             }
-          
         }
 
         public Mandril UpdateOneMandrilToDb(int targetMandrilId, MandrilDTO mandrilDto)
@@ -243,12 +210,12 @@ namespace MandrilAPI.Service
                 if (!string.IsNullOrEmpty(mandrilDto.name) || !string.IsNullOrEmpty(mandrilDto.lastName))
                 {
                     mandrilDto.name = mandrilDto.name.Replace(" ", "");
-                     mandrilDto.lastName = mandrilDto.lastName.Replace(" ", "");
+                    mandrilDto.lastName = mandrilDto.lastName.Replace(" ", "");
 
                     if (mandrilDto.name.Length < 3 || mandrilDto.lastName.Length < 3)
                     {
-                        _logger.LogWarning(DefaultsMessageDevs.EntryInvalid);
-                        _logger.LogWarning(DefaultsMessageDevs.UpdateFailed, targetMandrilId);
+                        _logger.LogWarning(MessageDefaultsDevs.InvalidEntry);
+                        _logger.LogWarning(MessageDefaultsDevs.UpdateError, targetMandrilId);
                         return null;
                     }
                     else
@@ -257,32 +224,23 @@ namespace MandrilAPI.Service
                         mandril.lastName = mandrilDto.lastName;
                         _contextDb.Mandrils.Update(mandril);
                         _contextDb.SaveChanges();
-                        _logger.LogInformation(DefaultsMessageDevs.UpdateMandrilSucceeded);
+                        _logger.LogInformation(MessageDefaultsDevs.MandrilUpdateSuccess, targetMandrilId);
                         return mandril;
-
                     }
-
                 }
                 else
                 {
-                    _logger.LogWarning(DefaultsMessageDevs.EntryInvalid);
+                    _logger.LogWarning(MessageDefaultsDevs.InvalidEntry);
                     return null;
                 }
             }
             else
             {
-                _logger.LogWarning(DefaultsMessageDevs.NotFoundMandril, targetMandrilId);
-                _logger.LogWarning(DefaultsMessageDevs.UpdateFailed, targetMandrilId);
+                _logger.LogWarning(MessageDefaultsDevs.MandrilNotFound, targetMandrilId);
+                _logger.LogWarning(MessageDefaultsDevs.UpdateError, targetMandrilId);
                 return null;
             }
-            
         }
-              
-               
-              
-            
-           
-        
 
         public MandrilWithSkillsIntermediateTable UpdatePotenciaOfSkillForMandril(int targetMandrilId, int targetSkillId, int newPower)
         {
@@ -292,13 +250,13 @@ namespace MandrilAPI.Service
                 relation.PowerMS = newPower;
                 _contextDb.MandrilWithSkills.Update(relation);
                 _contextDb.SaveChanges();
-                _logger.LogInformation(DefaultsMessageDevs.UpdatePowerSucceeded,targetSkillId, targetMandrilId, newPower);
+                _logger.LogInformation(MessageDefaultsDevs.SkillPowerUpdateSuccess, targetSkillId, targetMandrilId, newPower);
                 return relation;
             }
             else
             {
-                _logger.LogWarning(DefaultsMessageDevs.NotFoundRelationSkill, targetSkillId, targetMandrilId);
-                _logger.LogWarning(DefaultsMessageDevs.UpdateRelationFailed, targetSkillId, targetMandrilId);
+                _logger.LogWarning(MessageDefaultsDevs.RelationMandrilWithSkillNotFound, targetSkillId, targetMandrilId);
+                _logger.LogWarning(MessageDefaultsDevs.RelationUpdateError, targetSkillId, targetMandrilId);
             }
             return null;
         }

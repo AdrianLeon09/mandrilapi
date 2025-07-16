@@ -14,125 +14,116 @@ namespace MandrilAPI.Service
     {
         protected readonly MandrilDbContext _contextDb = contextDb;
         private ILogger<MandrilSkillsReadRepository> _logger = logger;
-        public IReadOnlyList<Skill> GetOneSkillFromDb(int targetHabilidadId)
+
+        public IReadOnlyList<Skill> GetOneSkillFromDb(int targetSkillId)
         {
-            
-
-            var HabilidadInDb = _contextDb.Skills.Where(h => h.id == targetHabilidadId).AsNoTracking().ToList();
-            if (HabilidadInDb.Count is 0)
+            var Skill = _contextDb.Skills.Where(h => h.id == targetSkillId).AsNoTracking().ToList();
+            if (Skill.Count is 0)
             {
-                _logger.LogWarning(DefaultsMessageUsers.SkillNotFound, HabilidadInDb);
-                
-                return HabilidadInDb;
+                _logger.LogWarning(MessageDefaultsDevs.SkillNotFound, targetSkillId);
+                return Skill;
             }
-            else {
-               
-                return HabilidadInDb;
+            else
+            {
+                _logger.LogInformation(MessageDefaultsDevs.AllSkillsRetrieved);
+                return Skill;
             }
-
         }
+
         public IReadOnlyList<Skill> GetAllSkillsFromDb()
         {
-
-            //Este metodo obtiene todas las habilidades de la base de datos.
-            //Se usara en un controller  propio de skills
-            var HabilidadesInDb = _contextDb.Skills.AsNoTracking().ToList();
-            if (HabilidadesInDb.Count is 0)
+            var Skill = _contextDb.Skills.AsNoTracking().ToList();
+            if (Skill.Count is 0)
             {
-                _logger.LogWarning(DefaultsMessageDevs.NotFoundSkills);
-
-                return HabilidadesInDb;
-
-            } else return HabilidadesInDb;
+                _logger.LogWarning(MessageDefaultsDevs.SkillsNotFound);
+                return Skill;
+            }
+            else {
+                _logger.LogInformation(MessageDefaultsDevs.AllSkillsRetrieved);
+                return Skill; 
+            }
         }
-
-
 
         public IReadOnlyList<Mandril> GetOneMandrilsFromDb(int targetMandrilId)
         {
-            //testar
-
-            var MandrilInDb = _contextDb.Mandrils.Where(m => m.id == targetMandrilId).AsNoTracking().ToList();
-            if (MandrilInDb.Count is 0)
+            var Skill = _contextDb.Mandrils.Where(m => m.id == targetMandrilId).AsNoTracking().ToList();
+            if (Skill.Count is 0)
             {
-                _logger.LogWarning(DefaultsMessageDevs.DatabaseNull);
-                return MandrilInDb;
+                _logger.LogWarning(MessageDefaultsDevs.MandrilNotFound, targetMandrilId);
+                return Skill;
             }
-            return MandrilInDb;
+            else {
+                _logger.LogInformation(MessageDefaultsDevs.AllMandrilsRetrieved);
+                 return Skill;
+            }
+           
         }
 
         public IReadOnlyList<Mandril> GetAllMandrilsFromDb()
         {
-            var MandrilesInDb = _contextDb.Mandrils.AsNoTracking().ToList();
-
-            if (MandrilesInDb.Count is 0)
+            var Mandril = _contextDb.Mandrils.AsNoTracking().ToList();
+            if (Mandril.Count is 0)
             {
-
-                _logger.LogWarning(DefaultsMessageDevs.DatabaseNull);
-                return MandrilesInDb;
+                _logger.LogWarning(MessageDefaultsDevs.AllMandrilsNotFound);
+                return Mandril;
             }
-            return MandrilesInDb;
-
+            else
+            {
+                _logger.LogInformation(MessageDefaultsDevs.AllMandrilsRetrieved);
+                return Mandril;
+            }
         }
 
         public IReadOnlyList<MandrilWithSkillsIntermediateTable> GetOneMandrilWithOneSkillFromDb(int targetMandrilId, int targetSkillId)
         {
-            var MandrilesWithHabilidades = _contextDb.MandrilWithSkills.Include(m => m.Mandril).Include(h => h.Skill)
+            var relation = _contextDb.MandrilWithSkills.Include(m => m.Mandril).Include(h => h.Skill)
                 .Where(m => m.MandrilId == targetMandrilId && m.SkillId == targetSkillId).ToList();
 
-            if (MandrilesWithHabilidades.Count is 0)
+            if (relation.Count is 0)
             {
-               
-                _logger.LogWarning(DefaultsMessageDevs.DatabaseNull);
-                _logger.LogWarning(DefaultsMessageDevs.NotFoundRelationSkill,targetSkillId, targetMandrilId);
-
-                return MandrilesWithHabilidades;
-            }else
-            {
-                return MandrilesWithHabilidades;
+                _logger.LogWarning(MessageDefaultsDevs.RelationMandrilWithSkillNotFound,targetSkillId,targetMandrilId);
+                return relation;
             }
-        
+            else
+            {
+                _logger.LogInformation(MessageDefaultsDevs.MandrilWithSkillRetrieved, targetMandrilId, targetSkillId);
+                return relation;
+            }
         }
 
         public IReadOnlyList<MandrilWithSkillsIntermediateTable> SelectAllMandrilWithSkills()
         {
-            var MandrilesAllWithHabilidades = _contextDb.MandrilWithSkills.Include(mandriles => mandriles.Mandril).Include(mandrilSkills => mandrilSkills.Skill)
-                //verificar las diferencias con y sin cargar
-                //Se Carga tambien la potencia de la habilidad para mas detalles
+            var relation = _contextDb.MandrilWithSkills.Include(mandriles => mandriles.Mandril).Include(mandrilSkills => mandrilSkills.Skill)
                 .Include(p => p.PowerMS)
-                //Usa menos memoria ya que no carga los objetos en memoria. Ideal para solo lectura.
                 .AsNoTracking().ToList();
-            
-            if (MandrilesAllWithHabilidades.Count is 0)
+
+            if (relation.Count is 0)
             {
-                _logger.LogWarning(DefaultsMessageDevs.DatabaseNull);
-                return MandrilesAllWithHabilidades;
-            
-            } else return MandrilesAllWithHabilidades;
+                _logger.LogWarning(MessageDefaultsDevs.AllMandrilsWithSkillsError);
+                return relation;
+            }
+            else {
+
+                _logger.LogInformation(MessageDefaultsDevs.AllMandrilsWithSkillsRetrieved);
+                return relation;
+            };
         }
 
         public IReadOnlyList<MandrilWithSkillsIntermediateTable> SelectOneMandrilWithAllSkills(int targetMandrilId)
         {
-            var MandrilWithHabilidades = _contextDb.MandrilWithSkills.Include(mandriles => mandriles.Mandril).Include(mandrilSkills => mandrilSkills.Skill)
+            var relation = _contextDb.MandrilWithSkills.Include(mandriles => mandriles.Mandril).Include(mandrilSkills => mandrilSkills.Skill)
                 .Where(m => m.Mandril.id == targetMandrilId).ToList();
-                
-               
 
-            if (MandrilWithHabilidades is not null)
+            if (relation.Count is 0)
             {
-                //Si el mandril con habilidades no es null, se retorna la lista de habilidades del mandril.
-                return MandrilWithHabilidades.ToList();
+                _logger.LogWarning(MessageDefaultsDevs.MandrilWithSkillsNotFound);
+                return relation;
             }
-            else{
-                _logger.LogWarning(DefaultsMessageDevs.DatabaseNull);
-                return null;
-
+            else
+            {
+                _logger.LogInformation(MessageDefaultsDevs.MandrilWithAllSkillsRetrieved, targetMandrilId);
+                return relation;
             }
         }
-
-
-
-
-
     }
 }

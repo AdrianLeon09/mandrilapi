@@ -35,7 +35,7 @@ public class SkillMandrilController(IMandrilAndSkillsWriteRepository RepositoryW
 
         if (mandrilSkills.Count == 0)
         {
-            return NotFound(DefaultsMessageUsers.MandrilNotFound + " \n " + DefaultsMessageUsers.SkillNotFound);
+            return NotFound(MessageDefaultsUsers.MandrilNotFound + " \n " + MessageDefaultsUsers.SkillNotFound);
         }
         else
         {
@@ -50,7 +50,7 @@ public class SkillMandrilController(IMandrilAndSkillsWriteRepository RepositoryW
         var relation = _RepositoryReadMandrilSkills.GetOneMandrilWithOneSkillFromDb(targetMandrilId, targetSkillId);
         if (relation.Count == 0)
         {
-            return NotFound(DefaultsMessageUsers.RelationNotFound);
+            return NotFound(MessageDefaultsUsers.RelationNotFound);
         }
         else
         {
@@ -67,17 +67,17 @@ public class SkillMandrilController(IMandrilAndSkillsWriteRepository RepositoryW
 
         if (mandrilExists.Count is 0 || skillExists.Count is 0 )
         {                                                                       
-            return BadRequest( DefaultsMessageUsers.RelationNotCreated_EntityNotFound);
+            return BadRequest( MessageDefaultsUsers.RelationNotCreated_EntityNotFound);
         }
         else if (relationExists.Count > 0)
         {
-           return BadRequest(DefaultsMessageUsers.RelationNotCreated_EntityAlreadyExists);
+           return BadRequest(MessageDefaultsUsers.RelationNotCreated_EntityAlreadyExists);
         }
         else
         {
             _RepositoryWriteMandrilSkills.AssignOneSkillToMandril(targetMandrilId, targetSkillId);
 
-            return Ok(DefaultsMessageUsers.AssingSkillToMandrilSucceeded);
+            return Ok(MessageDefaultsUsers.AssingSkillToMandrilSucceeded);
         }
  
     } 
@@ -88,13 +88,13 @@ public class SkillMandrilController(IMandrilAndSkillsWriteRepository RepositoryW
     {
          var MandrilSkillRelation = _RepositoryReadMandrilSkills.GetOneMandrilWithOneSkillFromDb(targetMandrilId, targetSkillId);
         if(MandrilSkillRelation.Count is 0) { 
-            return BadRequest(DefaultsMessageUsers.RelationNotFound);
+            return BadRequest(MessageDefaultsUsers.RelationNotFound);
         }
         else
         {
 
          _RepositoryWriteMandrilSkills.UpdatePotenciaOfSkillForMandril(targetMandrilId, targetSkillId, powerDto.Power);
-            return Ok(DefaultsMessageUsers.UpdatePowerOfSkillInMandrilSucceeded);
+            return Ok(MessageDefaultsUsers.UpdatePowerOfSkillInMandrilSucceeded);
         }
 
     }
@@ -110,13 +110,13 @@ public class SkillMandrilController(IMandrilAndSkillsWriteRepository RepositoryW
         if (relation.Count is 0 )
         {
 
-            return BadRequest(DefaultsMessageUsers.RelationNotFound);
+            return BadRequest(MessageDefaultsUsers.RelationNotFound);
 
         }
         else {
 
             _RepositoryWriteMandrilSkills.DeleteSkillFromMandril(targetMandrilId, targetSkillId);
-            return Ok(DefaultsMessageUsers.DeleteSkillSucceeded);
+            return Ok(MessageDefaultsUsers.DeleteSkillSucceeded);
 
         }
 

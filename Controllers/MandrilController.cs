@@ -26,7 +26,7 @@ namespace MandrilAPI.Controllers
          
             var mandriles = _RepositoryReadMandrilSkills.GetAllMandrilsFromDb(); ;
             if (mandriles.Count is 0) { 
-                return NotFound(DefaultsMessageUsers.MandrilNotFound);
+                return NotFound(MessageDefaultsUsers.MandrilNotFound);
             }
             else {
                 return Ok(mandriles);}
@@ -42,7 +42,7 @@ namespace MandrilAPI.Controllers
 
         if (mandril.Count is  0)
         {
-            return BadRequest(DefaultsMessageUsers.MandrilNotFound);  
+            return BadRequest(MessageDefaultsUsers.MandrilNotFound);  
         }
             return Ok(mandril);
               
@@ -57,7 +57,7 @@ namespace MandrilAPI.Controllers
 
             if (qryMandril.Count is 0)
             {
-                return NotFound(DefaultsMessageUsers.MandrilNotFound);
+                return NotFound(MessageDefaultsUsers.MandrilNotFound);
             }
             else
             {
@@ -66,14 +66,14 @@ namespace MandrilAPI.Controllers
 
                 if (mandrilDto.name.Length < 3 || mandrilDto.lastName.Length < 3)
                 {
-                    return BadRequest(DefaultsMessageUsers.EntryInvalid);
+                    return BadRequest(MessageDefaultsUsers.EntryInvalid);
 
                 }
                 else
                 {
                     _RepositoryWriteMandrilSkills.UpdateOneMandrilToDb(targetMandrilId, mandrilDto);
 
-                    return Ok(DefaultsMessageUsers.MandrilUpdateSucceeded);
+                    return Ok(MessageDefaultsUsers.MandrilUpdateSucceeded);
 
                 }
             }
@@ -86,13 +86,13 @@ namespace MandrilAPI.Controllers
             var checkDelete = _RepositoryReadMandrilSkills.GetOneMandrilsFromDb(targetMandrilId);
             if (checkDelete.Count is 0)
             { 
-            return NotFound(DefaultsMessageUsers.MandrilNotFound);
+            return NotFound(MessageDefaultsUsers.MandrilNotFound);
             }
             else
             {
             _RepositoryWriteMandrilSkills.DeleteOneMandrilFromDb(targetMandrilId);
            
-            return Ok(DefaultsMessageUsers.DeleteMandrilSucceeded);
+            return Ok(MessageDefaultsUsers.DeleteMandrilSucceeded);
         }
     }
         [HttpPost]
@@ -104,13 +104,13 @@ namespace MandrilAPI.Controllers
             mandrilDto.lastName = mandrilDto.lastName.Replace(" ", "");
             if (mandrilDto.name.Length < 3 || mandrilDto.lastName.Length < 3)
             {
-                return BadRequest(DefaultsMessageUsers.EntryInvalid);
+                return BadRequest(MessageDefaultsUsers.EntryInvalid);
             }
             else
             {
             _RepositoryWriteMandrilSkills.AddNewMandrilToDb(mandrilDto);
 
-                 return Ok(DefaultsMessageUsers.MandrilCreatedSuccessfully);
+                 return Ok(MessageDefaultsUsers.MandrilCreatedSuccessfully);
             }
         }
     

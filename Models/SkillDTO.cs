@@ -7,9 +7,9 @@ namespace MandrilAPI.Models;
 
 public class SkillDTO
 {
-    [Required(ErrorMessage = DefaultsMessageUsers.EntryInvalid)]
-    [MinLength(3, ErrorMessage = DefaultsMessageUsers.EntryInvalid)]
-    [MaxLength(25, ErrorMessage = DefaultsMessageUsers.EntryInvalid)]
+    [Required(ErrorMessage = MessageDefaultsUsers.EntryInvalid)]
+    [MinLength(3, ErrorMessage = MessageDefaultsUsers.EntryInvalid)]
+    [MaxLength(25, ErrorMessage = MessageDefaultsUsers.EntryInvalid)]
     
     public string name { get; set; }
 }

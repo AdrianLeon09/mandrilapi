@@ -8,17 +8,17 @@ public class MandrilDTO
         
         
    
-[Required(ErrorMessage = DefaultsMessageUsers.EntryInvalid)]
+[Required(ErrorMessage = MessageDefaultsUsers.EntryInvalid)]
    
-    [StringLength(25, ErrorMessage = DefaultsMessageUsers.EntryInvalid)]
-    [MinLength(3, ErrorMessage = DefaultsMessageUsers.EntryInvalid)]
+    [StringLength(25, ErrorMessage = MessageDefaultsUsers.EntryInvalid)]
+    [MinLength(3, ErrorMessage = MessageDefaultsUsers.EntryInvalid)]
     public string name { get; set; } = String.Empty;
 
   
-    [Required(ErrorMessage = DefaultsMessageUsers.EntryInvalid)]
+    [Required(ErrorMessage = MessageDefaultsUsers.EntryInvalid)]
     
-    [StringLength(25, ErrorMessage = DefaultsMessageUsers.EntryInvalid)]
-    [MinLength(3, ErrorMessage = DefaultsMessageUsers.EntryInvalid)]
+    [StringLength(25, ErrorMessage = MessageDefaultsUsers.EntryInvalid)]
+    [MinLength(3, ErrorMessage = MessageDefaultsUsers.EntryInvalid)]
 
     public string lastName { get; set; } = string.Empty;
 }
