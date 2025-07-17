@@ -1,6 +1,0 @@
-@MandrilAPI_HostAddress = http://localhost:5018
-
-GET {{MandrilAPI_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
