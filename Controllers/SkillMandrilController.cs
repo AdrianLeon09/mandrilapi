@@ -1,45 +1,36 @@
-﻿using System.Collections;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices.JavaScript;
-using System.Text.Json;
-using MandrilAPI.DatabaseContext;
+﻿
 using MandrilAPI.Interfaces;
-using MandrilAPI.Middleware;
 using MandrilAPI.Models;
 using MandrilAPI.Service;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
+
 
 namespace MandrilAPI.Controllers;
 
-//// Cada método requerirá que se le especifique un mandrilID en la URL, porque la ruta [Route("api/Mandril/{mandrilID}/[controller]")]
-/// lo define como parte obligatoria. Esto permite saber con qué Mandril se está trabajando
+// Each method will require a mandril ID to be specified in the URL, because the route [Route("api/Mandril/{mandrilID}/[controller]")]
+
 [ApiController]
 [Route("api/Mandril/{targetMandrilId}/[controller]")]
 
-public class SkillMandrilController(IMandrilAndSkillsWriteRepository RepositoryWrite, IMandrilAndSkillsReadRepository RepositoryRead) : ControllerBase
+public class SkillMandrilController(IMandrilSkillsWriteRepository RepositoryWrite, IMandrilSkillsReadRepository RepositoryRead) : ControllerBase
 {
-    private readonly IMandrilAndSkillsReadRepository _repositoryReadMandrilSkills = RepositoryRead;
-    private readonly IMandrilAndSkillsWriteRepository _repositoryWriteMandrilSkills = RepositoryWrite;
+    private readonly IMandrilSkillsReadRepository _repositoryReadMandrilSkills = RepositoryRead;
+    private readonly IMandrilSkillsWriteRepository _repositoryWriteMandrilSkills = RepositoryWrite;
 
 
     [HttpGet]
     public IActionResult GetSkillsFromOneMandril(int targetMandrilId)
     {
-        var mandrilSkills = _repositoryReadMandrilSkills.SelectOneMandrilWithAllSkills(targetMandrilId);
+        var relation = _repositoryReadMandrilSkills.SelectOneMandrilWithAllSkills(targetMandrilId);
 
         
-        if (mandrilSkills.Count == 0)
+        if (relation.Count is 0)
         {
-            return NotFound(MessageDefaultsUsers.MandrilNotFound + " \n " + MessageDefaultsUsers.SkillNotFound);
+            return NotFound(MessageDefaultsUsers.RelationNotFound);
         }
         else
         {
-            return Ok(mandrilSkills);
+            return Ok(relation);
         }
     }
 
@@ -49,7 +40,7 @@ public class SkillMandrilController(IMandrilAndSkillsWriteRepository RepositoryW
     {
         var relation = _repositoryReadMandrilSkills.GetOneMandrilWithOneSkillFromDb(targetMandrilId, targetSkillId);
         
-        if (relation.Count == 0)
+        if (relation.Count is 0)
         {
             return NotFound(MessageDefaultsUsers.RelationNotFound);
         }
@@ -91,6 +82,7 @@ public class SkillMandrilController(IMandrilAndSkillsWriteRepository RepositoryW
     public IActionResult UpdatePowerFromOneSkillInMandril(int targetMandrilId, int targetSkillId, PowerDTO powerDto)
     {
          var MandrilSkillRelation = _repositoryReadMandrilSkills.GetOneMandrilWithOneSkillFromDb(targetMandrilId, targetSkillId);
+
         if(MandrilSkillRelation.Count is 0) { 
             return BadRequest(MessageDefaultsUsers.RelationNotFound);
         }

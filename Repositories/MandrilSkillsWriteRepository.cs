@@ -1,13 +1,11 @@
 ﻿using MandrilAPI.DatabaseContext;
 using MandrilAPI.Interfaces;
 using MandrilAPI.Models;
-using Microsoft.EntityFrameworkCore;
-using System.Diagnostics.Eventing.Reader;
-using System.Reflection.Metadata.Ecma335;
+
 
 namespace MandrilAPI.Service
 {
-    public class MandrilSkillsWriteRepository(MandrilDbContext contextDb, ILogger<MandrilSkillsWriteRepository> logger) : IMandrilAndSkillsWriteRepository
+    public class MandrilSkillsWriteRepository(MandrilDbContext contextDb, ILogger<MandrilSkillsWriteRepository> logger) : IMandrilSkillsWriteRepository
     {
         private readonly MandrilDbContext _contextDb = contextDb;
         private readonly ILogger _logger = logger;

@@ -3,7 +3,7 @@ using MandrilAPI.DatabaseContext;
 
 namespace MandrilAPI.Interfaces
 {
-    public interface IMandrilAndSkillsReadRepository
+    public interface IMandrilSkillsReadRepository
     {
         public  IReadOnlyList<MandrilWithSkillsIntermediateTable> GetOneMandrilWithOneSkillFromDb(int targetMandrilId, int targetHabilidadId);
         public  IReadOnlyList<Mandril> GetOneMandrilsFromDb(int targetMandrilId);

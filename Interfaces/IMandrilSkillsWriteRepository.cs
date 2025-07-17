@@ -3,7 +3,7 @@ using MandrilAPI.Models;
 
 namespace MandrilAPI.Interfaces
 {
-    public interface IMandrilAndSkillsWriteRepository
+    public interface IMandrilSkillsWriteRepository
     {
       public Mandril AddNewMandrilToDb(MandrilDTO newMandrilDto);
       public Mandril UpdateOneMandrilToDb(int targetMandrilId, MandrilDTO mandrilDto);

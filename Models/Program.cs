@@ -1,8 +1,6 @@
-using MandrilAPI.Controllers;
+
 using MandrilAPI.DatabaseContext;
 using MandrilAPI.Interfaces;
-using MandrilAPI.JsonFiltroExepcion;
-using MandrilAPI.Middleware;
 using MandrilAPI.Service;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,19 +13,11 @@ namespace MandrilAPI.Models
             var builder = WebApplication.CreateBuilder(args);
             builder.Services.AddDbContext<MandrilDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("connection")));
             
-            builder.Services.AddControllers(options => 
-            {
-               options.Filters.Add<JsonFilterExeption>();})
-                .ConfigureApiBehaviorOptions(options =>
-            {
-             options.SuppressModelStateInvalidFilter = false;
-            });
-            
-         //   builder.Services.AddControllers().ConfigureApiBehaviorOptions(options => options.SuppressModelStateInvalidFilter = false);
+            builder.Services.AddControllers().ConfigureApiBehaviorOptions(options => options.SuppressModelStateInvalidFilter = false);
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-            builder.Services.AddScoped<IMandrilAndSkillsReadRepository, MandrilSkillsReadRepository>();
-            builder.Services.AddScoped<IMandrilAndSkillsWriteRepository, MandrilSkillsWriteRepository>();
+            builder.Services.AddScoped<IMandrilSkillsReadRepository, MandrilSkillsReadRepository>();
+            builder.Services.AddScoped<IMandrilSkillsWriteRepository, MandrilSkillsWriteRepository>();
            
 
             var app = builder.Build();

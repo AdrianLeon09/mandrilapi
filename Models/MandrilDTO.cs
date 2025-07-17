@@ -5,9 +5,7 @@ namespace MandrilAPI.Models;
 
 public class MandrilDTO
 { 
-        
-        
-   
+    
 [Required(ErrorMessage = MessageDefaultsUsers.EntryInvalid)]
    
     [StringLength(25, ErrorMessage = MessageDefaultsUsers.EntryInvalid)]

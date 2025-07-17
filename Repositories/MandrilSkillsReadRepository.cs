@@ -1,16 +1,12 @@
 ﻿using MandrilAPI.DatabaseContext;
 using MandrilAPI.Interfaces;
 using MandrilAPI.Models;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Logging;
-using System.Collections.Immutable;
-using System.Diagnostics.Eventing.Reader;
-using System.Threading.Tasks;
+
 
 namespace MandrilAPI.Service
 {
-    public class MandrilSkillsReadRepository(MandrilDbContext contextDb, ILogger<MandrilSkillsReadRepository> logger) : IMandrilAndSkillsReadRepository
+    public class MandrilSkillsReadRepository(MandrilDbContext contextDb, ILogger<MandrilSkillsReadRepository> logger) : IMandrilSkillsReadRepository
     {
         protected readonly MandrilDbContext _contextDb = contextDb;
         private ILogger<MandrilSkillsReadRepository> _logger = logger;
@@ -109,6 +105,7 @@ namespace MandrilAPI.Service
             if (relation.Count is 0)
             {
                 _logger.LogWarning(MessageDefaultsDevs.AllMandrilsWithSkillsError);
+                _logger.LogWarning(MessageDefaultsDevs.MandrilsWithSkillsNotFound);
                 return relation;
             }
             else {

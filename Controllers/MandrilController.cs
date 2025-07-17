@@ -12,12 +12,12 @@ namespace MandrilAPI.Controllers
     [Route("api/[controller]")]
 
     public class MandrilController(
-        IMandrilAndSkillsReadRepository RepositoryRead,
-        IMandrilAndSkillsWriteRepository RepositoryWrite) : ControllerBase
+        IMandrilSkillsReadRepository RepositoryRead,
+        IMandrilSkillsWriteRepository RepositoryWrite) : ControllerBase
     {
 
-        private readonly IMandrilAndSkillsReadRepository _repositoryReadMandrilSkills = RepositoryRead;
-        private readonly IMandrilAndSkillsWriteRepository _repositoryWriteMandrilSkills = RepositoryWrite;
+        private readonly IMandrilSkillsReadRepository _repositoryReadMandrilSkills = RepositoryRead;
+        private readonly IMandrilSkillsWriteRepository _repositoryWriteMandrilSkills = RepositoryWrite;
 
 
         [HttpGet]
@@ -28,7 +28,7 @@ namespace MandrilAPI.Controllers
             
             if (mandriles.Count is 0)
             {
-                return NotFound(MessageDefaultsUsers.MandrilNotFound);
+                return NotFound(MessageDefaultsUsers.DataBaseNotFound);
             }
             else
             {

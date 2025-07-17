@@ -5,7 +5,6 @@ using MandrilAPI.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace MandrilAPI.DatabaseContext;
-//Creacion de una relacion explicita muchos a muchos con EF
 public class MandrilWithSkillsIntermediateTable
 {
    
