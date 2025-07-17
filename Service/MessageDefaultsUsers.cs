@@ -2,66 +2,66 @@
 
 public static class MessageDefaultsUsers
 {
-    // Errores generales
+    // General errors
     public const string EntryInvalid =
-        "Datos inválidos. Verifique que los campos no estén vacíos y tengan al menos 3 caracteres sin espacios.";
+        "Invalid data. Please verify that fields are not empty and have at least 3 characters without spaces.";
     public const string EntryLength =
-        "Solo se permite un máximo de 25 caracteres.";
-    public const string PotenciaInvalid =
-        "La potencia ingresada no debe ser mayor que 4.";
+        "Maximum of 25 characters allowed.";
+    public const string PowerInvalid =
+        "The entered power must not be greater than 4.";
 
-    // No encontrados
+    // Not found
     public const string MandrilNotFound =
-        "El mandril no se ha encontrado o no existe. Verifique los datos e intente nuevamente.";
+        "The mandrill was not found or does not exist. Please verify the data and try again.";
     public const string SkillNotFound =
-        "La habilidad no se ha encontrado o no existe en la base de datos.";
-    public const string DatabaseNull =
-        "La información no se ha encontrado en la base de datos.";
+        "The skill was not found or does not exist in the database.";
+    public const string DataBaseNotFound =
+        "The information was not found in the database.";
     public const string RelationNotFound =
-        "La relación entre el mandril y la habilidad no se ha encontrado o no existe. Verifique los datos e intente nuevamente.";
+        "The relationship between the mandrill and skill was not found or does not exist. Please verify the data and try again.";
 
-    // Eliminación
+    // Deletion
     public const string DeleteMandrilSucceeded =
-        "El mandril se ha eliminado correctamente.";
+        "The mandrill has been successfully deleted.";
     public const string DeleteMandrilIsNotSucceeded =
-        "No se ha podido eliminar el mandril.";
+        "Unable to delete the mandrill.";
     public const string DeleteSkillSucceeded =
-        "La habilidad se ha eliminado correctamente.";
-    public const string DeleteSkillIsNotSucceeded =
-        "No se ha podido eliminar la habilidad. Verifique los datos e intente nuevamente.";
-    public const string DeleteIsNotSucceeded =
-        "No se han podido eliminar los datos. Puede que no existan o no se hayan encontrado en la base de datos.";
+        "The skill has been successfully deleted.";
+    public const string DeleteSkillError =
+        "Unable to delete the skill. Please verify the data and try again.";
+    public const string DeleteNotSucceeded =
+        "Unable to delete the data. It may not exist or was not found in the database.";
 
-    // Consultas exitosas
-    public const string MandrilCreatedSuccessfully =
-        "El mandril se ha creado correctamente.";
-    public const string SkillCreatedSuccessfully =
-        "La habilidad se ha creado correctamente.";
+    // Successful queries
+    public const string MandrilCreatedSuccess =
+        "The mandrill has been successfully created.";
+    public const string SkillCreatedSuccess =
+        "The skill has been successfully created.";
     public const string AssingSkillToMandrilSucceeded =
-        "Se ha asignado la habilidad al mandril correctamente.";
+        "The skill has been successfully assigned to the mandrill.";
   
 
-    // Consultas fallidas
+    // Failed queries
     public const string SkillAlreadyExists =
-        "La habilidad ya existe. No se pueden crear habilidades duplicadas.";
+        "The skill already exists. Duplicate skills cannot be created.";
 
-    // Relaciones
-    public const string RelationNotCreated_EntityNotFound =
-        "No se ha podido generar una relación entre el mandril y la habilidad. " +
-        "Uno o más elementos no existen en la base de datos.";
-    public const string RelationNotCreated_EntityAlreadyExists =
-        "No se ha podido generar una relación entre el mandril y la habilidad. " +
-        "La relación ya existe en la base de datos.";
+    // Relationships
+    public const string RelationCreationEntityNotFound =
+        "Unable to create a relationship between the mandrill and the skill. " +
+        "One or more elements do not exist in the database.";
+    public const string RelationAlreadyExists =
+        "Unable to create a relationship between the mandrill and the skill. " +
+        "The relationship already exists in the database.";
 
-    // Actualizaciones
-    // (Ya incluidas en Consultas exitosas: MandrilUpdateSucceeded, SkillUpdateSucceeded, UpdatePowerOfSkillInMandrilSucceeded)
+    // Updates
+
  public const string SkillUpdateSucceeded =
-        "La habilidad se ha actualizado correctamente.";
+        "The skill has been successfully updated.";
     public const string MandrilUpdateSucceeded =
-          "El mandril se ha actualizado correctamente.";
-  public const string UpdatePowerOfSkillInMandrilSucceeded =
-        "Se ha actualizado la potencia de la habilidad.";
+          "The mandrill has been successfully updated.";
+  public const string SkillPowerUpdateSuccess =
+        "The skill power has been updated.";
 
-    // Creación
-    // (Ya incluidas en Consultas exitosas: MandrilCreatedSuccessfully, SkillCreatedSuccessfully)
+    // Creation
+    // (Already included in Successful queries: MandrilCreatedSuccessfully, SkillCreatedSuccessfully)
 }

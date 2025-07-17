@@ -12,15 +12,14 @@ namespace MandrilAPI.Controllers
         public class SkillsController(IMandrilAndSkillsReadRepository RepositoryRead, IMandrilAndSkillsWriteRepository RepositoryWrite) : ControllerBase
         {
 
-            private readonly IMandrilAndSkillsReadRepository _RepositoryReadMandrilSkills = RepositoryRead;
-            private readonly IMandrilAndSkillsWriteRepository _RepositoryWriteMandrilSkills = RepositoryWrite;
-
-
+            private readonly IMandrilAndSkillsReadRepository _repositoryReadMandrilSkills = RepositoryRead;
+            private readonly IMandrilAndSkillsWriteRepository _repositoryWriteMandrilSkills = RepositoryWrite;
+            
+            
             [HttpGet]
             public ActionResult<Skill> GetAllSkills()
             {
-
-                var Skills = _RepositoryReadMandrilSkills.GetAllSkillsFromDb(); ;
+                var Skills = _repositoryReadMandrilSkills.GetAllSkillsFromDb(); ;
                 if (Skills.Count is 0)
                 {
                     return NotFound(MessageDefaultsUsers.SkillNotFound);
@@ -30,29 +29,27 @@ namespace MandrilAPI.Controllers
                     return Ok(Skills);
                 }
 
-
-
             }
 
+            
             [HttpGet("{targetSkillId}")]
             public ActionResult<Skill> GetSkillById(int targetSkillId)
             {
-                var Skill = _RepositoryReadMandrilSkills.GetOneSkillFromDb(targetSkillId);
+                var Skill = _repositoryReadMandrilSkills.GetOneSkillFromDb(targetSkillId);
 
                 if (Skill.Count is 0)
                 {
                     return BadRequest(MessageDefaultsUsers.SkillNotFound);
                 }
+                
                 return Ok(Skill);
-
             }
 
+            
             [HttpPut("{targetSkillId}")]
             public ActionResult<Skill> UpdateSkill(int targetSkillId, [FromBody] SkillDTO SkillDto)
             {
-
-
-                var qrySkill = _RepositoryReadMandrilSkills.GetOneSkillFromDb(targetSkillId);
+                var qrySkill = _repositoryReadMandrilSkills.GetOneSkillFromDb(targetSkillId);
 
                 if (qrySkill.Count is 0)
                 {
@@ -61,8 +58,7 @@ namespace MandrilAPI.Controllers
                 else
                 {
                     SkillDto.name = SkillDto.name.Replace(" ", "");
-                   
-
+                    
                     if (SkillDto.name.Length < 3)
                     {
                         return BadRequest(MessageDefaultsUsers.EntryInvalid);
@@ -70,33 +66,33 @@ namespace MandrilAPI.Controllers
                     }
                     else
                     {
-                        _RepositoryWriteMandrilSkills.UpdateOneSkillToDb(targetSkillId, SkillDto);
-
+                        
+                        _repositoryWriteMandrilSkills.UpdateOneSkillToDb(targetSkillId, SkillDto);
                         return Ok(MessageDefaultsUsers.SkillUpdateSucceeded);
 
                     }
                 }
             }
-
-
+            
+            
             [HttpDelete("{targetSkillId}")]
             public ActionResult<Skill> DeleteSkill(int targetSkillId)
             {
-                var checkDelete = _RepositoryReadMandrilSkills.GetOneSkillFromDb(targetSkillId);
+                var checkDelete = _repositoryReadMandrilSkills.GetOneSkillFromDb(targetSkillId);
                 if (checkDelete.Count is 0)
                 {
                     return NotFound(MessageDefaultsUsers.SkillNotFound);
                 }
                 else
                 {
-                    _RepositoryWriteMandrilSkills.DeleteOneSkillFromDb(targetSkillId);
+                    _repositoryWriteMandrilSkills.DeleteOneSkillFromDb(targetSkillId);
 
                     return Ok(MessageDefaultsUsers.DeleteSkillSucceeded);
                 }
             }
+            
+            
             [HttpPost]
-
-
             public ActionResult<Skill> AddSkill([FromBody] SkillDTO SkillDto)
             {
                 SkillDto.name = SkillDto.name.Replace(" ", "");
@@ -104,13 +100,13 @@ namespace MandrilAPI.Controllers
                 if (SkillDto.name.Length < 3)
                 {
 
-                    return BadRequest(MessageDefaultsUsers.DeleteSkillIsNotSucceeded +  "\n" +  MessageDefaultsUsers.DeleteIsNotSucceeded);
+                    return BadRequest(MessageDefaultsUsers.DeleteSkillError +  "\n" +  MessageDefaultsUsers.DeleteNotSucceeded);
                 }
                 else
                 {
-                    _RepositoryWriteMandrilSkills.AddNewSkillToDb(SkillDto);
+                    _repositoryWriteMandrilSkills.AddNewSkillToDb(SkillDto);
 
-                    return Ok(MessageDefaultsUsers.SkillCreatedSuccessfully);
+                    return Ok(MessageDefaultsUsers.SkillCreatedSuccess);
                 }
             }
 

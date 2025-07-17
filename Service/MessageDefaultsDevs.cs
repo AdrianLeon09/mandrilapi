@@ -1,56 +1,56 @@
 ﻿namespace MandrilAPI.Service
 {
     public static class MessageDefaultsDevs
-    {
-        // Errores generales
-        public const string DatabaseNotFound = "La información no se ha encontrado en la base de datos.";
-        public const string ReturnedObjectIsNull = "El objeto devuelto {EntityType} es null.";
-        public const string InvalidEntry = "Datos inválidos. Verifique que los campos no estén vacíos o tengan mínimo 3 caracteres.";
+    {   
+        // General errors
+        public const string DatabaseNotFound = "The information was not found in the database.";
+        public const string ReturnedObjectIsNull = "The returned object {EntityType} is null.";
+        public const string InvalidEntry = "Invalid data. Please verify that fields are not empty and have at least 3 characters.";
 
-        // No encontrados
-        public const string MandrilNotFound = "El objeto de tipo Mandril con ID {EntityID} no se ha encontrado o no existe.";
-        public const string AllMandrilsNotFound = "No se han encontrado objetos de tipo Mandril";
-        public const string AllSkillsNotFound = "No se han encontrado objetos de tipo Skill";
-        public const string SkillNotFound = "La habilidad con ID {EntityID} no se ha encontrado o no existe.";
-        public const string SkillsNotFound = "No se han encontrado habilidades.";
+        // Not found
+        public const string MandrilNotFound = "The Mandril object with ID {EntityID} was not found or does not exist.";
+        public const string AllMandrilsNotFound = "No Mandril objects were found";
+        public const string AllSkillsNotFound = "No Skill objects were found";
+        public const string SkillNotFound = "The skill with ID {EntityID} was not found or does not exist.";
+        public const string SkillsNotFound = "No skills were found.";
         
 
-        // Eliminación
-        public const string DeleteError = "No se han podido eliminar los datos. Verifique que la información exista o sea accesible.";
-        public const string DeleteSuccess = "Los datos han sido eliminados exitosamente.";
+        // Deletion
+        public const string DeleteError = "Unable to delete the data. Verify that the information exists or is accessible.";
+        public const string DeleteSuccess = "The data has been successfully deleted.";
 
-        // Consultas exitosas
-        public const string AllMandrilsRetrieved = "Se han obtenido todos los mandriles exitosamente.";
-        public const string AllSkillsRetrieved = "Se han obtenido todas las habilidades exitosamente.";
-        public const string MandrilWithSkillRetrieved = "Se ha obtenido el mandril con ID {targetMandrilId} y la habilidad con ID {targetSkillId} exitosamente.";
-        public const string MandrilWithAllSkillsRetrieved = "Se ha obtenido el mandril con ID {targetMandrilId} y todas sus habilidades exitosamente.";
-        public const string AllMandrilsWithSkillsRetrieved = "Se han obtenido todos los mandriles con sus habilidades exitosamente.";
+        // Successful queries
+        public const string AllMandrilsRetrieved = "All mandrils have been successfully retrieved.";
+        public const string AllSkillsRetrieved = "All skills have been successfully retrieved.";
+        public const string MandrilWithSkillRetrieved = "The mandril with ID {targetMandrilId} and skill with ID {targetSkillId} have been successfully retrieved.";
+        public const string MandrilWithAllSkillsRetrieved = "The mandril with ID {targetMandrilId} and all its skills have been successfully retrieved.";
+        public const string AllMandrilsWithSkillsRetrieved = "All mandrils with their skills have been successfully retrieved.";
 
-        // Consultas fallidas
-        public const string AllMandrilsWithSkillsError = "No se han podido obtener los mandriles con sus habilidades. Verifique que la información exista o sea accesible.";
-        public const string MandrilWithSkillsNotFound = "No se han encontrado habilidades asociadas a este mandril.";
-        public const string MandrilsWithSkillsNotFound = "No se han encontrado mandriles con habilidades en la base de datos.";
+        // Failed queries
+        public const string AllMandrilsWithSkillsError = "Unable to retrieve mandrils with their skills. Verify that the information exists or is accessible.";
+        public const string MandrilWithSkillsNotFound = "No skills associated with this mandril were found.";
+        public const string MandrilsWithSkillsNotFound = "No mandrils with skills were found in the database.";
 
-        // Relaciones
-        public const string RelationCreated = "Se ha generado una relación entre Skill ID: {EntitySkillID} y Mandril ID: {EntityMandrilID}.\n" +
-            "La potencia de la habilidad para el mandril se ha establecido en los valores por defecto = {PotenciaMH}";
-        public const string RelationCreationEntityNotFound = "No se ha podido generar una relación entre Mandril ID: {EntityMandril} y Skill ID: {EntitySkill}.\n" +
-            "Uno o más elementos no existen en la base de datos.";
-         public const string RelationMandrilWithSkillNotFound = "No se ha encontrado una habilidad ID {targetSkillId} relacionada al mandril ID {targetMandrilId} especificado.";
-        public const string RelationAlreadyExists = "No se ha podido generar una relación entre Mandril ID: {EntityMandril} y Skill ID: {EntitySkill}.\n" +
-            "La relación ya existe en la base de datos.";
+        // Relationships
+        public const string RelationCreated = "A relationship has been created between Skill ID: {EntitySkillID} and Mandril ID: {EntityMandrilID}.\n" +
+            "The skill power for the mandril has been set to default values = {PotenciaMH}";
+        public const string RelationCreationEntityNotFound = "Unable to create a relationship between Mandril ID: {EntityMandril} and Skill ID: {EntitySkill}.\n" +
+            "One or more elements do not exist in the database.";
+         public const string RelationMandrilWithSkillNotFound = "Skill ID {targetSkillId} related to the specified mandril ID {targetMandrilId} was not found.";
+        public const string RelationAlreadyExists = "Unable to create a relationship between Mandril ID: {EntityMandril} and Skill ID: {EntitySkill}.\n" +
+            "The relationship already exists in the database.";
 
-        // Actualizaciones
-        public const string SkillUpdateSuccess = "Se ha actualizado la habilidad con ID {EntitySkillID} exitosamente.";
-        public const string MandrilUpdateSuccess = "Se ha actualizado el mandril con ID {EntityMandrilID} exitosamente.";
-        public const string UpdateError = "No se ha podido actualizar el objeto con ID {EntityID}. Verifique que la información exista o que los requisitos de datos se cumplan.";
-        public const string RelationUpdateError = "No se ha podido actualizar la potencia de la habilidad {EntitySkillID} en el mandril {EntityMandrilID}. Verifique que la información exista o que los tipos de datos coincidan.";
-        public const string SkillPowerUpdateSuccess = "Se ha actualizado la potencia de la habilidad {EntitySkillID} en el mandril {EntityMandrilID} exitosamente. El nuevo valor es {EntityPower}";
+        // Updates
+        public const string SkillUpdateSuccess = "The skill with ID {EntitySkillID} has been successfully updated.";
+        public const string MandrilUpdateSuccess = "The mandril with ID {EntityMandrilID} has been successfully updated.";
+        public const string UpdateError = "Unable to update object with ID {EntityID}. Verify that the information exists or that data requirements are met.";
+        public const string RelationUpdateError = "Unable to update the power of skill {EntitySkillID} for mandril {EntityMandrilID}. Verify that the information exists or that data types match.";
+        public const string SkillPowerUpdateSuccess = "The power of skill {EntitySkillID} for mandril {EntityMandrilID} has been successfully updated. The new value is {EntityPower}";
 
-        // Creación
-        public const string MandrilCreated = "El mandril se ha creado correctamente.";
-        public const string SkillCreated = "La habilidad se ha creado correctamente.";
-        public const string MandrilCreationError = "No se ha podido crear el mandril en la base de datos. Verifique si los datos cumplen los requisitos.";
-        public const string SkillCreationError = "No se ha podido crear la habilidad en la base de datos. Verifique si los datos cumplen los requisitos.";
+        // Creation
+        public const string MandrilCreated = "The mandril has been successfully created.";
+        public const string SkillCreated = "The skill has been successfully created.";
+        public const string MandrilCreationError = "Unable to create the mandril in the database. Verify if the data meets the requirements.";
+        public const string SkillCreationError = "Unable to create the skill in the database. Verify if the data meets the requirements.";
     }
 }

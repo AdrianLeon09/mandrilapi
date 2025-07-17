@@ -4,30 +4,29 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace MandrilAPI.JsonFiltroExepcion;
-//Implentar Para manejar la exepcion que ocurre desde el body
+
 public class JsonFilterExeption : IExceptionFilter
 {
     private readonly ILogger<JsonFilterExeption> _logger;
-
+   
     public JsonFilterExeption(ILogger<JsonFilterExeption> logger)
     {
         _logger = logger;
-        
     }
-    
+     //future updates
     public void OnException(ExceptionContext context)
     {
         if (context.Exception is JsonException)
         {
             var controllerName = context.ActionDescriptor.RouteValues["controller"];
             var actionName = context.ActionDescriptor.RouteValues["action"];
-            _logger.LogWarning(context.Exception.Message, "Error JsonExcepcion capturado en el controller " + controllerName);
+            _logger.LogWarning(context.Exception.Message, "Error JsonExcepcion" + controllerName);
 
             var errorResponse = new
             {
-                Titulo = "Error en los datos ingresados",
+                Titulo = "Error",
                 Status = (int)HttpStatusCode.BadRequest,
-                Mensaje = "Ha ocurrido un error. Verifique los datos ingresados e intente nuevamente",
+                Mensaje = "error.",
               
             };
             var result = new BadRequestObjectResult(errorResponse);

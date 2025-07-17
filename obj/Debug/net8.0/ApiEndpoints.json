@@ -46,127 +46,6 @@
     ]
   },
   {
-    "ContainingType": "MandrilAPI.Controllers.MandrilWithSkillsController",
-    "Method": "GetHabilidad",
-    "RelativePath": "api/Mandril/{mandrilID}/MandrilWithSkills",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "mandrilID",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "MandrilAPI.Controllers.MandrilWithSkillsController",
-    "Method": "AgregarHabilidadMandril",
-    "RelativePath": "api/Mandril/{mandrilID}/MandrilWithSkills",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "mandrilID",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "HabilidadID",
-        "Type": "System.Int32",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "MandrilAPI.Controllers.MandrilWithSkillsController",
-    "Method": "GetHabilidad",
-    "RelativePath": "api/Mandril/{mandrilID}/MandrilWithSkills/{HabilidadID}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "mandrilID",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "HabilidadID",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "MandrilAPI.Controllers.MandrilWithSkillsController",
-    "Method": "EditarHabilidad",
-    "RelativePath": "api/Mandril/{mandrilID}/MandrilWithSkills/{targetSkillId}",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "mandrilID",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "targetSkillId",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "habilidadDto",
-        "Type": "MandrilAPI.Models.PowerDTO",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "MandrilAPI.Controllers.MandrilWithSkillsController",
-    "Method": "EliminarHabilidad",
-    "RelativePath": "api/Mandril/{mandrilID}/MandrilWithSkills/{targetSkillId}",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "mandrilID",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "targetSkillId",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "MandrilAPI.Controllers.MandrilWithSkillsController",
-    "Method": "teste",
-    "RelativePath": "api/Mandril/{mandrilID}/MandrilWithSkills/jsonexepcion",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "mandrilID",
-        "Type": "",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
     "ContainingType": "MandrilAPI.Controllers.MandrilController",
     "Method": "GetMandrilById",
     "RelativePath": "api/Mandril/{targetMandrilId}",
@@ -240,6 +119,240 @@
     "ReturnTypes": [
       {
         "Type": "MandrilAPI.Models.Mandril",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "MandrilAPI.Controllers.SkillMandrilController",
+    "Method": "GetSkillsFromOneMandril",
+    "RelativePath": "api/Mandril/{targetMandrilId}/SkillMandril",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "targetMandrilId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MandrilAPI.Controllers.SkillMandrilController",
+    "Method": "UpdatePowerFromOneSkillInMandril",
+    "RelativePath": "api/Mandril/{targetMandrilId}/SkillMandril",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "targetMandrilId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "targetSkillId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "powerDto",
+        "Type": "MandrilAPI.Models.PowerDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MandrilAPI.Controllers.SkillMandrilController",
+    "Method": "GetOneSkillFromOneMandril",
+    "RelativePath": "api/Mandril/{targetMandrilId}/SkillMandril/{targetSkillId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "targetMandrilId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "targetSkillId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MandrilAPI.Controllers.SkillMandrilController",
+    "Method": "AddSkillToMandril",
+    "RelativePath": "api/Mandril/{targetMandrilId}/SkillMandril/{targetSkillId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "targetMandrilId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "targetSkillId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MandrilAPI.Controllers.SkillMandrilController",
+    "Method": "DeleteOneSkillFromMandril",
+    "RelativePath": "api/Mandril/{targetMandrilId}/SkillMandril/{targetSkillId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "targetMandrilId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "targetSkillId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MandrilAPI.Controllers.SkillsController",
+    "Method": "GetAllSkills",
+    "RelativePath": "api/Skills",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "MandrilAPI.Models.Skill",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "MandrilAPI.Controllers.SkillsController",
+    "Method": "AddSkill",
+    "RelativePath": "api/Skills",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "SkillDto",
+        "Type": "MandrilAPI.Models.SkillDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "MandrilAPI.Models.Skill",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "MandrilAPI.Controllers.SkillsController",
+    "Method": "GetSkillById",
+    "RelativePath": "api/Skills/{targetSkillId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "targetSkillId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "MandrilAPI.Models.Skill",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "MandrilAPI.Controllers.SkillsController",
+    "Method": "UpdateSkill",
+    "RelativePath": "api/Skills/{targetSkillId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "targetSkillId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "SkillDto",
+        "Type": "MandrilAPI.Models.SkillDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "MandrilAPI.Models.Skill",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "MandrilAPI.Controllers.SkillsController",
+    "Method": "DeleteSkill",
+    "RelativePath": "api/Skills/{targetSkillId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "targetSkillId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "MandrilAPI.Models.Skill",
         "MediaTypes": [
           "text/plain",
           "application/json",

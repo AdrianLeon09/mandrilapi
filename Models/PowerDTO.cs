@@ -6,7 +6,8 @@ namespace MandrilAPI.Models;
 
 public class PowerDTO
 {
-    [Required(ErrorMessage = "Error no se admiten letras ni caracteres especiales.")]
-    [Range(0,4, ErrorMessage = MessageDefaultsUsers.PotenciaInvalid) ]
+    [Required(ErrorMessage = "Error: Letters and special characters are not allowed.")]
+    [Range(0,4, ErrorMessage = MessageDefaultsUsers.PowerInvalid) ]
+    
     public int Power { get; set; } = 0;
 }

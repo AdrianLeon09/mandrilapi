@@ -18,6 +18,7 @@ namespace MandrilAPI.Service
         public IReadOnlyList<Skill> GetOneSkillFromDb(int targetSkillId)
         {
             var Skill = _contextDb.Skills.Where(h => h.id == targetSkillId).AsNoTracking().ToList();
+            
             if (Skill.Count is 0)
             {
                 _logger.LogWarning(MessageDefaultsDevs.SkillNotFound, targetSkillId);
@@ -30,9 +31,11 @@ namespace MandrilAPI.Service
             }
         }
 
+        
         public IReadOnlyList<Skill> GetAllSkillsFromDb()
         {
             var Skill = _contextDb.Skills.AsNoTracking().ToList();
+            
             if (Skill.Count is 0)
             {
                 _logger.LogWarning(MessageDefaultsDevs.SkillsNotFound);
@@ -44,9 +47,11 @@ namespace MandrilAPI.Service
             }
         }
 
+        
         public IReadOnlyList<Mandril> GetOneMandrilsFromDb(int targetMandrilId)
         {
             var Skill = _contextDb.Mandrils.Where(m => m.id == targetMandrilId).AsNoTracking().ToList();
+            
             if (Skill.Count is 0)
             {
                 _logger.LogWarning(MessageDefaultsDevs.MandrilNotFound, targetMandrilId);
@@ -59,9 +64,11 @@ namespace MandrilAPI.Service
            
         }
 
+        
         public IReadOnlyList<Mandril> GetAllMandrilsFromDb()
         {
             var Mandril = _contextDb.Mandrils.AsNoTracking().ToList();
+            
             if (Mandril.Count is 0)
             {
                 _logger.LogWarning(MessageDefaultsDevs.AllMandrilsNotFound);
@@ -74,6 +81,7 @@ namespace MandrilAPI.Service
             }
         }
 
+        
         public IReadOnlyList<MandrilWithSkillsIntermediateTable> GetOneMandrilWithOneSkillFromDb(int targetMandrilId, int targetSkillId)
         {
             var relation = _contextDb.MandrilWithSkills.Include(m => m.Mandril).Include(h => h.Skill)
@@ -91,6 +99,7 @@ namespace MandrilAPI.Service
             }
         }
 
+        
         public IReadOnlyList<MandrilWithSkillsIntermediateTable> SelectAllMandrilWithSkills()
         {
             var relation = _contextDb.MandrilWithSkills.Include(mandriles => mandriles.Mandril).Include(mandrilSkills => mandrilSkills.Skill)
@@ -109,6 +118,7 @@ namespace MandrilAPI.Service
             };
         }
 
+        
         public IReadOnlyList<MandrilWithSkillsIntermediateTable> SelectOneMandrilWithAllSkills(int targetMandrilId)
         {
             var relation = _contextDb.MandrilWithSkills.Include(mandriles => mandriles.Mandril).Include(mandrilSkills => mandrilSkills.Skill)
