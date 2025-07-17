@@ -1,4 +1,5 @@
 ﻿using MandrilAPI.DatabaseContext;
+using MandrilAPI.DTOs;
 using MandrilAPI.Interfaces;
 using MandrilAPI.Models;
 using MandrilAPI.Service;
@@ -52,7 +53,7 @@ namespace MandrilAPI.Controllers
         }
 
         [HttpPut("{targetMandrilId}")]
-        public ActionResult<Mandril> UpdateMandril(int targetMandrilId, [FromBody] MandrilDTO mandrilDto)
+        public ActionResult<Mandril> UpdateMandril(int targetMandrilId, [FromBody] MandrilDto mandrilDto)
         {
             var qryMandril = _repositoryReadMandrilSkills.GetOneMandrilsFromDb(targetMandrilId);
 
@@ -101,7 +102,7 @@ namespace MandrilAPI.Controllers
 
 
         [HttpPost]
-        public ActionResult<Mandril> AddMandril([FromBody] MandrilDTO mandrilDto)
+        public ActionResult<Mandril> AddMandril([FromBody] MandrilDto mandrilDto)
         {
             mandrilDto.name = mandrilDto.name.Replace(" ", "");
             mandrilDto.lastName = mandrilDto.lastName.Replace(" ", "");

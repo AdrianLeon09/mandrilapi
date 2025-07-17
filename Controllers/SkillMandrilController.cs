@@ -79,7 +79,7 @@ public class SkillMandrilController(IMandrilSkillsWriteRepository RepositoryWrit
   
     
     [HttpPut()] 
-    public IActionResult UpdatePowerFromOneSkillInMandril(int targetMandrilId, int targetSkillId, PowerDTO powerDto)
+    public IActionResult UpdatePowerFromOneSkillInMandril(int targetMandrilId, int targetSkillId, PowerDto powerDto)
     {
          var MandrilSkillRelation = _repositoryReadMandrilSkills.GetOneMandrilWithOneSkillFromDb(targetMandrilId, targetSkillId);
 

@@ -47,7 +47,7 @@ namespace MandrilAPI.Controllers
 
             
             [HttpPut("{targetSkillId}")]
-            public ActionResult<Skill> UpdateSkill(int targetSkillId, [FromBody] SkillDTO SkillDto)
+            public ActionResult<Skill> UpdateSkill(int targetSkillId, [FromBody] SkillDto SkillDto)
             {
                 var qrySkill = _repositoryReadMandrilSkills.GetOneSkillFromDb(targetSkillId);
 
@@ -93,7 +93,7 @@ namespace MandrilAPI.Controllers
             
             
             [HttpPost]
-            public ActionResult<Skill> AddSkill([FromBody] SkillDTO SkillDto)
+            public ActionResult<Skill> AddSkill([FromBody] SkillDto SkillDto)
             {
                 SkillDto.name = SkillDto.name.Replace(" ", "");
                

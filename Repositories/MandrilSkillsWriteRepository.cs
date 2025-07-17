@@ -1,6 +1,7 @@
 ﻿using MandrilAPI.DatabaseContext;
 using MandrilAPI.Interfaces;
 using MandrilAPI.Models;
+using MandrilAPI.DTOs;
 
 
 namespace MandrilAPI.Service
@@ -10,7 +11,7 @@ namespace MandrilAPI.Service
         private readonly MandrilDbContext _contextDb = contextDb;
         private readonly ILogger _logger = logger;
 
-        public Skill AddNewSkillToDb(SkillDTO newSkillDto)
+        public Skill AddNewSkillToDb(SkillDto newSkillDto)
         {
             Skill skill = new Skill();
             skill.name = newSkillDto.name.Replace(" ", "");
@@ -38,7 +39,7 @@ namespace MandrilAPI.Service
             }
         }
 
-        public Mandril AddNewMandrilToDb(MandrilDTO newMandrilDto)
+        public Mandril AddNewMandrilToDb(MandrilDto newMandrilDto)
         {
             newMandrilDto.name = newMandrilDto.name.Replace(" ", "");
             newMandrilDto.lastName = newMandrilDto.lastName.Replace(" ", "");
@@ -179,7 +180,7 @@ namespace MandrilAPI.Service
         }
 
 
-        public Skill UpdateOneSkillToDb(int targetSkillId, SkillDTO skillDto)
+        public Skill UpdateOneSkillToDb(int targetSkillId, SkillDto skillDto)
         {
             var skill = _contextDb.Skills.FirstOrDefault(s => s.id == targetSkillId);
 
@@ -226,7 +227,7 @@ namespace MandrilAPI.Service
         }
 
 
-        public Mandril UpdateOneMandrilToDb(int targetMandrilId, MandrilDTO mandrilDto)
+        public Mandril UpdateOneMandrilToDb(int targetMandrilId, MandrilDto mandrilDto)
         {
             var mandril = _contextDb.Mandrils.FirstOrDefault(m => m.id == targetMandrilId);
 

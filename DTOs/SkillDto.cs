@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MandrilAPI.Models;
 
-public class SkillDTO
+public class SkillDto
 {
     [Required(ErrorMessage = MessageDefaultsUsers.EntryInvalid)]
     [MinLength(3, ErrorMessage = MessageDefaultsUsers.EntryInvalid)]
