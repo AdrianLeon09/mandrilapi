@@ -3,27 +3,20 @@ using MandrilAPI.Interfaces;
 using MandrilAPI.Models;
 using MandrilAPI.Service;
 using Microsoft.AspNetCore.Mvc;
-
-
 namespace MandrilAPI.Controllers;
 
-// Each method will require a mandril ID to be specified in the URL, because the route [Route("api/Mandril/{mandrilID}/[controller]")]
 
-[ApiController]
-[Route("api/Mandril/{targetMandrilId}/[controller]")]
-
-public class SkillMandrilController(IMandrilSkillsWriteRepository RepositoryWrite, IMandrilSkillsReadRepository RepositoryRead) : ControllerBase
+[Route("api/[controller]/relations/")]
+public class MandrilSkillsController(IMandrilSkillsWriteRepository RepositoryWrite, IMandrilSkillsReadRepository RepositoryRead) : ControllerBase
 {
     private readonly IMandrilSkillsReadRepository _repositoryReadMandrilSkills = RepositoryRead;
     private readonly IMandrilSkillsWriteRepository _repositoryWriteMandrilSkills = RepositoryWrite;
 
-
-    [HttpGet]
+    [HttpGet("mandrils/{targetMandrilId}/skills/")]
     public IActionResult GetSkillsFromOneMandril(int targetMandrilId)
     {
         var relation = _repositoryReadMandrilSkills.SelectOneMandrilWithAllSkills(targetMandrilId);
 
-        
         if (relation.Count is 0)
         {
             return NotFound(MessageDefaultsUsers.RelationNotFound);
@@ -34,12 +27,12 @@ public class SkillMandrilController(IMandrilSkillsWriteRepository RepositoryWrit
         }
     }
 
-    
-    [HttpGet("{targetSkillId}")]
+
+    [HttpGet("mandrils/{targetMandrilId}/skill/{targetSkillId}")]
     public IActionResult GetOneSkillFromOneMandril(int targetMandrilId, int targetSkillId)
     {
         var relation = _repositoryReadMandrilSkills.GetOneMandrilWithOneSkillFromDb(targetMandrilId, targetSkillId);
-        
+
         if (relation.Count is 0)
         {
             return NotFound(MessageDefaultsUsers.RelationNotFound);
@@ -52,7 +45,7 @@ public class SkillMandrilController(IMandrilSkillsWriteRepository RepositoryWrit
     }
 
     
-    [HttpPut("{targetSkillId}")]
+    [HttpPost("mandrils/{targetMandrilId}/skill/{targetSkillId}")]
     public IActionResult AddSkillToMandril(int targetMandrilId, int targetSkillId)
     {
         var mandrilExists = _repositoryReadMandrilSkills.GetOneMandrilsFromDb(targetMandrilId);
@@ -78,8 +71,8 @@ public class SkillMandrilController(IMandrilSkillsWriteRepository RepositoryWrit
     } 
   
     
-    [HttpPut()] 
-    public IActionResult UpdatePowerFromOneSkillInMandril(int targetMandrilId, int targetSkillId, PowerDto powerDto)
+    [HttpPut("mandrils/{targetMandrilId}/skill/{targetSkillId}/update-power/")] 
+    public IActionResult UpdatePowerFromOneSkillInMandril(int targetMandrilId, int targetSkillId, [FromBody]PowerDto powerDto)
     {
          var MandrilSkillRelation = _repositoryReadMandrilSkills.GetOneMandrilWithOneSkillFromDb(targetMandrilId, targetSkillId);
 
@@ -96,7 +89,7 @@ public class SkillMandrilController(IMandrilSkillsWriteRepository RepositoryWrit
     }
     
     
-    [HttpDelete("{targetSkillId}")]
+    [HttpDelete("mandrils/{targetMandrilId}/skill/{targetSkillId}")]
     public IActionResult DeleteOneSkillFromMandril(int targetMandrilId, int targetSkillId)
     {
         var relation = _repositoryReadMandrilSkills.GetOneMandrilWithOneSkillFromDb (targetMandrilId, targetSkillId);
