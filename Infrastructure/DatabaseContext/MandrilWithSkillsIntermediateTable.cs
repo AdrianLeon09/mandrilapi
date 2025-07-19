@@ -1,10 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Text.Json.Serialization;
-using MandrilAPI.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using MandrilAPI.Domain.Models;
 
-namespace MandrilAPI.DatabaseContext;
+namespace MandrilAPI.Infrastructure.DatabaseContext;
 public class MandrilWithSkillsIntermediateTable
 {
    

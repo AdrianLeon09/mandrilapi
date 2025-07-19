@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace MandrilAPI.Migrations
+namespace MandrilAPI.Infrastructure.Migrations
 {
     /// <inheritdoc />
     public partial class init : Migration

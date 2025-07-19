@@ -1,8 +1,7 @@
-﻿using MandrilAPI.Models;
-using Microsoft.Data.SqlClient;
+﻿using MandrilAPI.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace MandrilAPI.DatabaseContext;
+namespace MandrilAPI.Infrastructure.DatabaseContext;
 
 public  class MandrilDbContext : DbContext
 {

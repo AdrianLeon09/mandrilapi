@@ -1,9 +1,9 @@
-﻿
-using MandrilAPI.Interfaces;
-using MandrilAPI.Models;
-using MandrilAPI.Service;
+﻿using MandrilAPI.Aplication.Interfaces;
+using MandrilAPI.Aplication.Service;
+using MandrilAPI.Infrastructure.DTOs;
 using Microsoft.AspNetCore.Mvc;
-namespace MandrilAPI.Controllers;
+
+namespace MandrilAPI.Presentation.Controllers;
 
 
 [Route("api/[controller]/relations/")]

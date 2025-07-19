@@ -1,4 +1,4 @@
-﻿namespace MandrilAPI.Service
+﻿namespace MandrilAPI.Aplication.Service
 {
     public static class MessageDefaultsDevs
     {   

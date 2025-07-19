@@ -1,8 +1,8 @@
-﻿using MandrilAPI.DatabaseContext;
-using MandrilAPI.DTOs;
-using MandrilAPI.Models;
+﻿using MandrilAPI.Domain.Models;
+using MandrilAPI.Infrastructure.DatabaseContext;
+using MandrilAPI.Infrastructure.DTOs;
 
-namespace MandrilAPI.Interfaces
+namespace MandrilAPI.Aplication.Interfaces
 {
     public interface IMandrilSkillsWriteRepository
     {

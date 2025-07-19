@@ -1,7 +1,7 @@
-﻿using MandrilAPI.Service;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using MandrilAPI.Aplication.Service;
 
-namespace MandrilAPI.DTOs;
+namespace MandrilAPI.Infrastructure.DTOs;
 
 public class MandrilDto
 { 

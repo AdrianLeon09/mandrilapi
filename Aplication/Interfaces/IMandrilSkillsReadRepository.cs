@@ -1,7 +1,7 @@
-﻿using MandrilAPI.Models;
-using MandrilAPI.DatabaseContext;
+﻿using MandrilAPI.Domain.Models;
+using MandrilAPI.Infrastructure.DatabaseContext;
 
-namespace MandrilAPI.Interfaces
+namespace MandrilAPI.Aplication.Interfaces
 {
     public interface IMandrilSkillsReadRepository
     {

@@ -1,6 +1,6 @@
 ﻿
 
-namespace MandrilAPI.Models
+namespace MandrilAPI.Domain.Models
 {
     public class Skill
     {

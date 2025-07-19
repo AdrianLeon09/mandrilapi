@@ -1,10 +1,10 @@
-﻿using MandrilAPI.DatabaseContext;
-using MandrilAPI.Interfaces;
-using MandrilAPI.Models;
-using MandrilAPI.DTOs;
+﻿using MandrilAPI.Aplication.Interfaces;
+using MandrilAPI.Aplication.Service;
+using MandrilAPI.Domain.Models;
+using MandrilAPI.Infrastructure.DatabaseContext;
+using MandrilAPI.Infrastructure.DTOs;
 
-
-namespace MandrilAPI.Service
+namespace MandrilAPI.Infrastructure.Repositories
 {
     public class MandrilSkillsWriteRepository(MandrilDbContext contextDb, ILogger<MandrilSkillsWriteRepository> logger) : IMandrilSkillsWriteRepository
     {

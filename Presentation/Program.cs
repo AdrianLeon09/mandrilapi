@@ -1,10 +1,9 @@
-
-using MandrilAPI.DatabaseContext;
-using MandrilAPI.Interfaces;
-using MandrilAPI.Service;
+using MandrilAPI.Aplication.Interfaces;
+using MandrilAPI.Infrastructure.DatabaseContext;
+using MandrilAPI.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 
-namespace MandrilAPI.Models
+namespace MandrilAPI.Presentation
 {
     public class Program
     {

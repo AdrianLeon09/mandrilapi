@@ -1,10 +1,10 @@
-﻿using MandrilAPI.DatabaseContext;
-using MandrilAPI.Interfaces;
-using MandrilAPI.Models;
+﻿using MandrilAPI.Aplication.Interfaces;
+using MandrilAPI.Aplication.Service;
+using MandrilAPI.Domain.Models;
+using MandrilAPI.Infrastructure.DatabaseContext;
 using Microsoft.EntityFrameworkCore;
 
-
-namespace MandrilAPI.Service
+namespace MandrilAPI.Infrastructure.Repositories
 {
     public class MandrilSkillsReadRepository(MandrilDbContext contextDb, ILogger<MandrilSkillsReadRepository> logger) : IMandrilSkillsReadRepository
     {
