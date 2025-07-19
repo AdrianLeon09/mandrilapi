@@ -1,6 +1,6 @@
 # MandrilAPI
 
-**MandrilAPI** es una API RESTful desarrollada en **C# con ASP.NET Core** que simula el manejo de una entidad `Mandril`, la cual puede estar asociada a un conjunto de habilidades (`Skills`). 
+**MandrilAPI** es una API Web RESTful desarrollada en **C# con ASP.NET Core** que simula el manejo de una entidad `Mandril`, la cual puede estar asociada a un conjunto de habilidades (`Skills`). 
 
 La aplicación está estructurada siguiendo principios de **arquitectura limpia** y **separación de responsabilidades**, lo que la hace ideal para aprender cómo escalar y organizar un proyecto de forma basica.
 
@@ -9,7 +9,9 @@ El sistema incluye tres controladores principales:
 - `SkillsController`
 - `MandrilSkillsController`
 
-Cada uno gestiona su respectiva tabla en una **base de datos SQL Server** por medio de EF, siendo `MandrilSkills` una tabla de relación **muchos a muchos** entre mandriles y habilidades incluyendo ademas una columna "PowerMS" para especificar un nivel de habilidad.
+Cada uno gestiona su respectiva tabla en una **base de datos SQL Server** por medio de EF, siendo `MandrilSkills` una tabla de relación **muchos a muchos**. La tabla MandrilSkills representa una relación muchos a muchos entre mandriles y habilidades, utilizando claves primarias compuestas. Además, incorpora una columna adicional llamada PowerMS(MS = MandrilSkill), que indica el nivel de habilidad asignado del 0 a maximo 4.
+
+Esta tabla intermedia fue modelada manualmente con Entity Framework, lo cual permite un mayor control sobre su estructura y comportamiento, pensando en una posible escalabilidad futura del sistema y la incorporación de nuevas características.
 
 ---
 
@@ -30,7 +32,7 @@ Este proyecto de práctica fue construido con el objetivo de ir más allá de lo
 
 ### API RESTful
 - Tres controladores principales:
-  - `MandrilController`: Gestión CRUD de mandriles
+  - `MandrilController`: Administracion de mandriles
   - `SkillsController`: Administración de habilidades
   - `MandrilSkillsController`: Manejo de relaciones mandril-habilidad
 - Endpoints siguiendo convenciones REST
@@ -51,7 +53,7 @@ Este proyecto está diseñado para demostrar:
 4. Patrones de diseño comunes en aplicaciones empresariales
 
 ## 🚀 Próximas Mejoras
-- Implementación de autenticación/autorización con JWT
+- Sistema de autenticación/autorización basado en JWT y ASP.NET Identity.
 - Desarrollo de interfaz de usuario en Angular
 
 ---
@@ -71,8 +73,8 @@ Este proyecto **no pretende ser avanzado**, pero es ideal para cualquier princip
 ---
 
 ## 📁 Estructura del proyecto
-
-````/Presentation
+````
+/Presentation
 ├── Controllers
 │   ├── MandrilController.cs
 │   ├── SkillsController.cs
@@ -100,13 +102,14 @@ Este proyecto **no pretende ser avanzado**, pero es ideal para cualquier princip
 /Domain
 ├── Models
 │   ├── Mandril.cs
-│   └── Skill.cs
+│   └── Skill.cs´
+````
 
 
 ## 📚 Documentación con Swagger
 
 Al iniciar el proyecto, Swagger se carga automáticamente en:  
-`https://localhost:<puerto>/swagger`
+https://localhost:(puerto)/swagger
 
 Ahí podés ver y probar todos los endpoints disponibles.
 
@@ -119,26 +122,27 @@ Este proyecto puede ejecutarse tanto desde línea de comandos como desde un IDE 
 ## Opción 1: Desde línea de comandos (PowerShell o CMD)
 
 1. **Clonar el repositorio:**
+ ```
+ git clone https://github.com/AdrianLeon09/mandrilapi 
 
-git clone https://github.com/AdrianLeon09/mandrilapi
-
-cd mandrilapi
+ cd mandrilapi 
+  ```
 
 **3. Restaurar dependencias:**
-   
+ ```   
 dotnet restore
-
+ ```
 **3. Aplicar migraciones para crear o actualizar la base de datos:**
-
+ ```
 dotnet ef database update
-
+ ```
 **4. Ejecutar la aplicación:**
    
 dotnet run
 
 **6. Abrir la documentación Swagger en tu navegador:**
 
-https://localhost:<puerto>/swagger/index.html
+ ```https://localhost:(puerto)/swagger/index.html ```
 
 
 ## Opción 2: Desde Visual Studio
@@ -147,8 +151,9 @@ Sigue estos pasos para abrir y ejecutar el proyecto en Visual Studio 2022:
 
 1. **Abrir el proyecto o solución**  
    - Inicia Visual Studio 2022.  
-   - Selecciona **Clona un repositorio**.  y coloca https://github.com/AdrianLeon09/mandrilapi
-     (Opcional si descargaste directamente el repositorio)
+   - Selecciona **Clona un repositorio**.  y coloca  ```https://github.com/AdrianLeon09/mandrilapi ```
+   - 
+     Si descargaste directamente el repositorio: 
      
    - Selecciona **Abrir proyecto/Solucion**.
    - Navega hasta la carpeta donde clonaste el repositorio y selecciona el archivo `MandrilAPi.sln` (solución) del proyecto.
@@ -172,7 +177,7 @@ Abre la Consola del Administrador de Paquetes desde Herramientas > Administrador
 
 Ejecuta el siguiente comando para crear o actualizar la base de datos:
 
-Update-Database
+ ```Update-Database ```
 
 5. **Ejecutar la aplicación**
 Presiona F5 para iniciar la aplicación en modo depuración, o Ctrl + F5 para ejecutarla sin depurar.
@@ -180,7 +185,7 @@ Se abrirá una ventana del navegador automáticamente con la documentacion de Sw
 
 **(Opcional - Acceder a la documentación Swagger manualmente )**
 
-En el navegador, accede a la URL: http://localhost:<puerto>/swagger/index.html
+En el navegador, accede a la URL: ``` http://localhost:(puerto)/swagger/index.html ```
 Allí podrás ver la documentación interactiva de la API y probar los endpoints.
 
 **NOTAS**
