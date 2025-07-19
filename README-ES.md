@@ -2,7 +2,7 @@
 
 **MandrilAPI** es una API RESTful desarrollada en **C# con ASP.NET Core** que simula el manejo de una entidad `Mandril`, la cual puede estar asociada a un conjunto de habilidades (`Skills`). 
 
-La aplicación está estructurada siguiendo principios de **arquitectura limpia** y **separación de responsabilidades**, lo que la hace ideal para aprender cómo escalar y organizar un proyecto profesional desde cero.
+La aplicación está estructurada siguiendo principios de **arquitectura limpia** y **separación de responsabilidades**, lo que la hace ideal para aprender cómo escalar y organizar un proyecto de forma basica.
 
 El sistema incluye tres controladores principales:
 - `MandrilController`
@@ -14,23 +14,45 @@ Cada uno gestiona su respectiva tabla en una **base de datos SQL Server** por me
 ---
 
 ## ¿Qué aporta este proyecto?
-
 Este proyecto de práctica fue construido con el objetivo de ir más allá de lo básico. Se incluyen conceptos esenciales para el desarrollo backend profesional:
 
-- ✅ Estructura limpia y modular por capas (Controllers, Repositories, DTOs, Entities, MessagesDefaults..., etc)
-- ✅ Persistencia real en base de datos SQL Server
-- ✅ Separación de repositorios de lectura y escritura
-- ✅ Uso de interfaces para fomentar la inyección de dependencias
-- ✅ Uso de ILogger para registrar mensajes de éxito (LogInformation) y advertencia (LogWarning).
-- ✅ Validaciones de negocio (por ejemplo: evitar duplicados, asociaciones inválidas, etc.)
-- ✅ Manejo de errores bien definido por capa
-- ✅ Convenciones RESTful y nombres claros en inglés
-- ✅ Código limpio, organizado y con comentarios solo cuando son necesarios (en inglés)
+### Arquitectura y Diseño
+- Implementación de **Arquitectura Limpia** (Clean Architecture)
+- Estructura modular por capas bien definida
+- Patrón Repository con separación de responsabilidades lectura/escritura
+- Inyección de dependencias mediante interfaces
 
-  ## ¿Proximos pasos?
-  
-- Implementar JWT para autenticación y autorización.
-- Desarrollar una interfaz de usuario (UI) con Angular para consumir la API.
+### Base de Datos
+- Persistencia en SQL Server mediante Entity Framework Core
+- Relación muchos a muchos entre `Mandril` y `Skills`
+- Tabla intermedia `MandrilSkills` con campo `PowerMS` para nivel de habilidad
+- Migraciones y configuración de entidades
+
+### API RESTful
+- Tres controladores principales:
+  - `MandrilController`: Gestión CRUD de mandriles
+  - `SkillsController`: Administración de habilidades
+  - `MandrilSkillsController`: Manejo de relaciones mandril-habilidad
+- Endpoints siguiendo convenciones REST
+- Documentación con Swagger
+
+### Calidad de Código
+- Sistema de logging (ILogger) para monitoreo de operaciones desde consola
+- Manejo de errores por capa con mensajes personalizados
+- Validaciones de negocio
+- DTOs para transferencia segura de datos
+- Código limpio y documentado en inglés
+
+## 🎯 Objetivos del Proyecto
+Este proyecto está diseñado para demostrar:
+1. Implementación de arquitectura escalable en .NET
+2. Buenas prácticas en el desarrollo de APIs
+3. Manejo de relaciones en base de datos
+4. Patrones de diseño comunes en aplicaciones empresariales
+
+## 🚀 Próximas Mejoras
+- Implementación de autenticación/autorización con JWT
+- Desarrollo de interfaz de usuario en Angular
 
 ---
 Este proyecto **no pretende ser avanzado**, pero es ideal para cualquier principiante que quiera aprender de forma inicial:
@@ -45,40 +67,125 @@ Este proyecto **no pretende ser avanzado**, pero es ideal para cualquier princip
 - Entity Framework Core 
 - Swagger
 - SqlServer
+- Ilogger
 ---
 
 ## 📁 Estructura del proyecto
-/Controllers
-├── MandrilController.cs
-├── SkillsController.cs
-├── SkillsMandrilController.cs
 
-/Models
-├── Mandril.cs
-├── MandrilDTO
-├── Skill.cs
-├── SkillDTO
-├── PowerDTO.cs
-├── Program
+````/Presentation
+├── Controllers
+│   ├── MandrilController.cs
+│   ├── SkillsController.cs
+│   └── SkillsMandrilController.cs
+├─ Program.cs
+/Application
+├── Interfaces
+│   ├── IMandrilSkillsReadRepository.cs
+│   └── IMandrilSkillsWriteRepository.cs
+├── Services
+│   ├── MessageDefaultsDevs.cs
+│   └── MessageDefaultsUsers.cs
+/Infrastructure
+├── Repositories
+│   ├── MandrilSkillsReadRepository.cs
+│   └── MandrilSkillsWriteRepository.cs
+├── DatabaseContext
+│   ├── MandrilDbContext.cs
+│   └── MandrilWithSkillsIntermediateTable.cs
+├── DTOs
+│   ├── MandrilDTO.cs
+│   ├── SkillDTO.cs
+│   └── PowerDTO.cs
+├── Migrations
+/Domain
+├── Models
+│   ├── Mandril.cs
+│   └── Skill.cs
 
-/Repositories
-├── MandrilSkillsReadRepository
-├── MandrilSkillsWriteRepository
 
-/Interfaces
-├── IMandrilSkillsReadRepository
-├── IMandrilSkillsWriteRepository
+## 📚 Documentación con Swagger
 
-/Service
-├── MessageDefaultsDevs
-├── MessageDefaultsUsers
+Al iniciar el proyecto, Swagger se carga automáticamente en:  
+`https://localhost:<puerto>/swagger`
 
-/DatabaseContext
-├── MandrilDbContext
-├── MandrilWithSkillsIntermediateTable
+Ahí podés ver y probar todos los endpoints disponibles.
 
-/Middleware
-├── ExceptionJsonMiddleware
+## 🧪 Cómo ejecutar el proyecto
 
-/JsonFilterExeption
-├── JsonFilter
+# Cómo ejecutar el proyecto en Windows
+
+Este proyecto puede ejecutarse tanto desde línea de comandos como desde un IDE como Visual Studio o Rider.
+
+## Opción 1: Desde línea de comandos (PowerShell o CMD)
+
+1. **Clonar el repositorio:**
+
+git clone https://github.com/AdrianLeon09/mandrilapi
+
+cd mandrilapi
+
+**3. Restaurar dependencias:**
+   
+dotnet restore
+
+**3. Aplicar migraciones para crear o actualizar la base de datos:**
+
+dotnet ef database update
+
+**4. Ejecutar la aplicación:**
+   
+dotnet run
+
+**6. Abrir la documentación Swagger en tu navegador:**
+
+https://localhost:<puerto>/swagger/index.html
+
+
+## Opción 2: Desde Visual Studio
+
+Sigue estos pasos para abrir y ejecutar el proyecto en Visual Studio 2022:
+
+1. **Abrir el proyecto o solución**  
+   - Inicia Visual Studio 2022.  
+   - Selecciona **Clona un repositorio**.  y coloca https://github.com/AdrianLeon09/mandrilapi
+     (Opcional si descargaste directamente el repositorio)
+     
+   - Selecciona **Abrir proyecto/Solucion**.
+   - Navega hasta la carpeta donde clonaste el repositorio y selecciona el archivo `MandrilAPi.sln` (solución) del proyecto.
+
+2. **Restaurar dependencias**  
+   - Visual Studio detectará automáticamente los paquetes NuGet necesarios y los restaurará.  
+   - Puedes verificar el progreso en la ventana **Administrador de paquetes NuGet** o en la barra de estado.
+
+3. **Configurar la cadena de conexión**  
+   - Abre el archivo `appsettings.json` ubicado en el proyecto.  
+   - Verifica que la cadena de conexión a la base de datos SQL Server esté correctamente configurada para tu entorno local.  
+   - Ejemplo:
+
+   ```json
+   "ConnectionStrings": {
+     "DefaultConnection": "Server=localhost;Database=mandrilDB;Trusted_Connection=true;TrustServerCertificate=True;"
+   }
+
+4. **Aplicar migraciones**
+Abre la Consola del Administrador de Paquetes desde Herramientas > Administrador de paquetes NuGet > Consola del Administrador de paquetes.
+
+Ejecuta el siguiente comando para crear o actualizar la base de datos:
+
+Update-Database
+
+5. **Ejecutar la aplicación**
+Presiona F5 para iniciar la aplicación en modo depuración, o Ctrl + F5 para ejecutarla sin depurar.
+Se abrirá una ventana del navegador automáticamente con la documentacion de Swagger.
+
+**(Opcional - Acceder a la documentación Swagger manualmente )**
+
+En el navegador, accede a la URL: http://localhost:<puerto>/swagger/index.html
+Allí podrás ver la documentación interactiva de la API y probar los endpoints.
+
+**NOTAS**
+- Asegúrate de tener instalado Visual Studio 2022 con la carga de trabajo Desarrollo de ASP.NET y web.
+
+- El puerto asignado puede variar; verifica el que aparece en la barra de direcciones del navegador cuando se inicia la aplicación.
+
+- Si realizas cambios en las migraciones, recuerda aplicar nuevamente Update-Database para actualizar la base de datos.
