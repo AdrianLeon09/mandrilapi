@@ -28,7 +28,6 @@ namespace MandrilAPI.Presentation
                 app.UseSwaggerUI();
             }
             
-            //app.UseMiddleware<ExepcionesJsonMiddleware>();
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
