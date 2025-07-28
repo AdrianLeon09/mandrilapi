@@ -1,4 +1,7 @@
 # MandrilAPI
+🇪🇸 ¿Hablas español? Visita el archivo [README-ES.md](./README-ES.md) en Español
+
+🇧🇷 ¿Fala português? Visite o arquivo [README-PT-BR.md](./README-PT-BR.md) em Português ; 
 
 **MandrilAPI** is a RESTful Web API developed in **C\# with ASP.NET Core** that simulates the management of a `Mandril` entity, which can be associated with a set of `Skills`.
 
