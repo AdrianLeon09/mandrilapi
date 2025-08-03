@@ -1,6 +1,9 @@
 using MandrilAPI.Aplication.Interfaces;
+using MandrilAPI.Infrastructure.Authentication.AuthDatabaseContext;
+using MandrilAPI.Infrastructure.Authentication.AuthModels;
 using MandrilAPI.Infrastructure.DatabaseContext;
 using MandrilAPI.Infrastructure.Repositories;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace MandrilAPI.Presentation
@@ -11,13 +14,28 @@ namespace MandrilAPI.Presentation
         {
             var builder = WebApplication.CreateBuilder(args);
             builder.Services.AddDbContext<MandrilDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("connection")));
-            
+
+            builder.Services.AddDbContext<AuthDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("AuthConnection")));
+
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            {
+                options.Password.RequireDigit = false;
+                options.Password.RequiredLength = 6;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+
+            }).AddEntityFrameworkStores<AuthDbContext>()
+.AddApiEndpoints().AddDefaultTokenProviders();
+
             builder.Services.AddControllers().ConfigureApiBehaviorOptions(options => options.SuppressModelStateInvalidFilter = false);
+
             builder.Services.AddEndpointsApiExplorer();
+
             builder.Services.AddSwaggerGen();
             builder.Services.AddScoped<IMandrilSkillsReadRepository, MandrilSkillsReadRepository>();
             builder.Services.AddScoped<IMandrilSkillsWriteRepository, MandrilSkillsWriteRepository>();
-           
+
 
             var app = builder.Build();
 
@@ -27,10 +45,11 @@ namespace MandrilAPI.Presentation
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-            
-            app.UseHttpsRedirection();
 
+            app.UseHttpsRedirection();
+            app.UseAuthentication();
             app.UseAuthorization();
+            app.MapIdentityApi<ApplicationUser>();
             
             app.MapControllers();
          
