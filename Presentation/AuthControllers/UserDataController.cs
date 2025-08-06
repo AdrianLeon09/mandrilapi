@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using MandrilAPI.Aplication.Service;
 
 namespace MandrilAPI.Presentation.AuthControllers;
 
@@ -41,7 +42,7 @@ public class UserDataController(UserManager<ApplicationUser> userM) : Controller
 
         await _userM.UpdateAsync(user);
 
-        return Ok("success");
+        return Ok(MessageDefaultsUsers.FirstNameUpdateSucceeded);
      
     }
 
@@ -55,8 +56,19 @@ public class UserDataController(UserManager<ApplicationUser> userM) : Controller
 
         await _userM.UpdateAsync(user);
 
-        return Ok("success");
+        return Ok(MessageDefaultsUsers.LastNameUpdateSucceeded);
 
+    }
+
+    [HttpPatch("UpdateUserName/")]
+    public async Task<IActionResult> UpdateUserName([FromBody] UserNameDto newUserName)
+    {
+        var user = await _userM.GetUserAsync(User);
+        
+        user.UserName = newUserName.UserName;
+        
+        await _userM.UpdateAsync(user);
+        return Ok(MessageDefaultsUsers.UserNameUpdateSucceeded);
     }
 }
 

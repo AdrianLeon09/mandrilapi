@@ -1,6 +1,7 @@
 ﻿using MandrilAPI.Aplication.Service;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 using System.ComponentModel.DataAnnotations;
+using MandrilAPI.Infrastructure.CustomAnnotations;
 
 namespace MandrilAPI.Infrastructure.DTOs
 {
@@ -8,19 +9,22 @@ namespace MandrilAPI.Infrastructure.DTOs
     {
         [Required(ErrorMessage = MessageDefaultsUsers.EntryInvalid)]
         [MinLength(3, ErrorMessage = MessageDefaultsUsers.EntryInvalid)]
-        [StringLength(25, ErrorMessage = MessageDefaultsUsers.EntryLength)]
+        [StringLength(25, ErrorMessage = MessageDefaultsUsers.EntryMaxLength)]
+        [OnlyLetterCount(3)]
         public string FirstName { get; set; }
 
 
-        [Required(ErrorMessage = MessageDefaultsUsers.EntryLength)]
+        [Required(ErrorMessage = MessageDefaultsUsers.EntryMaxLength)]
         [MinLength(3, ErrorMessage = MessageDefaultsUsers.EntryInvalid)]
-        [StringLength(25, ErrorMessage = MessageDefaultsUsers.EntryLength)]
+        [StringLength(25, ErrorMessage = MessageDefaultsUsers.EntryMaxLength)]
+        [OnlyLetterCount(3)]
         public string LastName { get; set; }
 
 
         [Required(ErrorMessage = MessageDefaultsUsers.EntryInvalid)]
         [MinLength(3, ErrorMessage = MessageDefaultsUsers.EntryInvalid)]
-        [StringLength(25, ErrorMessage = MessageDefaultsUsers.EntryLength)]
+        [StringLength(25, ErrorMessage = MessageDefaultsUsers.EntryMaxLength)]
+        [OnlyLetterCount(3)]
         public string UserName { get; set; }
 
 
@@ -36,17 +40,19 @@ namespace MandrilAPI.Infrastructure.DTOs
     {
         [Required(ErrorMessage = MessageDefaultsUsers.EntryInvalid)]
         [MinLength(3, ErrorMessage = MessageDefaultsUsers.EntryInvalid)]
-        [StringLength(25, ErrorMessage = MessageDefaultsUsers.EntryLength)]
-        public string FirstName { get; set; }
-
-
+        [StringLength(25, ErrorMessage = MessageDefaultsUsers.EntryMaxLength)]
+        [OnlyLetterCount(3)]
+        public string FirstName { get; set; } 
+        
     }
 
     public class UserLastNameDto
     {
         [Required(ErrorMessage = MessageDefaultsUsers.EntryInvalid)]
         [MinLength(3, ErrorMessage = MessageDefaultsUsers.EntryInvalid)]
-        [StringLength(25, ErrorMessage = MessageDefaultsUsers.EntryLength)]
+        [StringLength(25, ErrorMessage = MessageDefaultsUsers.EntryMaxLength)]
+        [OnlyLetterCount(3)]
+        
         public string LastName { get; set; }
     }
 
@@ -60,5 +66,15 @@ namespace MandrilAPI.Infrastructure.DTOs
     {
         [Required(ErrorMessage = "DateOfBirthDay required")]
         public DateTime DateOfBirth { get; set; } = new DateTime();
+    }
+
+    public class UserNameDto
+    {
+        [Required(ErrorMessage = MessageDefaultsUsers.EntryInvalid)]
+        [MinLength(3, ErrorMessage = MessageDefaultsUsers.EntryInvalid)]
+        [StringLength(25, ErrorMessage = MessageDefaultsUsers.EntryMaxLength)]
+        [OnlyLetterCount(3)]
+        
+        public string UserName { get; set; }
     }
 }

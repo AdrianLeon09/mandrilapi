@@ -5,8 +5,8 @@ public static class MessageDefaultsUsers
     // General errors
     public const string EntryInvalid =
         "Invalid data. Please verify that fields are not empty and have at least 3 characters without spaces.";
-    public const string EntryLength =
-        "Maximum of 25 characters allowed.";
+    public const string EntryMaxLength = "Maximum of 25 characters allowed.";
+    public const string EntryMinLength = "Only letters are allowed, minimum of 3 characters.";
     public const string PowerInvalid =
         "The entered power must not be greater than 4.";
 
@@ -62,6 +62,8 @@ public static class MessageDefaultsUsers
   public const string SkillPowerUpdateSuccess =
         "The skill power has been updated.";
 
-    // Creation
-    // (Already included in Successful queries: MandrilCreatedSuccessfully, SkillCreatedSuccessfully)
+    // -------- Messages Authentication --------
+    public const string FirstNameUpdateSucceeded = "The first name has been updated.";
+    public const string LastNameUpdateSucceeded = "The Lastname has been updated.";
+    public const string UserNameUpdateSucceeded = "The username has been updated.";
 }
