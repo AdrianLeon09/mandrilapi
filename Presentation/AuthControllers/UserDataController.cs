@@ -33,6 +33,7 @@ public class UserDataController(UserManager<ApplicationUser> userM) : Controller
 
         return Ok(userDto);
     }
+    
     [HttpPatch("UpdateFirstName/")]
     public async Task<IActionResult> UpdateFirstName([FromBody]UserFirstNameDto newFirstName)
     {
@@ -48,11 +49,11 @@ public class UserDataController(UserManager<ApplicationUser> userM) : Controller
 
 
     [HttpPatch("UpdateLastName/")]
-    public async Task<IActionResult> UpdateLastName([FromBody] String newLastName)
+    public async Task<IActionResult> UpdateLastName([FromBody]UserLastNameDto newLastName)
     {
         var user = await _userM.GetUserAsync(User);
 
-        user.LastName = newLastName;
+        user.LastName = newLastName.LastName;
 
         await _userM.UpdateAsync(user);
 

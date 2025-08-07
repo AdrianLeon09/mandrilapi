@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-
+using System.Text.RegularExpressions;
 using MandrilAPI.Aplication.Service;
 using MandrilAPI.Infrastructure.DTOs;
 
@@ -12,7 +12,7 @@ namespace MandrilAPI.Infrastructure.CustomAnnotations
         protected override ValidationResult IsValid(object value, ValidationContext validationContext
         )
         {
-            var valueString = value.ToString();
+            var valueString = value.ToString().Trim();
          
                 if (valueString.Length < minLettersToValidate)
                 {
