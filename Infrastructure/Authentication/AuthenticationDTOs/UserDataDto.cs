@@ -13,21 +13,19 @@ namespace MandrilAPI.Infrastructure.DTOs
         [OnlyLetterCount(3)]
         public string FirstName { get; set; }
 
-
+        
         [Required(ErrorMessage = MessageDefaultsUsers.EntryMaxLength)]
         [MinLength(3, ErrorMessage = MessageDefaultsUsers.EntryInvalid)]
         [StringLength(25, ErrorMessage = MessageDefaultsUsers.EntryMaxLength)]
         [OnlyLetterCount(3)]
         public string LastName { get; set; }
-
-
+        
         [Required(ErrorMessage = MessageDefaultsUsers.EntryInvalid)]
         [MinLength(3, ErrorMessage = MessageDefaultsUsers.EntryInvalid)]
         [StringLength(25, ErrorMessage = MessageDefaultsUsers.EntryMaxLength)]
         [OnlyLetterCount(3)]
-        public string UserName { get; set; }
-
-
+        public string PublicUserName { get; set; }
+        
         [Required(ErrorMessage = "The Email field is required")]
         [EmailAddress(ErrorMessage = "The Email address invalid")]
         public string UserEmail { get; set; }
@@ -36,6 +34,7 @@ namespace MandrilAPI.Infrastructure.DTOs
         public DateTime DateOfBirth { get; set; } = new DateTime();
     }
 
+    
     public class UserFirstNameDto
     {
         [Required(ErrorMessage = MessageDefaultsUsers.EntryInvalid)]
@@ -68,13 +67,13 @@ namespace MandrilAPI.Infrastructure.DTOs
         public DateTime DateOfBirth { get; set; } = new DateTime();
     }
 
-    public class UserNameDto
+    public class PublicUserNameDto
     {
         [Required(ErrorMessage = MessageDefaultsUsers.EntryInvalid)]
         [MinLength(3, ErrorMessage = MessageDefaultsUsers.EntryInvalid)]
         [StringLength(25, ErrorMessage = MessageDefaultsUsers.EntryMaxLength)]
         [OnlyLetterCount(3)]
         
-        public string UserName { get; set; }
+        public string PublicUserName { get; set; }
     }
 }

@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using MandrilAPI.Aplication.Service;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.DotNet.Scaffolding.Shared.Messaging;
 
 namespace MandrilAPI.Presentation.AuthControllers;
 
@@ -26,19 +28,20 @@ public class UserDataController(UserManager<ApplicationUser> userM) : Controller
         var userDto = new UserDataDto();
         userDto.FirstName = user.FirstName;
         userDto.LastName = user.LastName;
-        userDto.UserName = user.UserName;
+        userDto.PublicUserName = user.UserName;
         userDto.UserEmail = user.Email;
         userDto.DateOfBirth = user.DateOfBirth;
 
 
         return Ok(userDto);
     }
-    
+    //hacer que el usurio creado se agrege automamticamente al rol users
     [HttpPatch("UpdateFirstName/")]
+    [Authorize(Roles = "User", Policy = "UserOnly")]
     public async Task<IActionResult> UpdateFirstName([FromBody]UserFirstNameDto newFirstName)
     {
         var user = await _userM.GetUserAsync(User);
-
+        
         user.FirstName = newFirstName.FirstName;
 
         await _userM.UpdateAsync(user);
@@ -61,15 +64,26 @@ public class UserDataController(UserManager<ApplicationUser> userM) : Controller
 
     }
 
-    [HttpPatch("UpdateUserName/")]
-    public async Task<IActionResult> UpdateUserName([FromBody] UserNameDto newUserName)
+    [HttpPatch("UpdatePublicUserName/")]
+    public async Task<IActionResult> UpdateUserName([FromBody] PublicUserNameDto newPublicUserName)
     {
         var user = await _userM.GetUserAsync(User);
-        
-        user.UserName = newUserName.UserName;
-        
-        await _userM.UpdateAsync(user);
-        return Ok(MessageDefaultsUsers.UserNameUpdateSucceeded);
+        var checkUsername = _userM.Users.FirstOrDefault(u=> u.PublicUserName == newPublicUserName.PublicUserName && u.Id != user.Id);
+       
+        if (checkUsername is not null) 
+        {
+            return BadRequest(MessageDefaultsUsers.PublicUsernameAlreadyExists);
+        }
+        else
+        {
+             user.PublicUserName = newPublicUserName.PublicUserName;
+                    
+                    await _userM.UpdateAsync(user);
+                    
+                    return Ok(MessageDefaultsUsers.PublicUserNameUpdateSucceeded);
+            
+        }
+       
     }
 }
 

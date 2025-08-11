@@ -8,6 +8,14 @@ namespace MandrilAPI.Infrastructure.Authentication.AuthDatabaseContext
 {
     public class AuthDbContext(DbContextOptions<AuthDbContext> options) : IdentityDbContext<ApplicationUser>(options)
     {
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            builder.Entity<IdentityRole>().HasData(
+                new IdentityRole {Id = "1", Name = "Admin", NormalizedName = "Admin"},
+                new IdentityRole{Id = "2", Name = "User", NormalizedName = "User",}
+                );
 
-    };
+        }
+    }
 }

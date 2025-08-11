@@ -4,11 +4,13 @@ namespace MandrilAPI.Infrastructure.Authentication.AuthModels
 {
     public class ApplicationUser : IdentityUser
     {
-        [PersonalData]
+       
         public string? FirstName { get; set; }
-        [PersonalData]
+        
         public string? LastName { get; set; }
-        [PersonalData]
+        
+        public string? PublicUserName { get; set; }
+
         public DateTime DateOfBirth { get; set; }
      
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
