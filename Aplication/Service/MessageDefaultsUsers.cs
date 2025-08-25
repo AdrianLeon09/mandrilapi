@@ -20,6 +20,7 @@ public static class MessageDefaultsUsers
         "The information was not found in the database.";
     public const string RelationNotFound =
         "The relationship between the mandrill and skill was not found or does not exist. Please verify the data and try again.";
+    public const string RelationMandrilWithSkillAndUserNotFound = "Skill ID related to the specified mandril and User was not found.";
 
     // Deletion
     public const string DeleteMandrilSucceeded =
@@ -64,6 +65,9 @@ public static class MessageDefaultsUsers
         "The skill power has been updated.";
 
     // -------- Messages Authentication --------
+    public const string UserNotFound = "The user could not be found.";
+    
+    
     public const string FirstNameUpdateSucceeded = "The first name has been updated.";
     public const string LastNameUpdateSucceeded = "The Lastname has been updated.";
     public const string PublicUserNameUpdateSucceeded = "The username has been updated.";
@@ -76,7 +80,7 @@ public static class MessageDefaultsUsers
     public const string PasswordMismatch = "The passwords do not match. Please verify the data and try again.";
     public const string PasswordTooShort = "The password must be at least 6 characters long.";
 
-    public const string RegistrationSucceeded = "You are  has been successfully registered.";
+    public const string RegistrationSucceeded = "You are has been successfully registered.";
 
 
 }

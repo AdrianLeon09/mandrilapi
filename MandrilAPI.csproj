@@ -27,4 +27,20 @@
     <Folder Include="Domain\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="Infrastructure\Migrations\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="Infrastructure\Migrations\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Infrastructure\Migrations\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Infrastructure\Migrations\**" />
+  </ItemGroup>
+
 </Project>

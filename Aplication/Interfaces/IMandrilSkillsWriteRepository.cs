@@ -14,8 +14,8 @@ namespace MandrilAPI.Aplication.Interfaces
       public Skill UpdateOneSkillToDb(int targetSkillId, SkillDto skillDto);
       public Skill DeleteOneSkillFromDb(int targetSkillId);
   
-      public MandrilWithSkillsIntermediateTable AssignOneSkillToMandril(int targetMandrilId, int targetSkillId);
-      public MandrilWithSkillsIntermediateTable DeleteSkillFromMandril(int targetMandrilId,int targetSkillId);
-      public MandrilWithSkillsIntermediateTable UpdatePowerOfSkillForMandril(int targetMandrilId,int targetSkillId, int newPower);
+      public MandrilWithSkillsIntermediateTable AssignOneSkillToMandril(int targetMandrilId, int targetSkillId, string userId);
+      public MandrilWithSkillsIntermediateTable DeleteSkillFromMandrilForUser(int targetMandrilId,int targetSkillId, string userId);
+      public MandrilWithSkillsIntermediateTable UpdatePowerOfSkillForMandril(int targetMandrilId,int targetSkillId, int newPower, string userId);       
     }
 }

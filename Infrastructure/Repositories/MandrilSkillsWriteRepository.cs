@@ -3,6 +3,7 @@ using MandrilAPI.Aplication.Service;
 using MandrilAPI.Domain.Models;
 using MandrilAPI.Infrastructure.DatabaseContext;
 using MandrilAPI.Infrastructure.DTOs;
+using Microsoft.EntityFrameworkCore;
 
 namespace MandrilAPI.Infrastructure.Repositories
 {
@@ -73,64 +74,7 @@ namespace MandrilAPI.Infrastructure.Repositories
             }
         }
 
-        public MandrilWithSkillsIntermediateTable AssignOneSkillToMandril(int targetMandrilId, int targetSkillId)
-        {
-            var mandrilExists = _contextDb.Mandrils.FirstOrDefault(m => m.id == targetMandrilId);
-            var skillExists = _contextDb.Skills.FirstOrDefault(h => h.id == targetSkillId);
-            var relationExist = _contextDb.MandrilWithSkills.Where(r => r.MandrilId == targetMandrilId && r.SkillId == targetSkillId).ToList();
-            var relation = new MandrilWithSkillsIntermediateTable();
-
-            if (mandrilExists is null || skillExists is null)
-            {
-                _logger.LogWarning(MessageDefaultsDevs.ReturnedObjectIsNull, nameof(relationExist));
-                _logger.LogWarning(MessageDefaultsDevs.RelationCreationEntityNotFound, targetMandrilId, targetSkillId);
-                return null;
-            }
-            else if (relationExist.Count > 0)
-            {
-                _logger.LogWarning(MessageDefaultsDevs.RelationAlreadyExists, targetMandrilId, targetSkillId);
-                return null;
-            }
-            else
-            {
-
-                relation.MandrilId = targetMandrilId;
-                relation.SkillId = targetSkillId;
-
-                _logger.LogInformation(MessageDefaultsDevs.RelationCreated, targetMandrilId, targetSkillId, relation.PowerMS);
-                _contextDb.MandrilWithSkills.Add(relation);
-                _contextDb.SaveChanges();
-                return relation;
-
-            }
-        }
-
-
-        public MandrilWithSkillsIntermediateTable DeleteSkillFromMandril(int targetMandrilId, int targetSkillId)
-        {
-            var relation = _contextDb.MandrilWithSkills
-                  .FirstOrDefault(m => m.MandrilId == targetMandrilId && m.SkillId == targetSkillId);
-
-            if (relation is null)
-            {
-
-                _logger.LogWarning(MessageDefaultsDevs.DatabaseNotFound);
-                _logger.LogWarning(MessageDefaultsDevs.RelationMandrilWithSkillNotFound, targetSkillId, targetMandrilId);
-                _logger.LogWarning(MessageDefaultsDevs.DeleteError);
-                return null;
-
-            }
-            else
-            {
-
-                _contextDb.MandrilWithSkills.Remove(relation);
-                _contextDb.SaveChanges();
-                _logger.LogInformation(MessageDefaultsDevs.DeleteSuccess);
-                return relation;
-
-            }
-        }
-
+       
 
         public Skill DeleteOneSkillFromDb(int targetSkillId)
         {
@@ -275,9 +219,82 @@ namespace MandrilAPI.Infrastructure.Repositories
         }
 
 
-        public MandrilWithSkillsIntermediateTable UpdatePowerOfSkillForMandril(int targetMandrilId, int targetSkillId, int newPower)
+ public MandrilWithSkillsIntermediateTable AssignOneSkillToMandril(int targetMandrilId, int targetSkillId, string userId)
         {
-            var relation = _contextDb.MandrilWithSkills.FirstOrDefault(m => m.MandrilId == targetMandrilId && m.SkillId == targetSkillId);
+            var relation = new MandrilWithSkillsIntermediateTable();
+            
+            var mandrilExists = _contextDb.Mandrils.FirstOrDefault(m => m.id == targetMandrilId);
+            var skillExists = _contextDb.Skills.FirstOrDefault(h => h.id == targetSkillId);
+            var userExist = relation.User.Users.FirstOrDefault(u=> EF.Functions.Collate(u.Id, "SQL_Latin1_General_CP1_CI_AS")== userId) ;
+
+            var relationExist = _contextDb.MandrilWithSkills.Where(r => r.MandrilId == targetMandrilId && r.SkillId == targetSkillId
+                && EF.Functions.Collate(r.UserId,"SQL_Latin1_General_CP1_CI_AS") == userId).ToList();
+            
+           
+  if (userExist is null)
+            {
+                _logger.LogWarning(MessageDefaultsDevs.UserNotFound);
+                return null;
+
+            }
+            else  if (mandrilExists is null || skillExists is null)
+                
+            {
+                _logger.LogWarning(MessageDefaultsDevs.ReturnedObjectIsNull, nameof(relationExist));
+                _logger.LogWarning(MessageDefaultsDevs.RelationCreationEntityNotFound, targetMandrilId, targetSkillId);
+                return null;
+            }
+          
+            else if (relationExist.Count > 0)
+            {
+                _logger.LogWarning(MessageDefaultsDevs.RelationAlreadyExists, targetMandrilId, targetSkillId, userId);
+                return null;
+            }
+            else
+            {
+
+                relation.MandrilId = targetMandrilId;
+                relation.SkillId = targetSkillId;
+                relation.UserId = userId;
+
+                _logger.LogInformation(MessageDefaultsDevs.RelationCreated, targetMandrilId, targetSkillId, userId, relation.PowerMS);
+                _contextDb.MandrilWithSkills.Add(relation);
+                _contextDb.SaveChanges();
+                return relation;
+
+            }
+        }
+
+
+        public MandrilWithSkillsIntermediateTable DeleteSkillFromMandrilForUser(int targetMandrilId, int targetSkillId, string userId)
+        {
+            var relation = _contextDb.MandrilWithSkills
+                  .FirstOrDefault(m => m.MandrilId == targetMandrilId && m.SkillId == targetSkillId && EF.Functions.Collate(m.UserId, "SQL_Latin1_General_CP1_CI_AS") == userId) ;
+
+            if (relation is null)
+            {
+
+                _logger.LogWarning(MessageDefaultsDevs.DatabaseNotFound);
+                _logger.LogWarning(MessageDefaultsDevs.RelationMandrilWithSkillNotFound, targetSkillId, targetMandrilId);
+                _logger.LogWarning(MessageDefaultsDevs.DeleteError);
+                return null;
+
+            }
+            else
+            {
+
+                _contextDb.MandrilWithSkills.Remove(relation);
+                _contextDb.SaveChanges();
+                _logger.LogInformation(MessageDefaultsDevs.DeleteSuccess);
+                return relation;
+
+            }
+        }
+
+
+        public MandrilWithSkillsIntermediateTable UpdatePowerOfSkillForMandril(int targetMandrilId, int targetSkillId, int newPower, string userId)
+        {
+            var relation = _contextDb.MandrilWithSkills.FirstOrDefault(m => m.MandrilId == targetMandrilId && m.SkillId == targetSkillId && EF.Functions.Collate(m.UserId, "SQL_Latin1_General_CP1_CI_AS") == userId);
 
             if (relation is not null)
             {
@@ -285,13 +302,13 @@ namespace MandrilAPI.Infrastructure.Repositories
                 relation.PowerMS = newPower;
                 _contextDb.MandrilWithSkills.Update(relation);
                 _contextDb.SaveChanges();
-                _logger.LogInformation(MessageDefaultsDevs.SkillPowerUpdateSuccess, targetSkillId, targetMandrilId, newPower);
+                _logger.LogInformation(MessageDefaultsDevs.SkillPowerUpdateSuccess, targetSkillId, targetMandrilId, newPower,userId);
                 return relation;
 
             }
             else
             {
-                _logger.LogWarning(MessageDefaultsDevs.RelationMandrilWithSkillNotFound, targetSkillId, targetMandrilId);
+                _logger.LogWarning(MessageDefaultsDevs.RelationMandrilWithSkillAndUserNotFound, targetSkillId, targetMandrilId, userId);
                 _logger.LogWarning(MessageDefaultsDevs.RelationUpdateError, targetSkillId, targetMandrilId);
                 return null;
             }

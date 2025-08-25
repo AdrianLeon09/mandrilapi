@@ -1,5 +1,8 @@
 ﻿using MandrilAPI.Domain.Models;
+using MandrilAPI.Infrastructure.Authentication.AuthDatabaseContext;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.General;
 
 namespace MandrilAPI.Infrastructure.DatabaseContext;
 
@@ -15,8 +18,8 @@ public DbSet<Skill> Skills { get; set; }
     {
         modelBuilder.Entity<MandrilWithSkillsIntermediateTable>().ToTable("MandrilWithSkills")
           .HasKey(mh => new {mh.MandrilId, mh.SkillId });
-
         modelBuilder.Entity<MandrilWithSkillsIntermediateTable>().ToTable("MandrilWithSkills", builder => builder.HasCheckConstraint("power_limit_4", "PowerMS <= 4"));
+
     }
 };
   
