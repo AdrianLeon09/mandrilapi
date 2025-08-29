@@ -1,6 +1,7 @@
 ﻿using MandrilAPI.Aplication.Service;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 using System.ComponentModel.DataAnnotations;
+using MandrilAPI.Domain.Models;
 using MandrilAPI.Infrastructure.CustomAnnotations;
 
 namespace MandrilAPI.Infrastructure.DTOs
@@ -76,4 +77,48 @@ namespace MandrilAPI.Infrastructure.DTOs
         
         public string PublicUserName { get; set; }
     }
+    
+    public class AllUsersDto
+    {
+        [Required(ErrorMessage = MessageDefaultsUsers.EntryInvalid)]
+        [MinLength(3, ErrorMessage = MessageDefaultsUsers.EntryInvalid)]
+        [StringLength(25, ErrorMessage = MessageDefaultsUsers.EntryMaxLength)]
+        [OnlyLetterCount(3)]
+        
+        public string FirstName { get; set; }
+        
+        public string LastName { get; set; }
+        
+        public string PublicUserName { get; set; }
+        
+        public string Email { get; set; }
+        
+        public int NumberOfMandrils { get; set; }
+        
+        public DateTime  CreateAt { get; set; }
+    }
+
+    public class UserRelationshipsDto
+    {
+      public string PublicUserName {get; set;}
+        public List<RelationMandrilSkillsDto> Mandril{ get; set; } = new List<RelationMandrilSkillsDto>();
+       // public string PowerSkill{ get;set; }
+        
+    }
+
+    public class RelationMandrilSkillsDto
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        
+        public List<SkillRelationDto> Skills { get; set; } = new List<SkillRelationDto>();
+        
+    }
+
+    public class SkillRelationDto
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+    }
+    
 }

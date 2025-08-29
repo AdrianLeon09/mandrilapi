@@ -13,7 +13,9 @@
         public const string AllSkillsNotFound = "No Skill objects were found";
         public const string SkillNotFound = "The skill with ID {EntityID} was not found or does not exist.";
         public const string SkillsNotFound = "No skills were found.";
-        public const string UserNotFound = "The user was no found or does not exist.";
+        public const string UserNotFound = "The user ID {UserID} was no found or does not exist.";
+        public const string UsersNotFound = "No users were found.";
+        public const string RelationshipsNotFound = "The relationships was not found.";
         
 
         // Deletion
@@ -26,6 +28,8 @@
         public const string MandrilWithSkillRetrieved = "The mandril with ID {targetMandrilId} and skill with ID {targetSkillId} have been successfully retrieved.";
         public const string MandrilWithAllSkillsRetrieved = "The mandril with ID {targetMandrilId} and all its skills have been successfully retrieved.";
         public const string AllMandrilsWithSkillsRetrieved = "All mandrils with their skills have been successfully retrieved.";
+        public const string AllUsersRetrieved = "All users have been successfully retrieved.";
+        public const string AllRelationshipsRetrieved = "All relationships have been successfully retrieved.";
 
         // Failed queries
         public const string AllMandrilsWithSkillsError = "Unable to retrieve mandrils with their skills. Verify that the information exists or is accessible.";
@@ -40,8 +44,11 @@
             "One or more elements do not exist in the database.";
          public const string RelationMandrilWithSkillNotFound = "Skill ID {targetSkillId} related to the specified mandril ID {targetMandrilId} was not found.";
          public const string RelationMandrilWithSkillAndUserNotFound = "Skill ID {targetSkillId} related to the specified mandril ID {targetMandrilId} For User ID {UserID} was not found.";
+        
         public const string RelationAlreadyExists = "Unable to create a relationship between Mandril ID: {EntityMandril} and Skill ID: {EntitySkill} For  User ID {UserID}.\n" +
             "The relationship already exists in the database.";
+        
+        public const string RelationMandrilUserNotFound = "The Mandril ID {targetMandrilId} associated with the user ID {UserID} was not found";
 
         // Updates
         public const string SkillUpdateSuccess = "The skill with ID {EntitySkillID} has been successfully updated.";

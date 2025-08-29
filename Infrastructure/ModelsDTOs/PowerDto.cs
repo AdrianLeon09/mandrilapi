@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using MandrilAPI.Aplication.Service;
 
-namespace MandrilAPI.Infrastructure.DTOs;
+namespace MandrilAPI.Infrastructure.ModelsDTOs;
 
 public class PowerDto
 {

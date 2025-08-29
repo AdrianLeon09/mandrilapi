@@ -2,6 +2,7 @@
 using MandrilAPI.Aplication.Service;
 using MandrilAPI.Domain.Models;
 using MandrilAPI.Infrastructure.DTOs;
+using MandrilAPI.Infrastructure.ModelsDTOs;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MandrilAPI.Presentation.Controllers

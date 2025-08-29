@@ -2,6 +2,7 @@
 using MandrilAPI.Aplication.Service;
 using MandrilAPI.Domain.Models;
 using MandrilAPI.Infrastructure.DTOs;
+using MandrilAPI.Infrastructure.ModelsDTOs;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MandrilAPI.Presentation.Controllers
@@ -58,9 +59,9 @@ namespace MandrilAPI.Presentation.Controllers
                 }
                 else
                 {
-                    SkillDto.name = SkillDto.name.Replace(" ", "");
+                    SkillDto.Name = SkillDto.Name.Replace(" ", "");
                     
-                    if (SkillDto.name.Length < 3)
+                    if (SkillDto.Name.Length < 3)
                     {
                         return BadRequest(MessageDefaultsUsers.EntryInvalid);
 
@@ -94,18 +95,18 @@ namespace MandrilAPI.Presentation.Controllers
             
             
             [HttpPost]
-            public ActionResult<Skill> AddSkill([FromBody] SkillDto SkillDto)
+            public ActionResult<Skill> AddSkill([FromBody] SkillDto skillDto)
             {
-                SkillDto.name = SkillDto.name.Replace(" ", "");
+                skillDto.Name = skillDto.Name.Replace(" ", "");
                
-                if (SkillDto.name.Length < 3)
+                if (skillDto.Name.Length < 3)
                 {
 
                     return BadRequest(MessageDefaultsUsers.DeleteSkillError +  "\n" +  MessageDefaultsUsers.DeleteNotSucceeded);
                 }
                 else
                 {
-                    _repositoryWriteMandrilSkills.AddNewSkillToDb(SkillDto);
+                    _repositoryWriteMandrilSkills.AddNewSkillToDb(skillDto);
 
                     return Ok(MessageDefaultsUsers.SkillCreatedSuccess);
                 }

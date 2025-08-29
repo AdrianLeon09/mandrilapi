@@ -28,7 +28,7 @@ public class UserDataController(UserManager<ApplicationUser> userM) : Controller
         var userDto = new UserDataDto();
         userDto.FirstName = user.FirstName;
         userDto.LastName = user.LastName;
-        userDto.PublicUserName = user.UserName;
+        userDto.PublicUserName = user.PublicUserName;
         userDto.UserEmail = user.Email;
         userDto.DateOfBirth = user.DateOfBirth;
 

@@ -1,25 +1,34 @@
 ﻿using MandrilAPI.Aplication.Interfaces;
 using MandrilAPI.Aplication.Service;
 using MandrilAPI.Domain.Models;
+using MandrilAPI.Infrastructure.Authentication.AuthDatabaseContext;
+using MandrilAPI.Infrastructure.Authentication.AuthModels;
 using MandrilAPI.Infrastructure.DatabaseContext;
 using MandrilAPI.Infrastructure.DTOs;
+using MandrilAPI.Infrastructure.ModelsDTOs;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace MandrilAPI.Infrastructure.Repositories
 {
-    public class MandrilSkillsWriteRepository(MandrilDbContext contextDb, ILogger<MandrilSkillsWriteRepository> logger) : IMandrilSkillsWriteRepository
+    public class MandrilSkillsWriteRepository(MandrilDbContext contextDb, ILogger<MandrilSkillsWriteRepository> logger, AuthDbContext contextDbAuth,
+    UserManager<ApplicationUser> usermanager,
+    SignInManager<ApplicationUser> signinmanager) : IMandrilSkillsWriteRepository
     {
+        private readonly UserManager<ApplicationUser> _userM = usermanager;
+        private readonly SignInManager<ApplicationUser> _signInM = signinmanager;
+        
         private readonly MandrilDbContext _contextDb = contextDb;
         private readonly ILogger _logger = logger;
 
         public Skill AddNewSkillToDb(SkillDto newSkillDto)
         {
             Skill skill = new Skill();
-            skill.name = newSkillDto.name.Replace(" ", "");
+            skill.name = newSkillDto.Name.Replace(" ", "");
 
-            if (!string.IsNullOrWhiteSpace(newSkillDto.name))
+            if (!string.IsNullOrWhiteSpace(newSkillDto.Name))
             {
-                if (newSkillDto.name.Length < 3)
+                if (newSkillDto.Name.Length < 3)
                 {
                     _logger.LogWarning(MessageDefaultsDevs.InvalidEntry);
                     _logger.LogWarning(MessageDefaultsDevs.SkillCreationError);      
@@ -124,17 +133,17 @@ namespace MandrilAPI.Infrastructure.Repositories
         }
 
 
-        public Skill UpdateOneSkillToDb(int targetSkillId, SkillDto skillDto)
+        public Skill UpdateOneSkillToDb(int targetSkillId, SkillDto newSkillDto)
         {
             var skill = _contextDb.Skills.FirstOrDefault(s => s.id == targetSkillId);
 
             if (skill is not null)
             {
-                skillDto.name = skillDto.name.Replace(" ", "");
+                newSkillDto.Name = newSkillDto.Name.Replace(" ", "");
 
-                if (!string.IsNullOrEmpty(skillDto.name))
+                if (!string.IsNullOrEmpty(newSkillDto.Name))
                 {
-                    if (skillDto.name.Length < 3)
+                    if (newSkillDto.Name.Length < 3)
                     {
 
                         _logger.LogWarning(MessageDefaultsDevs.InvalidEntry);
@@ -144,7 +153,7 @@ namespace MandrilAPI.Infrastructure.Repositories
                     else
                     {
 
-                        skill.name = skillDto.name;
+                        skill.name = newSkillDto.Name;
                         _contextDb.Skills.Update(skill);
                         _contextDb.SaveChanges();
                         _logger.LogInformation(MessageDefaultsDevs.SkillUpdateSuccess, targetSkillId);
@@ -219,13 +228,13 @@ namespace MandrilAPI.Infrastructure.Repositories
         }
 
 
- public MandrilWithSkillsIntermediateTable AssignOneSkillToMandril(int targetMandrilId, int targetSkillId, string userId)
+ public MandrilWithSkillsIntermediateTable AssignOneSkillToMandril(int targetMandrilId, int targetSkillId, string userId) //Only Admins
         {
             var relation = new MandrilWithSkillsIntermediateTable();
             
             var mandrilExists = _contextDb.Mandrils.FirstOrDefault(m => m.id == targetMandrilId);
             var skillExists = _contextDb.Skills.FirstOrDefault(h => h.id == targetSkillId);
-            var userExist = relation.User.Users.FirstOrDefault(u=> EF.Functions.Collate(u.Id, "SQL_Latin1_General_CP1_CI_AS")== userId) ;
+            var userExist = _userM.Users.FirstOrDefault(u=> EF.Functions.Collate(u.Id, "SQL_Latin1_General_CP1_CI_AS") == userId) ;
 
             var relationExist = _contextDb.MandrilWithSkills.Where(r => r.MandrilId == targetMandrilId && r.SkillId == targetSkillId
                 && EF.Functions.Collate(r.UserId,"SQL_Latin1_General_CP1_CI_AS") == userId).ToList();
@@ -233,7 +242,7 @@ namespace MandrilAPI.Infrastructure.Repositories
            
   if (userExist is null)
             {
-                _logger.LogWarning(MessageDefaultsDevs.UserNotFound);
+                _logger.LogWarning(MessageDefaultsDevs.UserNotFound, userId);
                 return null;
 
             }
@@ -266,7 +275,7 @@ namespace MandrilAPI.Infrastructure.Repositories
         }
 
 
-        public MandrilWithSkillsIntermediateTable DeleteSkillFromMandrilForUser(int targetMandrilId, int targetSkillId, string userId)
+        public MandrilWithSkillsIntermediateTable DeleteSkillFromMandrilForUser(int targetMandrilId, int targetSkillId, string userId) // Only Admins
         {
             var relation = _contextDb.MandrilWithSkills
                   .FirstOrDefault(m => m.MandrilId == targetMandrilId && m.SkillId == targetSkillId && EF.Functions.Collate(m.UserId, "SQL_Latin1_General_CP1_CI_AS") == userId) ;
@@ -290,9 +299,34 @@ namespace MandrilAPI.Infrastructure.Repositories
 
             }
         }
+        
+        public async Task<MandrilWithSkillsIntermediateTable> DeleteMandrilForUser(int targetMandrilId, string userId) // Only Admins
+        {
+            var relation = await  _contextDb.MandrilWithSkills
+                .FirstOrDefaultAsync(m => m.MandrilId == targetMandrilId && EF.Functions.Collate(m.UserId, "SQL_Latin1_General_CP1_CI_AS") == userId) ;
+
+            if (relation is null)
+            {
+
+                _logger.LogWarning(MessageDefaultsDevs.DatabaseNotFound);
+                _logger.LogWarning(MessageDefaultsDevs.RelationMandrilUserNotFound, targetMandrilId, userId );
+                _logger.LogWarning(MessageDefaultsDevs.DeleteError);
+                return null;
+
+            }
+            else
+            {
+
+                _contextDb.MandrilWithSkills.Remove(relation);
+                _contextDb.SaveChanges();
+                _logger.LogInformation(MessageDefaultsDevs.DeleteSuccess);
+                return relation;
+
+            }
+        }
 
 
-        public MandrilWithSkillsIntermediateTable UpdatePowerOfSkillForMandril(int targetMandrilId, int targetSkillId, int newPower, string userId)
+        public MandrilWithSkillsIntermediateTable UpdatePowerOfSkillForMandril(int targetMandrilId, int targetSkillId, int newPower, string userId) //Only Admins
         {
             var relation = _contextDb.MandrilWithSkills.FirstOrDefault(m => m.MandrilId == targetMandrilId && m.SkillId == targetSkillId && EF.Functions.Collate(m.UserId, "SQL_Latin1_General_CP1_CI_AS") == userId);
 

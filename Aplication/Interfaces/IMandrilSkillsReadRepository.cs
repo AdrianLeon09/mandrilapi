@@ -1,5 +1,7 @@
 ﻿using MandrilAPI.Domain.Models;
+using MandrilAPI.Infrastructure.Authentication.AuthModels;
 using MandrilAPI.Infrastructure.DatabaseContext;
+using MandrilAPI.Infrastructure.DTOs;
 
 namespace MandrilAPI.Aplication.Interfaces
 {
@@ -15,5 +17,9 @@ namespace MandrilAPI.Aplication.Interfaces
 
         IReadOnlyList<MandrilWithSkillsIntermediateTable> SelectAllMandrilWithSkillsFromUser(string UserId);
         IReadOnlyList<MandrilWithSkillsIntermediateTable> SelectOneMandrilWithAllSkillsFromUser(int targetMandrilId, string UserId);
-}
+
+        public Task<IReadOnlyList<AllUsersDto>> GetAllUsersFromDb();
+
+        public Task<IReadOnlyList<UserRelationshipsDto>> GetAllRelationsFromDb();
+    }
     }  

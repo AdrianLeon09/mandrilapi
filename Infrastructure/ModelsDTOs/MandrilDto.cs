@@ -1,13 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using MandrilAPI.Aplication.Service;
 
-namespace MandrilAPI.Infrastructure.DTOs;
+namespace MandrilAPI.Infrastructure.ModelsDTOs;
 
 public class MandrilDto
 { 
     
-[Required(ErrorMessage = MessageDefaultsUsers.EntryInvalid)]
-   
+    [Required(ErrorMessage = MessageDefaultsUsers.EntryInvalid)]
+
     [StringLength(25, ErrorMessage = MessageDefaultsUsers.EntryInvalid)]
     [MinLength(3, ErrorMessage = MessageDefaultsUsers.EntryInvalid)]
     public string name { get; set; } = String.Empty;
