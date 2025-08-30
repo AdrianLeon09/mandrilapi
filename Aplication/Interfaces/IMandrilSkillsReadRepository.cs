@@ -7,8 +7,7 @@ namespace MandrilAPI.Aplication.Interfaces
 {
     public interface IMandrilSkillsReadRepository
     {
-        public IReadOnlyList<MandrilWithSkillsIntermediateTable> GetOneMandrilWithOneSkillFromUser(int targetMandrilId,
-            int targetHabilidadId, string userId);
+     
         
         public  IReadOnlyList<Mandril> GetOneMandrilsFromDb(int targetMandrilId);
     public IReadOnlyList<Skill> GetOneSkillFromDb(int targetHabilidadId);
@@ -17,6 +16,9 @@ namespace MandrilAPI.Aplication.Interfaces
 
         IReadOnlyList<MandrilWithSkillsIntermediateTable> SelectAllMandrilWithSkillsFromUser(string UserId);
         IReadOnlyList<MandrilWithSkillsIntermediateTable> SelectOneMandrilWithAllSkillsFromUser(int targetMandrilId, string UserId);
+        
+        public Task<IReadOnlyList<RelationMandrilSkillsDto>> GetOneMandrilWithOneSkillFromUser(int targetMandrilId,
+                    int targetHabilidadId, string userId);
 
         public Task<IReadOnlyList<AllUsersDto>> GetAllUsersFromDb();
 

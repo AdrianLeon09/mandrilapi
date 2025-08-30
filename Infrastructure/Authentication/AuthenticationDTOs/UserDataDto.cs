@@ -109,7 +109,7 @@ namespace MandrilAPI.Infrastructure.DTOs
     public class RelationMandrilSkillsDto
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string mandrilName { get; set; }
         
         public List<SkillRelationDto> Skills { get; set; } = new List<SkillRelationDto>();
         

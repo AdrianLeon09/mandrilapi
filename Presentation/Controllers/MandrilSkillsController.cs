@@ -54,12 +54,13 @@ public class MandrilSkillsController(
     [Authorize(Roles = "User,Admin")]
     public async Task<IActionResult> GetOneSkillFromOneMandril(int targetMandrilId, int targetSkillId)
     {
+        
         var user = await _userM.GetUserAsync(User);
 
-        var relation =
+        var relation = 
             _repositoryReadMandrilSkills.GetOneMandrilWithOneSkillFromUser(targetMandrilId, targetSkillId, user.Id);
 
-        if (relation.Count is 0)
+        if (relation is null)
         {
             return NotFound(MessageDefaultsUsers.RelationNotFound);
         }
@@ -81,7 +82,7 @@ public class MandrilSkillsController(
             var relation =
                 _repositoryReadMandrilSkills.GetOneMandrilWithOneSkillFromUser(targetMandrilId, targetSkillId, user.Id);
 
-            if (relation.Count is 0)
+            if (relation is null)
             {
 
                 return BadRequest(MessageDefaultsUsers.RelationNotFound);

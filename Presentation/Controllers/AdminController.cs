@@ -31,7 +31,7 @@ public class AdminController(
 
 
     [HttpPost("create-relation/mandril/{targetMandrilId}/skill/{targetSkillId}/")]
-   // [Authorize(Policy = "Admin")]
+    [Authorize(Policy = "Admin")]
     public async Task<IActionResult> AddSkillAndMandrilForUser(int targetMandrilId, int targetSkillId,
         [FromBody] PublicUserNameDto UserToAdd)
     {
@@ -55,7 +55,7 @@ public class AdminController(
             {
                 return BadRequest(MessageDefaultsUsers.RelationCreationEntityNotFound);
             }
-            else if (relationExists.Count > 0)
+            else if (relationExists is null)
             {
                 return BadRequest(MessageDefaultsUsers.RelationAlreadyExists);
             }
@@ -82,7 +82,7 @@ public class AdminController(
             var relation =
                 _repositoryReadMandrilSkills.GetOneMandrilWithOneSkillFromUser(targetMandrilId, targetSkillId, user.Id);
 
-            if (relation.Count is 0)
+            if (relation is null)
             {
 
                 return BadRequest(MessageDefaultsUsers.RelationNotFound);
@@ -156,7 +156,7 @@ public class AdminController(
             var relation =
                 _repositoryReadMandrilSkills.GetOneMandrilWithOneSkillFromUser(targetMandrilId, targetSkillId, user.Id);
 
-            if (relation.Count is 0)
+            if (relation is null)
             {
                 return BadRequest(MessageDefaultsUsers.RelationMandrilWithSkillAndUserNotFound);
             }

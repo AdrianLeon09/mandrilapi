@@ -21,6 +21,7 @@ public class UserDataController(UserManager<ApplicationUser> userM) : Controller
 
 
     [HttpGet("GetUserData/")]
+    [Authorize(Roles = "User", Policy = "UserOnly")]
     public async Task<IActionResult> GetUserData()
     {
         var user = await _userM.GetUserAsync(User);
@@ -35,7 +36,7 @@ public class UserDataController(UserManager<ApplicationUser> userM) : Controller
 
         return Ok(userDto);
     }
-    //hacer que el usurio creado se agrege automamticamente al rol users
+ 
     [HttpPatch("UpdateFirstName/")]
     [Authorize(Roles = "User", Policy = "UserOnly")]
     public async Task<IActionResult> UpdateFirstName([FromBody]UserFirstNameDto newFirstName)

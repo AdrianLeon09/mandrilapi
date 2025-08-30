@@ -48,7 +48,6 @@ public class AccountController(
       }
     
   }
-
   
   [HttpPost("Login/")]
     public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
