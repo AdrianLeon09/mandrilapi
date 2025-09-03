@@ -29,7 +29,7 @@ namespace MandrilAPI.Presentation
                 }).AddEntityFrameworkStores<AuthDbContext>()
                 .AddDefaultTokenProviders();
 
-            builder.Services.AddAuthorization(options => options.AddPolicy("AdminOnly", policy => policy.RequireRole("Admin", "User")));
+            builder.Services.AddAuthorization(options => options.AddPolicy("Admin", policy => policy.RequireRole("Admin")));
             
             builder.Services.AddAuthorization(options => options.AddPolicy("UserOnly", policy => policy.RequireRole("User")));
                     

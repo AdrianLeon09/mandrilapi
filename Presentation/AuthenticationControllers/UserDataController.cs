@@ -21,7 +21,7 @@ public class UserDataController(UserManager<ApplicationUser> userM) : Controller
 
 
     [HttpGet("GetUserData/")]
-    [Authorize(Roles = "User", Policy = "UserOnly")]
+    [Authorize(Roles = "User,Admin")]
     public async Task<IActionResult> GetUserData()
     {
         var user = await _userM.GetUserAsync(User);
@@ -38,7 +38,7 @@ public class UserDataController(UserManager<ApplicationUser> userM) : Controller
     }
  
     [HttpPatch("UpdateFirstName/")]
-    [Authorize(Roles = "User", Policy = "UserOnly")]
+    [Authorize(Roles = "User,Admin")]
     public async Task<IActionResult> UpdateFirstName([FromBody]UserFirstNameDto newFirstName)
     {
         var user = await _userM.GetUserAsync(User);
@@ -53,6 +53,7 @@ public class UserDataController(UserManager<ApplicationUser> userM) : Controller
 
 
     [HttpPatch("UpdateLastName/")]
+    [Authorize(Roles = "User,Admin")]
     public async Task<IActionResult> UpdateLastName([FromBody]UserLastNameDto newLastName)
     {
         var user = await _userM.GetUserAsync(User);
@@ -66,12 +67,13 @@ public class UserDataController(UserManager<ApplicationUser> userM) : Controller
     }
 
     [HttpPatch("UpdatePublicUserName/")]
+    [Authorize(Roles = "User,Admin")]
     public async Task<IActionResult> UpdateUserName([FromBody] PublicUserNameDto newPublicUserName)
     {
         var user = await _userM.GetUserAsync(User);
-        var checkUsername = _userM.Users.FirstOrDefault(u=> u.PublicUserName == newPublicUserName.PublicUserName && u.Id != user.Id);
+        var checkUsername = await _userM.Users.AnyAsync(u=> u.PublicUserName == newPublicUserName.PublicUserName && u.Id != user.Id);
        
-        if (checkUsername is not null) 
+        if (checkUsername) 
         {
             return BadRequest(MessageDefaultsUsers.PublicUsernameAlreadyExists);
         }

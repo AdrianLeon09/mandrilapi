@@ -3,6 +3,7 @@ using MandrilAPI.Aplication.Service;
 using MandrilAPI.Domain.Models;
 using MandrilAPI.Infrastructure.DTOs;
 using MandrilAPI.Infrastructure.ModelsDTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MandrilAPI.Presentation.Controllers
@@ -10,6 +11,7 @@ namespace MandrilAPI.Presentation.Controllers
    
         [ApiController]
         [Route("api/[controller]")]
+        [Authorize(Policy = "Admin")]
 
         public class SkillsController(IMandrilSkillsReadRepository RepositoryRead, IMandrilSkillsWriteRepository RepositoryWrite) : ControllerBase
         {
@@ -19,9 +21,9 @@ namespace MandrilAPI.Presentation.Controllers
             
             
             [HttpGet]
-            public ActionResult<Skill> GetAllSkills()
+            public async Task<IActionResult> GetAllSkills()
             {
-                var Skills = _repositoryReadMandrilSkills.GetAllSkillsFromDb(); ;
+                var Skills = await _repositoryReadMandrilSkills.GetAllSkillsFromDb();
                 if (Skills.Count is 0)
                 {
                     return NotFound(MessageDefaultsUsers.DataBaseNotFound);
@@ -35,9 +37,9 @@ namespace MandrilAPI.Presentation.Controllers
 
             
             [HttpGet("{targetSkillId}")]
-            public ActionResult<Skill> GetSkillById(int targetSkillId)
+            public async Task<IActionResult> GetSkillById(int targetSkillId)
             {
-                var Skill = _repositoryReadMandrilSkills.GetOneSkillFromDb(targetSkillId);
+                var Skill = await _repositoryReadMandrilSkills.GetOneSkillFromDb(targetSkillId);
 
                 if (Skill.Count is 0)
                 {
@@ -49,9 +51,9 @@ namespace MandrilAPI.Presentation.Controllers
 
             
             [HttpPut("{targetSkillId}")]
-            public ActionResult<Skill> UpdateSkill(int targetSkillId, [FromBody] SkillDto SkillDto)
+            public async Task<IActionResult> UpdateSkill(int targetSkillId, [FromBody] SkillDto SkillDto)
             {
-                var qrySkill = _repositoryReadMandrilSkills.GetOneSkillFromDb(targetSkillId);
+                var qrySkill = await _repositoryReadMandrilSkills.GetOneSkillFromDb(targetSkillId);
 
                 if (qrySkill.Count is 0)
                 {
@@ -78,9 +80,9 @@ namespace MandrilAPI.Presentation.Controllers
             
             
             [HttpDelete("{targetSkillId}")]
-            public ActionResult<Skill> DeleteSkill(int targetSkillId)
+            public async Task<IActionResult> DeleteSkill(int targetSkillId)
             {
-                var checkDelete = _repositoryReadMandrilSkills.GetOneSkillFromDb(targetSkillId);
+                var checkDelete = await _repositoryReadMandrilSkills.GetOneSkillFromDb(targetSkillId);
                 if (checkDelete.Count is 0)
                 {
                     return NotFound(MessageDefaultsUsers.SkillNotFound);

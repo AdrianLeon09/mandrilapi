@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MandrilAPI.Infrastructure.Repositories
 {
+  
     public class MandrilSkillsReadRepository(
         MandrilDbContext contextDb,
         ILogger<MandrilSkillsReadRepository> logger,
@@ -26,9 +27,11 @@ namespace MandrilAPI.Infrastructure.Repositories
 
 
 
-        public IReadOnlyList<Skill> GetOneSkillFromDb(int targetSkillId) // only admins
+        public async Task<IReadOnlyList<Skill>> GetOneSkillFromDb(int targetSkillId) // only admins
         {
-            var Skill = _contextDb.Skills.Where(h => h.id == targetSkillId).AsNoTracking().ToList();
+            var Skill = await _contextDb.Skills.Where(h => h.id == targetSkillId)
+                .AsNoTracking()
+                .ToListAsync();
 
             if (Skill.Count is 0)
             {
@@ -43,9 +46,11 @@ namespace MandrilAPI.Infrastructure.Repositories
         }
 
 
-        public IReadOnlyList<Skill> GetAllSkillsFromDb() // only admins
+        public async Task<IReadOnlyList<Skill>> GetAllSkillsFromDb() // only admins
         {
-            var Skill = _contextDb.Skills.AsNoTracking().ToList();
+            var Skill = await _contextDb.Skills
+                .AsNoTracking()
+                .ToListAsync();
 
             if (Skill.Count is 0)
             {
@@ -60,9 +65,11 @@ namespace MandrilAPI.Infrastructure.Repositories
         }
 
 
-        public IReadOnlyList<Mandril> GetOneMandrilsFromDb(int targetMandrilId) //only admins
+        public async Task<IReadOnlyList<Mandril>> GetOneMandrilsFromDb(int targetMandrilId) //only admins
         {
-            var Skill = _contextDb.Mandrils.Where(m => m.id == targetMandrilId).AsNoTracking().ToList();
+            var Skill = await _contextDb.Mandrils.Where(m => m.id == targetMandrilId)
+                .AsNoTracking()
+                .ToListAsync();
 
             if (Skill.Count is 0)
             {
@@ -78,9 +85,11 @@ namespace MandrilAPI.Infrastructure.Repositories
         }
 
 
-        public IReadOnlyList<Mandril> GetAllMandrilsFromDb() // only admins
+        public async Task<IReadOnlyList<Mandril>> GetAllMandrilsFromDb() // only admins
         {
-            var Mandril = _contextDb.Mandrils.AsNoTracking().ToList();
+            var Mandril = await _contextDb.Mandrils
+                .AsNoTracking()
+                .ToListAsync();
 
             if (Mandril.Count is 0)
             {
@@ -101,22 +110,25 @@ namespace MandrilAPI.Infrastructure.Repositories
             var user = await _userM.FindByIdAsync(userId);
             
             
-            var relationMandrilSkill = _contextDb.MandrilWithSkills.Include(m => m.Mandril).Include(h => h.Skill).Where(m =>
+            var relationMandrilSkill = await _contextDb.MandrilWithSkills.Include(m => m.Mandril).Include(h => h.Skill).Where(m =>
                 m.MandrilId == targetMandrilId && m.SkillId == targetSkillId &&
-                EF.Functions.Collate(m.UserId, "SQL_Latin1_General_CP1_CI_AS") == userId).AsNoTracking().ToList();
+                EF.Functions.Collate(m.UserId, "SQL_Latin1_General_CP1_CI_AS") == userId).AsNoTracking().ToListAsync();
 
-            var group = relationMandrilSkill.GroupBy(u => u.MandrilId)
-                .Select(userKey => new RelationMandrilSkillsDto()
+            var group = relationMandrilSkill.Select(s => new RelationMandrilSkillsDto()
+            {
+                Id = s.MandrilId,
+                mandrilName = s.Mandril.name,
+                Skills = new List<SkillRelationDto>()
                 {
-                    Id = userKey.Key,
-                    mandrilName = userKey.FirstOrDefault().Mandril.name,
-                    
-                    Skills = userKey.GroupBy(s => s.SkillId).Select(s => new SkillRelationDto()
+                    new SkillRelationDto()
                     {
-                        Id = s.Key,
-                        Name = s.FirstOrDefault().Skill.name,
-                    }).ToList()
-                }).ToList();
+                        Id = s.SkillId,
+                        Name = s.Skill.name
+                    }
+                }
+            }).ToList();
+            
+            
             
 
             if (relationMandrilSkill.Count is 0)
@@ -133,15 +145,13 @@ namespace MandrilAPI.Infrastructure.Repositories
         }
 
 
-        public IReadOnlyList<MandrilWithSkillsIntermediateTable> SelectAllMandrilWithSkillsFromUser(string userId)
+        public async Task<IReadOnlyList<MandrilWithSkillsIntermediateTable>> SelectAllMandrilWithSkillsFromUser(string userId)
         {
-
-
-            var relation = _contextDb.MandrilWithSkills.Include(mandriles => mandriles.Mandril)
+            var relation = await _contextDb.MandrilWithSkills.Include(mandriles => mandriles.Mandril)
                 .Include(mandrilSkills => mandrilSkills.Skill)
                 .Include(p => p.PowerMS)
                 .Where(u => EF.Functions.Collate(u.UserId, "SQL_Latin1_General_CP1_CI_AS") == userId).AsNoTracking()
-                .ToList();
+                .ToListAsync();
 
             if (relation.Count is 0)
             {
@@ -158,14 +168,13 @@ namespace MandrilAPI.Infrastructure.Repositories
             }
 
         }
-
-        public IReadOnlyList<MandrilWithSkillsIntermediateTable> SelectOneMandrilWithAllSkillsFromUser(
+        public async Task<IReadOnlyList<MandrilWithSkillsIntermediateTable>> SelectOneMandrilWithAllSkillsFromUser(
             int targetMandrilId, string userId)
         {
-            var relation = _contextDb.MandrilWithSkills.Include(mandriles => mandriles.Mandril)
+            var relation = await _contextDb.MandrilWithSkills.Include(mandriles => mandriles.Mandril)
                 .Include(skills => skills.Skill).Where(m =>
                     m.Mandril.id == targetMandrilId &&
-                    EF.Functions.Collate(m.UserId, "SQL_Latin1_General_CP1_CI_AS") == userId).AsNoTracking().ToList();
+                    EF.Functions.Collate(m.UserId, "SQL_Latin1_General_CP1_CI_AS") == userId).AsNoTracking().ToListAsync();
 
             if (relation.Count is 0)
             {

@@ -44,18 +44,18 @@ public class AdminController(
         }
         else
         {
-            var mandrilExists = _repositoryReadMandrilSkills.GetOneMandrilsFromDb(targetMandrilId);
-            var skillExists = _repositoryReadMandrilSkills.GetOneSkillFromDb(targetSkillId);
+            var mandrilExists = await _repositoryReadMandrilSkills.GetOneMandrilsFromDb(targetMandrilId);
+            var skillExists = await _repositoryReadMandrilSkills.GetOneSkillFromDb(targetSkillId);
 
 
             var relationExists =
-                _repositoryReadMandrilSkills.GetOneMandrilWithOneSkillFromUser(targetMandrilId, targetSkillId, user.Id);
+                await _repositoryReadMandrilSkills.GetOneMandrilWithOneSkillFromUser(targetMandrilId, targetSkillId, user.Id);
 
             if (mandrilExists.Count is 0 || skillExists.Count is 0)
             {
                 return BadRequest(MessageDefaultsUsers.RelationCreationEntityNotFound);
             }
-            else if (relationExists is null)
+            else if (relationExists.Count > 0)
             {
                 return BadRequest(MessageDefaultsUsers.RelationAlreadyExists);
             }
@@ -80,9 +80,9 @@ public class AdminController(
 
         {
             var relation =
-                _repositoryReadMandrilSkills.GetOneMandrilWithOneSkillFromUser(targetMandrilId, targetSkillId, user.Id);
+                await _repositoryReadMandrilSkills.GetOneMandrilWithOneSkillFromUser(targetMandrilId, targetSkillId, user.Id);
 
-            if (relation is null)
+            if (relation.Count is 0)
             {
 
                 return BadRequest(MessageDefaultsUsers.RelationNotFound);
@@ -101,7 +101,7 @@ public class AdminController(
     }
 
     [HttpDelete("delete-mandril/{targetMandrilId}/")]
-   // [Authorize(Policy = "Admin")]
+   [Authorize(Policy = "Admin")]
     public async Task<IActionResult> DeleteOneMandrilForUser(int targetMandrilId,
         PublicUserNameDto userToDelete)
     {
@@ -119,7 +119,7 @@ public class AdminController(
             else
             {
                 var relation =
-                    _repositoryReadMandrilSkills.SelectOneMandrilWithAllSkillsFromUser(targetMandrilId, user.Id);
+                    await _repositoryReadMandrilSkills.SelectOneMandrilWithAllSkillsFromUser(targetMandrilId, user.Id);
                 
                 if (relation.Count is 0)
                 {
@@ -144,7 +144,7 @@ public class AdminController(
     public async Task<IActionResult> UpdatePowerFromOneSkillInMandril(int targetMandrilId, int targetSkillId,
         [FromBody] PowerDto powerDto, PublicUserNameDto UserToAdd)
     {
-        var user = _userM.Users.FirstOrDefault(u =>
+        var user = await _userM.Users.FirstOrDefaultAsync(u =>
             EF.Functions.Collate(u.PublicUserName, "SQL_Latin1_General_CP1_CI_AS") == UserToAdd.PublicUserName);
 
         if (user is null)
@@ -154,9 +154,9 @@ public class AdminController(
         else
         {
             var relation =
-                _repositoryReadMandrilSkills.GetOneMandrilWithOneSkillFromUser(targetMandrilId, targetSkillId, user.Id);
+                await _repositoryReadMandrilSkills.GetOneMandrilWithOneSkillFromUser(targetMandrilId, targetSkillId, user.Id);
 
-            if (relation is null)
+            if (relation.Count is 0)
             {
                 return BadRequest(MessageDefaultsUsers.RelationMandrilWithSkillAndUserNotFound);
             }
@@ -172,6 +172,7 @@ public class AdminController(
     }
 
     [HttpGet("GetAllUsers/")]
+    [Authorize(Policy = "Admin")]
     public async Task<IActionResult> GetAllUsers()
     {
         var users = await _repositoryReadMandrilSkills.GetAllUsersFromDb();
@@ -191,6 +192,7 @@ public class AdminController(
 
 
     [HttpGet("GetAllRelations")]
+    [Authorize(Policy = "Admin")]
     public async Task<IActionResult> GetAllRelations()
     {
         var relations = await _repositoryReadMandrilSkills.GetAllRelationsFromDb();

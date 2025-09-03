@@ -12,6 +12,7 @@ namespace MandrilAPI.Presentation.Controllers;
 
 
 [Route("api/[controller]/relations/")]
+[Authorize(Roles = "User,Admin")]
 public class MandrilSkillsController(
     IMandrilSkillsWriteRepository RepositoryWrite,
     IMandrilSkillsReadRepository RepositoryRead,
@@ -30,14 +31,15 @@ public class MandrilSkillsController(
 
 
     [HttpGet("mandrils/{targetMandrilId}/skills/")]
-    [Authorize(Roles = "User,Admin")]
+
     public async Task<IActionResult> GetSkillsFromOneMandril(int targetMandrilId)
     {
 
         var user = await _userM.GetUserAsync(User);
 
 
-        var relation = _repositoryReadMandrilSkills.SelectOneMandrilWithAllSkillsFromUser(targetMandrilId, user.Id);
+        var relation =
+            await _repositoryReadMandrilSkills.SelectOneMandrilWithAllSkillsFromUser(targetMandrilId, user.Id);
 
         if (relation.Count is 0)
         {
@@ -48,19 +50,17 @@ public class MandrilSkillsController(
             return Ok(relation);
         }
     }
-
-
     [HttpGet("mandrils/{targetMandrilId}/skill/{targetSkillId}")]
-    [Authorize(Roles = "User,Admin")]
+ 
     public async Task<IActionResult> GetOneSkillFromOneMandril(int targetMandrilId, int targetSkillId)
     {
         
         var user = await _userM.GetUserAsync(User);
 
-        var relation = 
+        var relation = await 
             _repositoryReadMandrilSkills.GetOneMandrilWithOneSkillFromUser(targetMandrilId, targetSkillId, user.Id);
 
-        if (relation is null)
+        if (relation.Count is 0)
         {
             return NotFound(MessageDefaultsUsers.RelationNotFound);
         }
@@ -70,19 +70,17 @@ public class MandrilSkillsController(
         }
 
     }
-    
-    
     [HttpDelete("mandrils/{targetMandrilId}/skill/{targetSkillId}")]
-    [Authorize(Roles = "User,Admin")]
+  
     public async Task<IActionResult> DeleteOneSkillFromMandril(int targetMandrilId, int targetSkillId)
     {
         var user = await _userM.GetUserAsync(User);
 
         {
             var relation =
-                _repositoryReadMandrilSkills.GetOneMandrilWithOneSkillFromUser(targetMandrilId, targetSkillId, user.Id);
+                await _repositoryReadMandrilSkills.GetOneMandrilWithOneSkillFromUser(targetMandrilId, targetSkillId, user.Id);
 
-            if (relation is null)
+            if (relation.Count is 0)
             {
 
                 return BadRequest(MessageDefaultsUsers.RelationNotFound);

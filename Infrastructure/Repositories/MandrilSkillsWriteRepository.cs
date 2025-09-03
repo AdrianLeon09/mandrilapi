@@ -227,6 +227,79 @@ namespace MandrilAPI.Infrastructure.Repositories
             }
         }
 
+        public async Task<IReadOnlyList<Skill>> GetOneSkillFromDb(int targetSkillId) // only admins
+        {
+            var Skill = await _contextDb.Skills
+                .Where(h => h.id == targetSkillId)
+                .AsNoTracking()
+                .ToListAsync();
+
+            if (Skill.Count is 0)
+            {
+                _logger.LogWarning(MessageDefaultsDevs.SkillNotFound, targetSkillId);
+                return Skill;
+            }
+            else
+            {
+                _logger.LogInformation(MessageDefaultsDevs.AllSkillsRetrieved);
+                return Skill;
+            }
+        }
+
+        public async Task<IReadOnlyList<Skill>> GetAllSkillsFromDb() // only admins
+        {
+            var Skill = await _contextDb.Skills
+                .AsNoTracking()
+                .ToListAsync();
+
+            if (Skill.Count is 0)
+            {
+                _logger.LogWarning(MessageDefaultsDevs.SkillsNotFound);
+                return Skill;
+            }
+            else
+            {
+                _logger.LogInformation(MessageDefaultsDevs.AllSkillsRetrieved);
+                return Skill;
+            }
+        }
+
+        public async Task<IReadOnlyList<Mandril>> GetOneMandrilsFromDb(int targetMandrilId) //only admins
+        {
+            var Skill = await _contextDb.Mandrils
+                .Where(m => m.id == targetMandrilId)
+                .AsNoTracking()
+                .ToListAsync();
+
+            if (Skill.Count is 0)
+            {
+                _logger.LogWarning(MessageDefaultsDevs.MandrilNotFound, targetMandrilId);
+                return Skill;
+            }
+            else
+            {
+                _logger.LogInformation(MessageDefaultsDevs.AllMandrilsRetrieved);
+                return Skill;
+            }
+        }
+
+        public async Task<IReadOnlyList<Mandril>> GetAllMandrilsFromDb() // only admins
+        {
+            var Mandril = await _contextDb.Mandrils
+                .AsNoTracking()
+                .ToListAsync();
+
+            if (Mandril.Count is 0)
+            {
+                _logger.LogWarning(MessageDefaultsDevs.AllMandrilsNotFound);
+                return Mandril;
+            }
+            else
+            {
+                _logger.LogInformation(MessageDefaultsDevs.AllMandrilsRetrieved);
+                return Mandril;
+            }
+        }
 
  public MandrilWithSkillsIntermediateTable AssignOneSkillToMandril(int targetMandrilId, int targetSkillId, string userId) //Only Admins
         {
@@ -274,6 +347,93 @@ namespace MandrilAPI.Infrastructure.Repositories
             }
         }
 
+        public async Task<IReadOnlyList<RelationMandrilSkillsDto>> GetOneMandrilWithOneSkillFromUser(int targetMandrilId,
+            int targetSkillId, string userId)
+        {
+            var user = await _userM.FindByIdAsync(userId);
+
+            var relationMandrilSkill = await _contextDb.MandrilWithSkills
+                .Include(m => m.Mandril)
+                .Include(h => h.Skill)
+                .Where(m =>
+                    m.MandrilId == targetMandrilId &&
+                    m.SkillId == targetSkillId &&
+                    EF.Functions.Collate(m.UserId, "SQL_Latin1_General_CP1_CI_AS") == userId)
+                .AsNoTracking()
+                .ToListAsync();
+
+            var group = relationMandrilSkill.Select(s => new RelationMandrilSkillsDto()
+            {
+                Id = s.MandrilId,
+                mandrilName = s.Mandril.name,
+                Skills = new List<SkillRelationDto>()
+                {
+                    new SkillRelationDto()
+                    {
+                        Id = s.SkillId,
+                        Name = s.Skill.name
+                    }
+                }
+            }).ToList();
+
+            if (relationMandrilSkill.Count is 0)
+            {
+                _logger.LogWarning(MessageDefaultsDevs.RelationMandrilWithSkillAndUserNotFound, targetSkillId,
+                    targetMandrilId, userId);
+                return group;
+            }
+            else
+            {
+                _logger.LogInformation(MessageDefaultsDevs.MandrilWithSkillRetrieved, targetMandrilId, targetSkillId);
+                return group;
+            }
+        }
+
+        public async Task<IReadOnlyList<MandrilWithSkillsIntermediateTable>> SelectAllMandrilWithSkillsFromUser(string userId)
+        {
+            var relation = await _contextDb.MandrilWithSkills
+                .Include(mandriles => mandriles.Mandril)
+                .Include(mandrilSkills => mandrilSkills.Skill)
+                .Include(p => p.PowerMS)
+                .Where(u => EF.Functions.Collate(u.UserId, "SQL_Latin1_General_CP1_CI_AS") == userId)
+                .AsNoTracking()
+                .ToListAsync();
+
+            if (relation.Count is 0)
+            {
+                _logger.LogWarning(MessageDefaultsDevs.UserMandrilSkillsNotFound, userId);
+                return relation;
+            }
+            else
+            {
+                _logger.LogInformation(MessageDefaultsDevs.AllMandrilsWithSkillsRetrieved);
+                return relation;
+            }
+        }
+
+        public async Task<IReadOnlyList<MandrilWithSkillsIntermediateTable>> SelectOneMandrilWithAllSkillsFromUser(
+            int targetMandrilId, string userId)
+        {
+            var relation = await _contextDb.MandrilWithSkills
+                .Include(mandriles => mandriles.Mandril)
+                .Include(skills => skills.Skill)
+                .Where(m =>
+                    m.Mandril.id == targetMandrilId &&
+                    EF.Functions.Collate(m.UserId, "SQL_Latin1_General_CP1_CI_AS") == userId)
+                .AsNoTracking()
+                .ToListAsync();
+
+            if (relation.Count is 0)
+            {
+                _logger.LogWarning(MessageDefaultsDevs.UserMandrilSkillsNotFound, userId);
+                return relation;
+            }
+            else
+            {
+                _logger.LogInformation(MessageDefaultsDevs.MandrilWithAllSkillsRetrieved, targetMandrilId);
+                return relation;
+            }
+        }
 
         public MandrilWithSkillsIntermediateTable DeleteSkillFromMandrilForUser(int targetMandrilId, int targetSkillId, string userId) // Only Admins
         {

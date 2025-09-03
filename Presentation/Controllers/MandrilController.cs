@@ -3,12 +3,14 @@ using MandrilAPI.Aplication.Service;
 using MandrilAPI.Domain.Models;
 using MandrilAPI.Infrastructure.DTOs;
 using MandrilAPI.Infrastructure.ModelsDTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MandrilAPI.Presentation.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize(Policy = "Admin")]
 
     public class MandrilController(
         IMandrilSkillsReadRepository RepositoryRead,
@@ -20,9 +22,10 @@ namespace MandrilAPI.Presentation.Controllers
 
 
         [HttpGet]
-        public ActionResult<Mandril> GetAllMandriles()
+
+        public async Task<IActionResult> GetAllMandriles()
         {
-            var mandriles = _repositoryReadMandrilSkills.GetAllMandrilsFromDb();
+            var mandriles = await _repositoryReadMandrilSkills.GetAllMandrilsFromDb();
             
             
             if (mandriles.Count is 0)
@@ -37,9 +40,10 @@ namespace MandrilAPI.Presentation.Controllers
         }
 
         [HttpGet("{targetMandrilId}")]
-        public ActionResult<Mandril> GetMandrilById(int targetMandrilId)
+
+        public async Task<IActionResult> GetMandrilById(int targetMandrilId)
         {
-            var mandril = _repositoryReadMandrilSkills.GetOneMandrilsFromDb(targetMandrilId);
+            var mandril = await _repositoryReadMandrilSkills.GetOneMandrilsFromDb(targetMandrilId);
 
             
             if (mandril.Count is 0)
@@ -51,9 +55,10 @@ namespace MandrilAPI.Presentation.Controllers
         }
 
         [HttpPut("{targetMandrilId}")]
-        public ActionResult<Mandril> UpdateMandril(int targetMandrilId, [FromBody] MandrilDto mandrilDto)
+       
+        public async Task<IActionResult> UpdateMandril(int targetMandrilId, [FromBody] MandrilDto mandrilDto)
         {
-            var qryMandril = _repositoryReadMandrilSkills.GetOneMandrilsFromDb(targetMandrilId);
+            var qryMandril = await _repositoryReadMandrilSkills.GetOneMandrilsFromDb(targetMandrilId);
 
             
             if (qryMandril.Count is 0)
@@ -81,9 +86,9 @@ namespace MandrilAPI.Presentation.Controllers
 
 
         [HttpDelete("{targetMandrilId}")]
-        public ActionResult<Mandril> DeleteMandril(int targetMandrilId)
+        public async Task<IActionResult> DeleteMandril(int targetMandrilId)
         {
-            var checkDelete = _repositoryReadMandrilSkills.GetOneMandrilsFromDb(targetMandrilId);
+            var checkDelete = await _repositoryReadMandrilSkills.GetOneMandrilsFromDb(targetMandrilId);
             if (checkDelete.Count is 0)
             {
                 return NotFound(MessageDefaultsUsers.MandrilNotFound + "\n" + MessageDefaultsUsers.MandrilNotFound);
