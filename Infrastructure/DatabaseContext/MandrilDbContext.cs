@@ -17,8 +17,20 @@ public DbSet<Skill> Skills { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<MandrilWithSkillsIntermediateTable>().ToTable("MandrilWithSkills")
-          .HasKey(mh => new {mh.MandrilId, mh.SkillId });
+          .HasKey(mh => new {mh.MandrilId, mh.SkillId, mh.UserId });
         modelBuilder.Entity<MandrilWithSkillsIntermediateTable>().ToTable("MandrilWithSkills", builder => builder.HasCheckConstraint("power_limit_4", "PowerMS <= 4"));
+      
+        modelBuilder.Entity<Mandril>()
+            .HasIndex(m => m.name)
+            .IsUnique();
+        
+        modelBuilder.Entity<Mandril>()
+            .HasIndex(m => m.lastName)
+            .IsUnique();
+
+        modelBuilder.Entity<Skill>()
+            .HasIndex(s => s.name)
+            .IsUnique();
 
     }
 };

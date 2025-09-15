@@ -15,8 +15,8 @@ namespace MandrilAPI.Aplication.Interfaces
         Task<IReadOnlyList<RelationMandrilSkillsDto>> GetOneMandrilWithOneSkillFromUser(int targetMandrilId,
             int targetSkillId, string userId);
 
-        Task<IReadOnlyList<MandrilWithSkillsIntermediateTable>> SelectAllMandrilWithSkillsFromUser(string userId);
-        Task<IReadOnlyList<MandrilWithSkillsIntermediateTable>> SelectOneMandrilWithAllSkillsFromUser(
+        Task<IReadOnlyList<RelationMandrilSkillsDto>> SelectAllMandrilWithSkillsFromUser(string userId);
+        Task<IReadOnlyList<RelationMandrilSkillsDto>> SelectOneMandrilWithAllSkillsFromUser(
             int targetMandrilId, string userId);
 
         Task<IReadOnlyList<AllUsersDto>> GetAllUsersFromDb(); // only admins

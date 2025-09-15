@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MandrilAPI.Presentation.Controllers;
 
-
+[ApiController]
 [Route("api/[controller]/relations/")]
 [Authorize(Roles = "User,Admin")]
 public class MandrilSkillsController(
@@ -50,6 +50,19 @@ public class MandrilSkillsController(
             return Ok(relation);
         }
     }
+
+    [HttpGet("mandrils/GetAllRelations/")]
+
+    public async Task<IActionResult> GetAllRelations()
+    {
+        var user = await _userM.GetUserAsync(User);
+        var relations = await _repositoryReadMandrilSkills.SelectAllMandrilWithSkillsFromUser(user.Id);
+
+        return Ok(relations);
+    }
+
+    
+
     [HttpGet("mandrils/{targetMandrilId}/skill/{targetSkillId}")]
  
     public async Task<IActionResult> GetOneSkillFromOneMandril(int targetMandrilId, int targetSkillId)
@@ -58,7 +71,7 @@ public class MandrilSkillsController(
         var user = await _userM.GetUserAsync(User);
 
         var relation = await 
-            _repositoryReadMandrilSkills.GetOneMandrilWithOneSkillFromUser(targetMandrilId, targetSkillId, user.Id);
+          _repositoryReadMandrilSkills.GetOneMandrilWithOneSkillFromUser(targetMandrilId, targetSkillId, user.Id);
 
         if (relation.Count is 0)
         {
@@ -89,7 +102,7 @@ public class MandrilSkillsController(
             else
             {
 
-                _repositoryWriteMandrilSkills.DeleteSkillFromMandrilForUser(targetMandrilId, targetSkillId, user.Id);
+               await _repositoryWriteMandrilSkills.DeleteSkillFromMandrilForUser(targetMandrilId, targetSkillId, user.Id);
                 return Ok(MessageDefaultsUsers.DeleteSkillSucceeded);
 
             }

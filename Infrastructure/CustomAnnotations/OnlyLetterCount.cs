@@ -12,17 +12,27 @@ namespace MandrilAPI.Infrastructure.CustomAnnotations
         protected override ValidationResult IsValid(object value, ValidationContext validationContext
         )
         {
-            var valueString = value.ToString().Trim();
+            if (value is null)
+            {
+
+                return new ValidationResult(MessageDefaultsUsers.NullObject);
+            }
+            else
+            {
+                var valueString = value.ToString().Trim();
          
                 if (valueString.Length < minLettersToValidate)
                 {
-                    return new ValidationResult(ErrorMessage = MessageDefaultsUsers.EntryMinLength);
+                    return new ValidationResult(MessageDefaultsUsers.EntryMinLength);
                 }
                 else
                 {
                     
                     return ValidationResult.Success;
-                }
+                } 
+            }
+            
+            
         }
 
     }

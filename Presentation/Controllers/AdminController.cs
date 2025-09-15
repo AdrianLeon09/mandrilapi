@@ -10,10 +10,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace MandrilAPI.Presentation.Controllers;
-
+[ApiController]
+[Authorize(Policy = "Admin")]
 [Route("api/admin-management/")]
 
 public class AdminController(
+    
     IMandrilSkillsWriteRepository RepositoryWrite,
     IMandrilSkillsReadRepository RepositoryRead,
     AuthDbContext contextDbAuth,
@@ -31,7 +33,7 @@ public class AdminController(
 
 
     [HttpPost("create-relation/mandril/{targetMandrilId}/skill/{targetSkillId}/")]
-    [Authorize(Policy = "Admin")]
+    
     public async Task<IActionResult> AddSkillAndMandrilForUser(int targetMandrilId, int targetSkillId,
         [FromBody] PublicUserNameDto UserToAdd)
     {
@@ -62,7 +64,7 @@ public class AdminController(
             else
             {
 
-                _repositoryWriteMandrilSkills.AssignOneSkillToMandril(targetMandrilId, targetSkillId, user.Id);
+               await _repositoryWriteMandrilSkills.AssignOneSkillToMandril(targetMandrilId, targetSkillId, user.Id);
                 return Ok(MessageDefaultsUsers.AssingSkillToMandrilSucceeded);
 
             }
@@ -71,7 +73,7 @@ public class AdminController(
 
 
     [HttpDelete("delete-skills/mandril/{targetMandrilId}/skill/{targetSkillId}/")]
-    [Authorize(Policy = "Admin")]
+  
     public async Task<IActionResult> DeleteOneSkillFromMandrilUser(int targetMandrilId, int targetSkillId,
         PublicUserNameDto UserToDelete)
     {
@@ -91,7 +93,7 @@ public class AdminController(
             else
             {
 
-                _repositoryWriteMandrilSkills.DeleteSkillFromMandrilForUser(targetMandrilId, targetSkillId, user.Id);
+             await _repositoryWriteMandrilSkills.DeleteSkillFromMandrilForUser(targetMandrilId, targetSkillId, user.Id);
                 return Ok(MessageDefaultsUsers.DeleteSkillSucceeded);
 
             }
@@ -101,7 +103,7 @@ public class AdminController(
     }
 
     [HttpDelete("delete-mandril/{targetMandrilId}/")]
-   [Authorize(Policy = "Admin")]
+  
     public async Task<IActionResult> DeleteOneMandrilForUser(int targetMandrilId,
         PublicUserNameDto userToDelete)
     {
@@ -138,14 +140,14 @@ public class AdminController(
     }
 
 
-    [HttpPut("update-power/{targetMandrilId}/skill/{targetSkillId}/")]
-    [Authorize(Policy = "Admin")]
+    [HttpPut("update-power/mandril/{targetMandrilId}/skill/{targetSkillId}/")]
+   
     
     public async Task<IActionResult> UpdatePowerFromOneSkillInMandril(int targetMandrilId, int targetSkillId,
-        [FromBody] PowerDto powerDto, PublicUserNameDto UserToAdd)
+        [FromBody]UpdatePowerRequestDto updatePowerRequest)
     {
         var user = await _userM.Users.FirstOrDefaultAsync(u =>
-            EF.Functions.Collate(u.PublicUserName, "SQL_Latin1_General_CP1_CI_AS") == UserToAdd.PublicUserName);
+            EF.Functions.Collate(u.PublicUserName, "SQL_Latin1_General_CP1_CI_AS") == updatePowerRequest.PublicUserName);
 
         if (user is null)
         {
@@ -163,8 +165,8 @@ public class AdminController(
             else
             {
 
-                _repositoryWriteMandrilSkills.UpdatePowerOfSkillForMandril(targetMandrilId, targetSkillId,
-                    powerDto.Power, user.Id);
+              await  _repositoryWriteMandrilSkills.UpdatePowerOfSkillForMandril(targetMandrilId, targetSkillId,
+                   updatePowerRequest.Power, user.Id);
                 return Ok(MessageDefaultsUsers.SkillPowerUpdateSuccess);
 
             }
@@ -172,7 +174,7 @@ public class AdminController(
     }
 
     [HttpGet("GetAllUsers/")]
-    [Authorize(Policy = "Admin")]
+
     public async Task<IActionResult> GetAllUsers()
     {
         var users = await _repositoryReadMandrilSkills.GetAllUsersFromDb();
@@ -192,7 +194,7 @@ public class AdminController(
 
 
     [HttpGet("GetAllRelations")]
-    [Authorize(Policy = "Admin")]
+    
     public async Task<IActionResult> GetAllRelations()
     {
         var relations = await _repositoryReadMandrilSkills.GetAllRelationsFromDb();

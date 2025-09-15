@@ -13,6 +13,10 @@
         public const string AllSkillsNotFound = "No Skill objects were found";
         public const string SkillNotFound = "The skill with ID {EntityID} was not found or does not exist.";
         public const string SkillsNotFound = "No skills were found.";
+        public const string SkillAlreadyExists =
+            "The skill name {skillName} already exists. Duplicate skills cannot be created.";
+        public const string MandrilAlreadyExists =
+            "The mandril name {MandrilName} {LastName} already exists. Duplicate skills cannot be created.";
         public const string UserNotFound = "The user ID {UserID} was no found or does not exist.";
         public const string UsersNotFound = "No users were found.";
         public const string RelationshipsNotFound = "The relationships was not found.";

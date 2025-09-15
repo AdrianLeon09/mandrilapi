@@ -77,21 +77,35 @@ namespace MandrilAPI.Infrastructure.DTOs
         
         public string PublicUserName { get; set; }
     }
-    
+
     public class AllUsersDto
     {
         [Required(ErrorMessage = MessageDefaultsUsers.EntryInvalid)]
         [MinLength(3, ErrorMessage = MessageDefaultsUsers.EntryInvalid)]
         [StringLength(25, ErrorMessage = MessageDefaultsUsers.EntryMaxLength)]
         [OnlyLetterCount(3)]
-        
+
         public string FirstName { get; set; }
         
+
+        [Required(ErrorMessage = MessageDefaultsUsers.EntryInvalid)]
+        [MinLength(3, ErrorMessage = MessageDefaultsUsers.EntryInvalid)]
+        [StringLength(25, ErrorMessage = MessageDefaultsUsers.EntryMaxLength)]
+        [OnlyLetterCount(3)]
+        
         public string LastName { get; set; }
+
+        [Required(ErrorMessage = MessageDefaultsUsers.EntryInvalid)]
+        [MinLength(3, ErrorMessage = MessageDefaultsUsers.EntryInvalid)]
+        [StringLength(25, ErrorMessage = MessageDefaultsUsers.EntryMaxLength)]
+        [OnlyLetterCount(3)]
         
         public string PublicUserName { get; set; }
+
+        [Required(ErrorMessage = MessageDefaultsUsers.EntryInvalid)]
+        [EmailAddress]
+         public string Email { get; set; }
         
-        public string Email { get; set; }
         
         public int NumberOfMandrils { get; set; }
         
@@ -102,8 +116,6 @@ namespace MandrilAPI.Infrastructure.DTOs
     {
       public string PublicUserName {get; set;}
         public List<RelationMandrilSkillsDto> Mandril{ get; set; } = new List<RelationMandrilSkillsDto>();
-       // public string PowerSkill{ get;set; }
-        
     }
 
     public class RelationMandrilSkillsDto

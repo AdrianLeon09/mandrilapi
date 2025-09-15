@@ -7,17 +7,17 @@ namespace MandrilAPI.Aplication.Interfaces
 {
     public interface IMandrilSkillsWriteRepository
     {
-      public Mandril AddNewMandrilToDb(MandrilDto newMandrilDto);
-      public Mandril UpdateOneMandrilToDb(int targetMandrilId, MandrilDto mandrilDto);
-      public Mandril DeleteOneMandrilFromDb(int targetIdMandril);
+      public Task<Mandril> AddNewMandrilToDb(MandrilDto newMandrilDto);
+      public Task<Mandril> UpdateOneMandrilToDb(int targetMandrilId, MandrilDto mandrilDto);
+      public Task<Mandril> DeleteOneMandrilFromDb(int targetIdMandril);
              
-      public Skill AddNewSkillToDb(SkillDto newSkillDto);
-      public Skill UpdateOneSkillToDb(int targetSkillId, SkillDto newSkillDto);
-      public Skill DeleteOneSkillFromDb(int targetSkillId);
+      public Task<Skill> AddNewSkillToDb(SkillDto newSkillDto);
+      public Task<Skill> UpdateOneSkillToDb(int targetSkillId, SkillDto newSkillDto);
+      public Task<Skill> DeleteOneSkillFromDb(int targetSkillId);
   
-      public MandrilWithSkillsIntermediateTable AssignOneSkillToMandril(int targetMandrilId, int targetSkillId, string userId);
-      public MandrilWithSkillsIntermediateTable DeleteSkillFromMandrilForUser(int targetMandrilId,int targetSkillId, string userId);
-      public MandrilWithSkillsIntermediateTable UpdatePowerOfSkillForMandril(int targetMandrilId,int targetSkillId, int newPower, string userId);
+      public Task<MandrilWithSkillsIntermediateTable> AssignOneSkillToMandril(int targetMandrilId, int targetSkillId, string userId);
+      public Task<MandrilWithSkillsIntermediateTable> DeleteSkillFromMandrilForUser(int targetMandrilId,int targetSkillId, string userId);
+      public Task<MandrilWithSkillsIntermediateTable> UpdatePowerOfSkillForMandril(int targetMandrilId,int targetSkillId, int newPower, string userId);
 
       public Task<MandrilWithSkillsIntermediateTable> DeleteMandrilForUser(int targetMandrilId, string userId);
     }

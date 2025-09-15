@@ -43,7 +43,7 @@ namespace MandrilAPI.Presentation.Controllers
 
                 if (Skill.Count is 0)
                 {
-                    return BadRequest(MessageDefaultsUsers.SkillNotFound);
+                    return NotFound(MessageDefaultsUsers.SkillNotFound);
                 }
                 
                 return Ok(Skill);
@@ -51,7 +51,7 @@ namespace MandrilAPI.Presentation.Controllers
 
             
             [HttpPut("{targetSkillId}")]
-            public async Task<IActionResult> UpdateSkill(int targetSkillId, [FromBody] SkillDto SkillDto)
+            public async Task<IActionResult> UpdateSkill(int targetSkillId, [FromBody] SkillDto skillDto)
             {
                 var qrySkill = await _repositoryReadMandrilSkills.GetOneSkillFromDb(targetSkillId);
 
@@ -61,9 +61,9 @@ namespace MandrilAPI.Presentation.Controllers
                 }
                 else
                 {
-                    SkillDto.Name = SkillDto.Name.Replace(" ", "");
+                    skillDto.Name = skillDto.Name.Replace(" ", "");
                     
-                    if (SkillDto.Name.Length < 3)
+                    if (skillDto.Name.Length < 3)
                     {
                         return BadRequest(MessageDefaultsUsers.EntryInvalid);
 
@@ -71,7 +71,7 @@ namespace MandrilAPI.Presentation.Controllers
                     else
                     {
                         
-                        _repositoryWriteMandrilSkills.UpdateOneSkillToDb(targetSkillId, SkillDto);
+                     await  _repositoryWriteMandrilSkills.UpdateOneSkillToDb(targetSkillId, skillDto);
                         return Ok(MessageDefaultsUsers.SkillUpdateSucceeded);
 
                     }
@@ -89,7 +89,7 @@ namespace MandrilAPI.Presentation.Controllers
                 }
                 else
                 {
-                    _repositoryWriteMandrilSkills.DeleteOneSkillFromDb(targetSkillId);
+                    await  _repositoryWriteMandrilSkills.DeleteOneSkillFromDb(targetSkillId);
 
                     return Ok(MessageDefaultsUsers.DeleteSkillSucceeded);
                 }
@@ -97,20 +97,36 @@ namespace MandrilAPI.Presentation.Controllers
             
             
             [HttpPost]
-            public ActionResult<Skill> AddSkill([FromBody] SkillDto skillDto)
+            public async Task<ActionResult<Skill>> AddSkill([FromBody] SkillDto skillDto)
             {
-                skillDto.Name = skillDto.Name.Replace(" ", "");
                
-                if (skillDto.Name.Length < 3)
-                {
+               
+               var skillInDb = await _repositoryReadMandrilSkills.GetAllSkillsFromDb();
 
-                    return BadRequest(MessageDefaultsUsers.DeleteSkillError +  "\n" +  MessageDefaultsUsers.DeleteNotSucceeded);
+               var validationName = skillInDb.Any(s =>
+                   string.Equals(s.name, skillDto.Name, StringComparison.OrdinalIgnoreCase));
+            
+
+                if (validationName is true)
+                {
+                   return Conflict(MessageDefaultsUsers.SkillAlreadyExists);
+
                 }
                 else
                 {
-                    _repositoryWriteMandrilSkills.AddNewSkillToDb(skillDto);
 
-                    return Ok(MessageDefaultsUsers.SkillCreatedSuccess);
+                    if (skillDto.Name.Length < 3)
+                    {
+
+                        return BadRequest(MessageDefaultsUsers.DeleteSkillError + "\n" +
+                                          MessageDefaultsUsers.DeleteNotSucceeded);
+                    }
+                    else
+                    {
+                        await _repositoryWriteMandrilSkills.AddNewSkillToDb(skillDto);
+
+                        return Ok(MessageDefaultsUsers.SkillCreatedSuccess);
+                    }
                 }
             }
 

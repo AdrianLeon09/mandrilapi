@@ -48,7 +48,7 @@ namespace MandrilAPI.Presentation.Controllers
             
             if (mandril.Count is 0)
             {
-                return BadRequest(MessageDefaultsUsers.MandrilNotFound);
+                return NotFound(MessageDefaultsUsers.MandrilNotFound);
             }
 
             return Ok(mandril);
@@ -58,10 +58,10 @@ namespace MandrilAPI.Presentation.Controllers
        
         public async Task<IActionResult> UpdateMandril(int targetMandrilId, [FromBody] MandrilDto mandrilDto)
         {
-            var qryMandril = await _repositoryReadMandrilSkills.GetOneMandrilsFromDb(targetMandrilId);
+            var mandril = await _repositoryReadMandrilSkills.GetOneMandrilsFromDb(targetMandrilId);
 
             
-            if (qryMandril.Count is 0)
+            if (mandril.Count is 0)
             {
                 return NotFound(MessageDefaultsUsers.MandrilNotFound);
             }
@@ -77,7 +77,7 @@ namespace MandrilAPI.Presentation.Controllers
                 else
                 {
                     
-                    _repositoryWriteMandrilSkills.UpdateOneMandrilToDb(targetMandrilId, mandrilDto);
+                   await _repositoryWriteMandrilSkills.UpdateOneMandrilToDb(targetMandrilId, mandrilDto);
                     return Ok(MessageDefaultsUsers.MandrilUpdateSucceeded);
 
                 }
@@ -91,12 +91,12 @@ namespace MandrilAPI.Presentation.Controllers
             var checkDelete = await _repositoryReadMandrilSkills.GetOneMandrilsFromDb(targetMandrilId);
             if (checkDelete.Count is 0)
             {
-                return NotFound(MessageDefaultsUsers.MandrilNotFound + "\n" + MessageDefaultsUsers.MandrilNotFound);
+                return NotFound(MessageDefaultsUsers.MandrilNotFound);
             }
             else
             {
                 
-                _repositoryWriteMandrilSkills.DeleteOneMandrilFromDb(targetMandrilId);
+              await  _repositoryWriteMandrilSkills.DeleteOneMandrilFromDb(targetMandrilId);
                 return Ok(MessageDefaultsUsers.DeleteMandrilSucceeded);
                 
             }
@@ -105,22 +105,35 @@ namespace MandrilAPI.Presentation.Controllers
 
 
         [HttpPost]
-        public ActionResult<Mandril> AddMandril([FromBody] MandrilDto mandrilDto)
+        public async Task<ActionResult<Mandril>> AddMandril([FromBody] MandrilDto mandrilDto)
         {
-            mandrilDto.name = mandrilDto.name.Replace(" ", "");
-            mandrilDto.lastName = mandrilDto.lastName.Replace(" ", "");
             
-            if (mandrilDto.name.Length < 3 || mandrilDto.lastName.Length < 3)
+            var mandrilsInDb = await _repositoryReadMandrilSkills.GetAllMandrilsFromDb();
+            var validationName = mandrilsInDb.Any(m => string.Equals(m.name, mandrilDto.name, StringComparison.OrdinalIgnoreCase) && string.Equals(m.lastName, mandrilDto.lastName, StringComparison.OrdinalIgnoreCase)); 
+            
+
+            if (validationName is true)
             {
-                return BadRequest(MessageDefaultsUsers.EntryInvalid);
+              return BadRequest(MessageDefaultsUsers.MandrilAlreadyExists);
+
             }
             else
             {
-                
-                _repositoryWriteMandrilSkills.AddNewMandrilToDb(mandrilDto);
-                return Ok(MessageDefaultsUsers.MandrilCreatedSuccess);
+
+                if (mandrilDto.name.Length < 3 || mandrilDto.lastName.Length < 3)
+                {
+                    return BadRequest(MessageDefaultsUsers.EntryInvalid);
+                }
+                else
+                {
+
+                    await _repositoryWriteMandrilSkills.AddNewMandrilToDb(mandrilDto);
+                    return Ok(MessageDefaultsUsers.MandrilCreatedSuccess);
+
+                }
                 
             }
+            
         }
     }
 }

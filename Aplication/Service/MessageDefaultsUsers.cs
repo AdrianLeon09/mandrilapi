@@ -10,6 +10,7 @@ public static class MessageDefaultsUsers
     public const string PowerInvalid =
         "The entered power must not be greater than 4.";
     public const string EmailInvalid = "Email is invalid";
+    public const string NullObject = "The information field is null.";
 
     // Not found
     public const string MandrilNotFound =
@@ -46,6 +47,8 @@ public static class MessageDefaultsUsers
     // Failed queries
     public const string SkillAlreadyExists =
         "The skill already exists. Duplicate skills cannot be created.";
+    public const string MandrilAlreadyExists =
+        "The mandril already exists. Duplicate skills cannot be created.";
 
     // Relationships
     public const string RelationCreationEntityNotFound =

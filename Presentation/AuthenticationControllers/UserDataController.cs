@@ -8,11 +8,11 @@ using MandrilAPI.Aplication.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.DotNet.Scaffolding.Shared.Messaging;
 
-namespace MandrilAPI.Presentation.AuthControllers;
+namespace MandrilAPI.Presentation.AuthenticationControllers;
 
 [ApiController]
 [Route("api/[controller]/")]
-
+[Authorize(Roles = "User,Admin")]
 
 public class UserDataController(UserManager<ApplicationUser> userM) : Controller
 {
@@ -21,72 +21,115 @@ public class UserDataController(UserManager<ApplicationUser> userM) : Controller
 
 
     [HttpGet("GetUserData/")]
-    [Authorize(Roles = "User,Admin")]
+    
     public async Task<IActionResult> GetUserData()
     {
         var user = await _userM.GetUserAsync(User);
 
-        var userDto = new UserDataDto();
-        userDto.FirstName = user.FirstName;
-        userDto.LastName = user.LastName;
-        userDto.PublicUserName = user.PublicUserName;
-        userDto.UserEmail = user.Email;
-        userDto.DateOfBirth = user.DateOfBirth;
+        if (user is null)
+        {
+            return NotFound(MessageDefaultsUsers.UserNotFound);
 
+        }
+        else
+        {
 
-        return Ok(userDto);
+         var userDto = new UserDataDto();
+           
+            userDto.PublicUserName = user.PublicUserName ?? string.Empty;
+            userDto.FirstName = user.FirstName ?? string.Empty;
+            userDto.LastName = user.LastName ?? string.Empty;
+            userDto.PublicUserName = user.PublicUserName ?? string.Empty;
+            userDto.UserEmail = user.Email ?? string.Empty;
+            userDto.DateOfBirth = user.DateOfBirth;
+
+         return Ok(userDto);
+
+        }
+       
     }
  
     [HttpPatch("UpdateFirstName/")]
-    [Authorize(Roles = "User,Admin")]
+   
     public async Task<IActionResult> UpdateFirstName([FromBody]UserFirstNameDto newFirstName)
     {
-        var user = await _userM.GetUserAsync(User);
         
+        var user = await _userM.GetUserAsync(User);
+
+        if(user is null)
+        {
+            return BadRequest(MessageDefaultsUsers.UserNotFound);
+
+        }else
+        {
+
         user.FirstName = newFirstName.FirstName;
 
         await _userM.UpdateAsync(user);
 
         return Ok(MessageDefaultsUsers.FirstNameUpdateSucceeded);
+        }
+
+        
      
     }
 
 
     [HttpPatch("UpdateLastName/")]
-    [Authorize(Roles = "User,Admin")]
+   
     public async Task<IActionResult> UpdateLastName([FromBody]UserLastNameDto newLastName)
     {
         var user = await _userM.GetUserAsync(User);
+        if (user is null) {
+
+            return NotFound(MessageDefaultsUsers.UserNotFound);
+
+        }
+        else { 
 
         user.LastName = newLastName.LastName;
 
         await _userM.UpdateAsync(user);
 
         return Ok(MessageDefaultsUsers.LastNameUpdateSucceeded);
+        
+        }
+
+        
 
     }
 
     [HttpPatch("UpdatePublicUserName/")]
-    [Authorize(Roles = "User,Admin")]
+
     public async Task<IActionResult> UpdateUserName([FromBody] PublicUserNameDto newPublicUserName)
     {
         var user = await _userM.GetUserAsync(User);
-        var checkUsername = await _userM.Users.AnyAsync(u=> u.PublicUserName == newPublicUserName.PublicUserName && u.Id != user.Id);
-       
-        if (checkUsername) 
+
+        if (user is null)
         {
-            return BadRequest(MessageDefaultsUsers.PublicUsernameAlreadyExists);
+            return NotFound(MessageDefaultsUsers.UserNotFound);
+
         }
         else
         {
-             user.PublicUserName = newPublicUserName.PublicUserName;
-                    
-                    await _userM.UpdateAsync(user);
-                    
-                    return Ok(MessageDefaultsUsers.PublicUserNameUpdateSucceeded);
-            
+
+            var checkUsername = await _userM.Users.AnyAsync(u => u.PublicUserName == newPublicUserName.PublicUserName && u.Id != user.Id);
+
+            if (checkUsername)
+            {
+                return BadRequest(MessageDefaultsUsers.PublicUsernameAlreadyExists);
+            }
+            else
+            {
+                user.PublicUserName = newPublicUserName.PublicUserName;
+
+                await _userM.UpdateAsync(user);
+
+                return Ok(MessageDefaultsUsers.PublicUserNameUpdateSucceeded);
+
+            }
+
         }
-       
     }
 }
 

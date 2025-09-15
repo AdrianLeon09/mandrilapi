@@ -31,13 +31,19 @@ namespace MandrilAPI.Migrations
 
                     b.Property<string>("lastName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("id");
+
+                    b.HasIndex("lastName")
+                        .IsUnique();
+
+                    b.HasIndex("name")
+                        .IsUnique();
 
                     b.ToTable("Mandrils");
                 });
@@ -52,9 +58,12 @@ namespace MandrilAPI.Migrations
 
                     b.Property<string>("name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("id");
+
+                    b.HasIndex("name")
+                        .IsUnique();
 
                     b.ToTable("Skills");
                 });
@@ -67,14 +76,13 @@ namespace MandrilAPI.Migrations
                     b.Property<int>("SkillId")
                         .HasColumnType("int");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<int>("PowerMS")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("MandrilId", "SkillId");
+                    b.HasKey("MandrilId", "SkillId", "UserId");
 
                     b.HasIndex("SkillId");
 

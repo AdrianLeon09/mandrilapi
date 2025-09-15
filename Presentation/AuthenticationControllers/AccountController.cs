@@ -22,6 +22,7 @@ public class AccountController(
 
   [HttpPost("Register/")]
   public async Task<IActionResult> Register([FromBody] RegisterUserDto registerDto)
+
   {
    
     var user = new ApplicationUser()
@@ -48,26 +49,34 @@ public class AccountController(
       }
     
   }
-  
-  [HttpPost("Login/")]
+
+    [HttpPost("Login/")]
     public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
     {
-     
-      var user = await _userM.FindByEmailAsync(loginDto.Email);
-      var checkPassword = await _userM.CheckPasswordAsync(user, loginDto.Password);
-      if (user is null || checkPassword == false)
-      {
-        return Unauthorized();
-      }
-      else
-      {
-        await _signInM.SignInAsync(user, true);
-        return Ok("Login Successful");
-      }
 
+        var user = await _userM.FindByEmailAsync(loginDto.Email);
+
+
+        if (user is null)
+        {
+
+            return NotFound(MessageDefaultsUsers.UserNotFound);
+
+        }
+        else
+        {
+            var checkPassword = await _userM.CheckPasswordAsync(user, loginDto.Password);
+
+            if (checkPassword == false)
+            {
+                return Unauthorized();
+            }
+            else
+            {
+                await _signInM.SignInAsync(user, true);
+                return Ok("Login Successful");
+            }
+
+        }
     }
-
-    
-  
-  
 }

@@ -29,6 +29,12 @@
 
   <ItemGroup>
     <Compile Remove="Infrastructure\Migrations\**" />
+    <Compile Remove="Migrations\20250907140934_init.cs" />
+    <Compile Remove="Migrations\20250907140934_init.Designer.cs" />
+    <Compile Remove="Migrations\20250909152325_i.cs" />
+    <Compile Remove="Migrations\20250909152325_i.Designer.cs" />
+    <Compile Remove="Migrations\20250909151758_initupdate.cs" />
+    <Compile Remove="Migrations\20250909151758_initupdate.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
