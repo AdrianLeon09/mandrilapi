@@ -3,6 +3,8 @@ using MandrilAPI.Aplication.Service;
 using MandrilAPI.Domain.Models;
 using MandrilAPI.Infrastructure.DTOs;
 using MandrilAPI.Infrastructure.ModelsDTOs;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,7 +12,8 @@ namespace MandrilAPI.Presentation.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize(Policy = "Admin")]
+    
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "AdminOnly")]
 
     public class MandrilController(
         IMandrilSkillsReadRepository RepositoryRead,
@@ -30,7 +33,7 @@ namespace MandrilAPI.Presentation.Controllers
             
             if (mandriles.Count is 0)
             {
-                return NotFound(MessageDefaultsUsers.DataBaseNotFound);
+                return NotFound(MessageDefaultsAdmin.DataBaseNotFound);
             }
             else
             {
@@ -48,7 +51,7 @@ namespace MandrilAPI.Presentation.Controllers
             
             if (mandril.Count is 0)
             {
-                return NotFound(MessageDefaultsUsers.MandrilNotFound);
+                return NotFound(MessageDefaultsAdmin.MandrilNotFound);
             }
 
             return Ok(mandril);
@@ -63,7 +66,7 @@ namespace MandrilAPI.Presentation.Controllers
             
             if (mandril.Count is 0)
             {
-                return NotFound(MessageDefaultsUsers.MandrilNotFound);
+                return NotFound(MessageDefaultsAdmin.MandrilNotFound);
             }
             else
             {
@@ -72,13 +75,13 @@ namespace MandrilAPI.Presentation.Controllers
 
                 if (mandrilDto.name.Length < 3 || mandrilDto.lastName.Length < 3)
                 {
-                    return BadRequest(MessageDefaultsUsers.EntryInvalid);
+                    return BadRequest(MessageDefaultsAdmin.EntryInvalid);
                 }
                 else
                 {
                     
                    await _repositoryWriteMandrilSkills.UpdateOneMandrilToDb(targetMandrilId, mandrilDto);
-                    return Ok(MessageDefaultsUsers.MandrilUpdateSucceeded);
+                    return Ok(MessageDefaultsAdmin.MandrilUpdateSucceeded);
 
                 }
             }
@@ -91,13 +94,13 @@ namespace MandrilAPI.Presentation.Controllers
             var checkDelete = await _repositoryReadMandrilSkills.GetOneMandrilsFromDb(targetMandrilId);
             if (checkDelete.Count is 0)
             {
-                return NotFound(MessageDefaultsUsers.MandrilNotFound);
+                return NotFound(MessageDefaultsAdmin.MandrilNotFound);
             }
             else
             {
                 
               await  _repositoryWriteMandrilSkills.DeleteOneMandrilFromDb(targetMandrilId);
-                return Ok(MessageDefaultsUsers.DeleteMandrilSucceeded);
+                return Ok(MessageDefaultsAdmin.DeleteMandrilSucceeded);
                 
             }
             
@@ -114,7 +117,7 @@ namespace MandrilAPI.Presentation.Controllers
 
             if (validationName is true)
             {
-              return BadRequest(MessageDefaultsUsers.MandrilAlreadyExists);
+              return Conflict(MessageDefaultsAdmin.MandrilAlreadyExist);
 
             }
             else
@@ -122,13 +125,13 @@ namespace MandrilAPI.Presentation.Controllers
 
                 if (mandrilDto.name.Length < 3 || mandrilDto.lastName.Length < 3)
                 {
-                    return BadRequest(MessageDefaultsUsers.EntryInvalid);
+                    return BadRequest(MessageDefaultsAdmin.EntryInvalid);
                 }
                 else
                 {
 
                     await _repositoryWriteMandrilSkills.AddNewMandrilToDb(mandrilDto);
-                    return Ok(MessageDefaultsUsers.MandrilCreatedSuccess);
+                    return Ok(MessageDefaultsAdmin.MandrilCreatedSuccess);
 
                 }
                 

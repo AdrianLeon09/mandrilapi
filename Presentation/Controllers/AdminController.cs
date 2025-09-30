@@ -1,9 +1,11 @@
-﻿using MandrilAPI.Aplication.Interfaces;
+﻿using System.IdentityModel.Tokens.Jwt;
+using MandrilAPI.Aplication.Interfaces;
 using MandrilAPI.Aplication.Service;
 using MandrilAPI.Infrastructure.Authentication.AuthDatabaseContext;
 using MandrilAPI.Infrastructure.Authentication.AuthModels;
 using MandrilAPI.Infrastructure.DTOs;
 using MandrilAPI.Infrastructure.ModelsDTOs;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -11,7 +13,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MandrilAPI.Presentation.Controllers;
 [ApiController]
-[Authorize(Policy = "Admin")]
+[Authorize( AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,
+    Policy = "AdminOnly")]
+
 [Route("api/admin-management/")]
 
 public class AdminController(
@@ -37,12 +41,13 @@ public class AdminController(
     public async Task<IActionResult> AddSkillAndMandrilForUser(int targetMandrilId, int targetSkillId,
         [FromBody] PublicUserNameDto UserToAdd)
     {
+
         var user = await _userM.Users.FirstOrDefaultAsync(u =>
             EF.Functions.Collate(u.PublicUserName, "SQL_Latin1_General_CP1_CI_AS") == UserToAdd.PublicUserName);
 
         if (user is null)
         {
-            return NotFound(MessageDefaultsUsers.UserNotFound);
+            return NotFound(MessageDefaultsAdmin.UserNotFound);
         }
         else
         {
@@ -55,17 +60,17 @@ public class AdminController(
 
             if (mandrilExists.Count is 0 || skillExists.Count is 0)
             {
-                return BadRequest(MessageDefaultsUsers.RelationCreationEntityNotFound);
+                return NotFound(MessageDefaultsAdmin.RelationCreationEntityNotFound);
             }
             else if (relationExists.Count > 0)
             {
-                return BadRequest(MessageDefaultsUsers.RelationAlreadyExists);
+                return Conflict(MessageDefaultsAdmin.RelationAlreadyExist);
             }
             else
             {
 
                await _repositoryWriteMandrilSkills.AssignOneSkillToMandril(targetMandrilId, targetSkillId, user.Id);
-                return Ok(MessageDefaultsUsers.AssingSkillToMandrilSucceeded);
+                return Ok(MessageDefaultsAdmin.AssingSkillToMandrilSucceeded);
 
             }
         }
@@ -80,24 +85,29 @@ public class AdminController(
         var user = await _userM.Users.FirstOrDefaultAsync(u =>
             EF.Functions.Collate(u.PublicUserName, "SQL_Latin1_General_CP1_CI_AS") == UserToDelete.PublicUserName);
 
+        if (user is null)
         {
+            return NotFound(MessageDefaultsAdmin.UserNotFound);
+        }
+        else
+        {
+
             var relation =
-                await _repositoryReadMandrilSkills.GetOneMandrilWithOneSkillFromUser(targetMandrilId, targetSkillId, user.Id);
+                    await _repositoryReadMandrilSkills.GetOneMandrilWithOneSkillFromUser(targetMandrilId, targetSkillId, user.Id);
 
             if (relation.Count is 0)
             {
 
-                return BadRequest(MessageDefaultsUsers.RelationNotFound);
+                return NotFound(MessageDefaultsAdmin.RelationNotFound);
 
             }
             else
             {
 
-             await _repositoryWriteMandrilSkills.DeleteSkillFromMandrilForUser(targetMandrilId, targetSkillId, user.Id);
-                return Ok(MessageDefaultsUsers.DeleteSkillSucceeded);
+                await _repositoryWriteMandrilSkills.DeleteSkillFromMandrilForUser(targetMandrilId, targetSkillId, user.Id);
+                return Ok(MessageDefaultsAdmin.DeleteSkillSucceeded);
 
             }
-
         }
 
     }
@@ -115,7 +125,7 @@ public class AdminController(
             if ( user is null)
             {
 
-                return BadRequest(MessageDefaultsAdmin.RelationMandrilUserNotFound);
+                return NotFound(MessageDefaultsAdmin.RelationMandrilUserNotFound);
 
             }
             else
@@ -125,13 +135,13 @@ public class AdminController(
                 
                 if (relation.Count is 0)
                 {
-                    return BadRequest(MessageDefaultsUsers.RelationNotFound);
+                    return NotFound(MessageDefaultsAdmin.RelationNotFound);
                 }
                 else
                 {
 
                     await _repositoryWriteMandrilSkills.DeleteMandrilForUser(targetMandrilId, user.Id);
-                    return Ok(MessageDefaultsUsers.DeleteSkillSucceeded);
+                    return Ok(MessageDefaultsAdmin.DeleteSkillSucceeded);
 
                 }
             }
@@ -151,7 +161,7 @@ public class AdminController(
 
         if (user is null)
         {
-            return NotFound(MessageDefaultsUsers.UserNotFound);
+            return NotFound(MessageDefaultsAdmin.UserNotFound);
         }
         else
         {
@@ -160,14 +170,14 @@ public class AdminController(
 
             if (relation.Count is 0)
             {
-                return BadRequest(MessageDefaultsUsers.RelationMandrilWithSkillAndUserNotFound);
+                return NotFound(MessageDefaultsAdmin.RelationMandrilWithSkillAndUserNotFound);
             }
             else
             {
 
               await  _repositoryWriteMandrilSkills.UpdatePowerOfSkillForMandril(targetMandrilId, targetSkillId,
                    updatePowerRequest.Power, user.Id);
-                return Ok(MessageDefaultsUsers.SkillPowerUpdateSuccess);
+                return Ok(MessageDefaultsAdmin.SkillPowerUpdateSuccess);
 
             }
         }
@@ -182,7 +192,7 @@ public class AdminController(
 
         if (users.Count is 0)
         {
-            return NotFound(MessageDefaultsDevs.UsersNotFound);
+            return NotFound(MessageDefaultsAdmin.UserNotFound);
         }
         else
         {
@@ -198,11 +208,10 @@ public class AdminController(
     public async Task<IActionResult> GetAllRelations()
     {
         var relations = await _repositoryReadMandrilSkills.GetAllRelationsFromDb();
-
-
+        
         if (relations.Count is 0)
         {
-            return NotFound(MessageDefaultsDevs.RelationshipsNotFound);
+            return NotFound(MessageDefaultsAdmin.RelationshipsNotFound);
         }
         else
         {

@@ -32,6 +32,7 @@ public class RegisterUserDto
     public string Email { get; set; }
     
     [Required(ErrorMessage = MessageDefaultsUsers.EntryInvalid)]
+    [MinLength(6, ErrorMessage = MessageDefaultsUsers.PasswordTooShort)]
     public string Password { get; set; }
     
     [Required(ErrorMessage = MessageDefaultsUsers.EntryInvalid)]

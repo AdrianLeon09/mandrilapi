@@ -16,6 +16,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" Version="8.14.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.7" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.2" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.6.2" />
@@ -23,12 +24,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Aplication\" />
     <Folder Include="Domain\" />
   </ItemGroup>
 
   <ItemGroup>
     <Compile Remove="Infrastructure\Migrations\**" />
+    <Compile Remove="Aplication\Service\MessageDefaultsAdmin_1.cs" />
     <Compile Remove="Migrations\20250907140934_init.cs" />
     <Compile Remove="Migrations\20250907140934_init.Designer.cs" />
     <Compile Remove="Migrations\20250909152325_i.cs" />

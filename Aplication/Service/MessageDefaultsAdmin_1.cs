@@ -1,16 +1,18 @@
 ﻿namespace MandrilAPI.Aplication.Service;
 
-public class MessageDefaultsAdmin
+public static class MessageDefaultsAdmin
 {
-     public const string RelationMandrilUserNotFound = "The Mandril ID associated with the user ID was not found";
     // -------- General errors --------
     public const string EntryInvalid =
         "Invalid data. Please verify that fields are not empty and have at least 3 characters without spaces.";
+    public const string EntryMaxLength = "Maximum of 25 characters allowed.";
+    public const string EntryMinLength = "Only letters are allowed, minimum of 3 characters.";
+    public const string PowerInvalid =
+        "The entered power must not be greater than 4.";
+    public const string EmailInvalid = "Email is invalid";
+    public const string NullObject = "The information field is null.";
 
     // -------- Not found --------
-    
-    public const string UserNotFound =
-        "The user could not be found.";
     public const string MandrilNotFound =
         "The mandrill was not found or does not exist. Please verify the data and try again.";
     public const string SkillNotFound =
@@ -20,15 +22,16 @@ public class MessageDefaultsAdmin
     public const string RelationNotFound =
         "The relationship between the mandrill and skill was not found or does not exist. Please verify the data and try again.";
     public const string RelationMandrilWithSkillAndUserNotFound = "Skill ID related to the specified mandril and User was not found.";
-    public const string RelationshipsNotFound = "Relationships not exist.";
 
-    
-    // -------- Already exist --------
-    public const string SkillAlreadyExist =
-        "The skill already exist. Duplicate skills cannot be created.";
-    public const string MandrilAlreadyExist =
-        "The mandril already exist. Duplicate skills cannot be created.";
-   
+    // -------- Already exists --------
+    public const string EmailAlreadyExists =
+        "The email is already used";
+    public const string SkillAlreadyExists =
+        "The skill already exists. Duplicate skills cannot be created.";
+    public const string MandrilAlreadyExists =
+        "The mandril already exists. Duplicate skills cannot be created.";
+    public const string PublicUsernameAlreadyExists =
+        "The username already exists.";
 
     // -------- Deletion --------
     public const string DeleteMandrilSucceeded =
@@ -54,9 +57,9 @@ public class MessageDefaultsAdmin
     public const string RelationCreationEntityNotFound =
         "Unable to create a relationship between the mandrill and the skill. " +
         "One or more elements do not exist in the database.";
-    public const string RelationAlreadyExist =
+    public const string RelationAlreadyExists =
         "Unable to create a relationship between the mandrill and the skill. " +
-        "The relationship already exist in the database.";
+        "The relationship already exists in the database.";
 
     // -------- Updates --------
     public const string SkillUpdateSucceeded =
@@ -65,6 +68,16 @@ public class MessageDefaultsAdmin
         "The mandrill has been successfully updated.";
     public const string SkillPowerUpdateSuccess =
         "The skill power has been updated.";
-   
+    public const string FirstNameUpdateSucceeded = "The first name has been updated.";
+    public const string LastNameUpdateSucceeded = "The Lastname has been updated.";
+    public const string PublicUserNameUpdateSucceeded = "The username has been updated.";
+    public const string PasswordUpdateSucceeded = "The password has been updated.";
 
+    // -------- Authentication --------
+    public const string UserNotFound = "The user could not be found.";
+    public const string PasswordWrong = "The entered password is incorrect.";
+    public const string PasswordUpdateError = "The password could not be updated. Please verify the data and try again.";
+    public const string PasswordMismatch = "The passwords do not match. Please verify the data and try again.";
+    public const string PasswordTooShort = "The password must be at least 6 characters long.";
+    public const string RegistrationSucceeded = "You are has been successfully registered.";
 }

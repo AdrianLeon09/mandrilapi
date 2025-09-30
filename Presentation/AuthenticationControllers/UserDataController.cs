@@ -5,21 +5,27 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using MandrilAPI.Aplication.Service;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.DotNet.Scaffolding.Shared.Messaging;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using static Microsoft.AspNetCore.Identity.IdentityConstants;
 
 namespace MandrilAPI.Presentation.AuthenticationControllers;
 
 [ApiController]
 [Route("api/[controller]/")]
-[Authorize(Roles = "User,Admin")]
 
-public class UserDataController(UserManager<ApplicationUser> userM) : Controller
+
+[Authorize( AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,
+    Roles = "Admin,User")]
+
+public class UserDataController(UserManager<ApplicationUser> userM, Functions functions) : Controller
 {
     private readonly UserManager<ApplicationUser> _userM = userM;
-
-
-
+    private readonly Functions _fuctions = functions;
+   
+  
     [HttpGet("GetUserData/")]
     
     public async Task<IActionResult> GetUserData()
@@ -58,7 +64,7 @@ public class UserDataController(UserManager<ApplicationUser> userM) : Controller
 
         if(user is null)
         {
-            return BadRequest(MessageDefaultsUsers.UserNotFound);
+            return NotFound(MessageDefaultsUsers.UserNotFound);
 
         }else
         {
@@ -87,7 +93,7 @@ public class UserDataController(UserManager<ApplicationUser> userM) : Controller
         }
         else { 
 
-        user.LastName = newLastName.LastName;
+         user.LastName = newLastName.LastName;
 
         await _userM.UpdateAsync(user);
 
@@ -113,11 +119,11 @@ public class UserDataController(UserManager<ApplicationUser> userM) : Controller
         else
         {
 
-            var checkUsername = await _userM.Users.AnyAsync(u => u.PublicUserName == newPublicUserName.PublicUserName && u.Id != user.Id);
+            var checkUsername = await _fuctions.IsPublicUsernameAvailableForUpdate(user, newPublicUserName.PublicUserName);
 
             if (checkUsername)
             {
-                return BadRequest(MessageDefaultsUsers.PublicUsernameAlreadyExists);
+                return Conflict(MessageDefaultsUsers.PublicUsernameAlreadyExist);
             }
             else
             {
