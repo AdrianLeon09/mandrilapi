@@ -162,7 +162,7 @@ dotnet restore
 **Configurar la cadena de conexión**  
    - Abre el archivo `appsettings.json` ubicado en el proyecto.  
    - Verifica que la cadena de conexión a la base de datos SQL Server esté correctamente configurada para tu entorno local.  
-   - Ejemplo Windwos:
+   - Ejemplo Windows:
 
    ```json
    "ConnectionStrings": {
@@ -229,13 +229,24 @@ Sigue estos pasos para abrir y ejecutar el proyecto en Visual Studio 2022:
      "DefaultConnection": "Server=localhost;Database=mandrilDB;Trusted_Connection=true;TrustServerCertificate=True;"
    }
 
-4. **Aplicar migraciones**
+**4. Aplicar las migraciones correspondientes a **AuthDbCOntext** y **MandrilDbContext****
+
 Abre la Consola del Administrador de Paquetes desde Herramientas > Administrador de paquetes NuGet > Consola del Administrador de paquetes.
 
-Ejecuta los siguientes comandos para crear o actualizar la base de datos:
+Ejecuta los siguientes comandos para crear las migraciones y actualizar la base de datos:
 
- ```Update-Database -context MandrilDbCOntext ```
-```Update-Database -context AuthDbContext ```
+```
+Add-Migration NombreDeLaMigracion -Context MandrilDbContext
+```
+```
+Add-Migration NombreDeLaMigracion -Context AuthDbContext
+```
+ ```
+ Update-Database -context MandrilDbCOntext
+```
+```
+Update-Database -context AuthDbContext 
+```
 
 5. **Ejecutar la aplicación**
 Presiona F5 para iniciar la aplicación en modo depuración, o Ctrl + F5 para ejecutarla sin depurar.
