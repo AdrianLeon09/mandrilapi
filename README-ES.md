@@ -1,108 +1,133 @@
+
 # MandrilAPI
 
-**MandrilAPI** es una API Web RESTful desarrollada en **C# con ASP.NET Core** que simula el manejo de una entidad `Mandril`, la cual puede estar asociada a un conjunto de habilidades (`Skills`). 
+**MandrilAPI** es una API Web RESTful desarrollada en **C# con ASP.NET Core (.NET 8)** que simula el manejo de una entidad `Mandril`, la cual puede estar asociada a un conjunto de habilidades (`Skills`). 
 
-La aplicación está estructurada siguiendo principios de **arquitectura limpia** y **separación de responsabilidades**, lo que la hace ideal para aprender cómo escalar y organizar un proyecto de forma basica.
-
-El sistema incluye tres controladores principales:
-- `MandrilController`
-- `SkillsController`
-- `MandrilSkillsController`
-
-Cada uno gestiona su respectiva tabla en una **base de datos SQL Server** por medio de EF, siendo `MandrilSkills` una tabla de relación **muchos a muchos**. La tabla MandrilSkills representa una relación muchos a muchos entre mandriles y habilidades, utilizando claves primarias compuestas. Además, incorpora una columna adicional llamada PowerMS(MS = MandrilSkill), que indica el nivel de habilidad asignado del 0 a maximo 4.
-
-Esta tabla intermedia fue modelada manualmente con Entity Framework, lo cual permite un mayor control sobre su estructura y comportamiento, pensando en una posible escalabilidad futura del sistema y la incorporación de nuevas características.
+La aplicación sigue principios de **arquitectura limpia**, **separación de responsabilidades** y ahora incluye un sistema completo de **autenticación y autorización basada en JWT y ASP.NET Identity**.
 
 ---
 
-## ¿Qué aporta este proyecto?
-Este proyecto de práctica fue construido con el objetivo de ir más allá de lo básico. Se incluyen conceptos esenciales para el desarrollo backend profesional:
+## 🆕 Novedades y funcionalidades recientes
 
-### Arquitectura y Diseño
-- Implementación de **Arquitectura Limpia** (Clean Architecture)
+- **Sistema de autenticación y autorización JWT**: Registro, login y logout de usuarios, generación y validación de tokens JWT.
+- **Gestión de usuarios**: Endpoints para obtener y actualizar datos del usuario autenticado (nombre, apellido, username público, email, fecha de nacimiento).
+- **Roles y políticas**: Soporte para roles `Admin` y `User`, con endpoints protegidos por políticas y roles.
+- **Controladores adicionales**:
+  - `AccountController`: Registro, login y logout de usuarios.
+  - `UserDataController`: Consulta y actualización de datos del usuario autenticado.
+  - `AdminController`: Gestión avanzada de relaciones y usuarios (solo para administradores).
+- **Validaciones avanzadas**: Validaciones personalizadas en DTOs para registro y actualización de usuarios.
+- **Swagger con soporte para JWT**: Documentación interactiva y pruebas de endpoints autenticados.
+- **Mensajes de error y éxito personalizados**: Mensajes claros y categorizados para cada operación.
+
+---
+
+## Arquitectura y Diseño
+
+- **Arquitectura Limpia** (Clean Architecture)
 - Estructura modular por capas bien definida
 - Patrón Repository con separación de responsabilidades lectura/escritura
 - Inyección de dependencias mediante interfaces
+- **ASP.NET Identity** para gestión de usuarios y roles
+- **JWT** para autenticación y autorización segura
 
-### Base de Datos
+## Base de Datos
+
 - Persistencia en SQL Server mediante Entity Framework Core
-- Relación muchos a muchos entre `Mandril` y `Skills`
-- Tabla intermedia `MandrilSkills` con campo `PowerMS` para nivel de habilidad
+- Relación muchos a muchos entre `Mandril` y `Skills` con tabla intermedia `MandrilSkills` y campo `PowerMS`
 - Migraciones y configuración de entidades
+- Tablas de usuarios y roles gestionadas por Identity
 
-### API RESTful
-- Tres controladores principales:
-  - `MandrilController`: Administracion de mandriles
-  - `SkillsController`: Administración de habilidades
-  - `MandrilSkillsController`: Manejo de relaciones mandril-habilidad
+## API RESTful
+
+- Controladores principales:
+  - `MandrilController`: Administración de mandriles (solo Admin)
+  - `SkillsController`: Administración de habilidades (solo Admin)
+  - `MandrilSkillsController`: Manejo de relaciones mandril-habilidad (usuarios autenticados)
+  - `AccountController`: Registro, login y logout de usuarios
+  - `UserDataController`: Gestión de datos del usuario autenticado
+  - `AdminController`: Gestión avanzada de relaciones y usuarios (solo Admin)
 - Endpoints siguiendo convenciones REST
-- Documentación con Swagger
+- Documentación con Swagger (incluye autenticación JWT)
 
-### Calidad de Código
-- Sistema de logging (ILogger) para monitoreo de operaciones desde consola
+## Calidad de Código
+
+- Sistema de logging (ILogger) para monitoreo de operaciones
 - Manejo de errores por capa con mensajes personalizados
-- Validaciones de negocio
-- DTOs para transferencia segura de datos
-- Código limpio y documentado en inglés
+- Validaciones de negocio y DTOs para transferencia segura de datos
+- Código limpio y documentado
+
+---
 
 ## 🎯 Objetivos del Proyecto
-Este proyecto está diseñado para demostrar:
+
 1. Implementación de arquitectura escalable en .NET
-2. Buenas prácticas en el desarrollo de APIs
-3. Manejo de relaciones en base de datos
+2. Buenas prácticas en el desarrollo de APIs seguras
+3. Manejo de relaciones en base de datos y gestión de usuarios/roles
 4. Patrones de diseño comunes en aplicaciones empresariales
 
+---
+
 ## 🚀 Próximas Mejoras
-- Sistema de autenticación/autorización basado en JWT y ASP.NET Identity.
-- Desarrollo de interfaz de usuario en Angular
+- Pruebas automatizadas
 
 ---
-Este proyecto **no pretende ser avanzado**, pero es ideal para cualquier principiante que quiera aprender de forma inicial:
-- Cómo estructurar una API real de manera profesional
-- Qué validaciones y errores deben considerarse en proyectos del mundo real
-- Cómo relacionar entidades con una base de datos usando C# y ASP.NET Core
----
+
 ## 🛠️ Tecnologías utilizadas
 
 - .NET 8
 - ASP.NET Core Web API
 - Entity Framework Core 
+- ASP.NET Identity
+- JWT (Json Web Token)
 - Swagger
-- SqlServer
-- Ilogger
+- SQL Server
+- ILogger
+
+---
 ---
 
 ## 📁 Estructura del proyecto
 ````
-/Presentation
-├── Controllers
-│   ├── MandrilController.cs
-│   ├── SkillsController.cs
-│   └── SkillsMandrilController.cs
-├─ Program.cs
-/Application
-├── Interfaces
-│   ├── IMandrilSkillsReadRepository.cs
-│   └── IMandrilSkillsWriteRepository.cs
-├── Services
-│   ├── MessageDefaultsDevs.cs
-│   └── MessageDefaultsUsers.cs
-/Infrastructure
-├── Repositories
-│   ├── MandrilSkillsReadRepository.cs
-│   └── MandrilSkillsWriteRepository.cs
-├── DatabaseContext
-│   ├── MandrilDbContext.cs
-│   └── MandrilWithSkillsIntermediateTable.cs
-├── DTOs
-│   ├── MandrilDTO.cs
-│   ├── SkillDTO.cs
-│   └── PowerDTO.cs
-├── Migrations
-/Domain
-├── Models
-│   ├── Mandril.cs
-│   └── Skill.cs´
+📁 MandrilAPI (Raíz del Proyecto)
+├── 📁 Aplication
+│   ├── 📁 Interfaces
+│   │   ├── 📄 IMandrilSkillsReadRepository.cs
+│   │   └── 📄 IMandrilSkillsWriteRepository.cs
+│   └── 📁 Service
+│       ├── 📄 Functions.cs
+│       ├── 📄 MessageDefaultsAdmin.cs
+│       ├── 📄 MessageDefaultsDevs.cs
+│       └── 📄 MessageDefaultsUsers.cs
+├── 📁 Domain
+│   └── 📁 Models
+│       ├── 📄 Mandril.cs
+│       └── 📄 Skill.cs
+├── 📁 Infrastructure
+│   ├── 📁 Authentication
+│   │   ├── 📁 AuthDatabaseContext
+│   │   ├── 📁 AuthenticationDTOs
+│   │   ├── 📁 AuthModels
+│   │   └── 📄 GenerateJwt.cs
+│   ├── 📁 CustomAnnotations
+│   ├── 📁 DatabaseContext
+│   │   ├── 📄 MandrilDbContext.cs
+│   │   └── 📄 MandrilWithSkillsIntermediateTable.cs
+│   ├── 📁 ModelsDTOs
+│   │   ├── 📄 MandrilDto.cs
+│   │   ├── 📄 SkillDto.cs
+│   │   └── 📄 UpdatePowerRequestDto.cs
+│   └── 📁 Repositories
+│       ├── 📄 MandrilSkillsReadRepository.cs
+│       └── 📄 MandrilSkillsWriteRepository.cs
+├── 📁 Presentation
+│   ├── 📁 AuthenticationControllers
+│   ├── 📁 Controllers
+│   └── 📄 Program.cs
+├── 📄 appsettings.json
+├── 📄 README.md
+├── 📄 README-ES.md
+└── 📄 README-PT-BR.md
 ````
 
 
@@ -113,9 +138,9 @@ https://localhost:(puerto)/swagger
 
 Ahí podés ver y probar todos los endpoints disponibles.
 
-## 🧪 Cómo ejecutar el proyecto
+# 🧪 Cómo ejecutar el proyecto
 
-# Cómo ejecutar el proyecto en Windows
+## Cómo ejecutar el proyecto en Windows
 
 Este proyecto puede ejecutarse tanto desde línea de comandos como desde un IDE como Visual Studio o Rider.
 
@@ -128,14 +153,46 @@ Este proyecto puede ejecutarse tanto desde línea de comandos como desde un IDE 
  cd mandrilapi 
   ```
 
-**3. Restaurar dependencias:**
+**2. Restaurar dependencias:**
  ```   
 dotnet restore
  ```
-**3. Aplicar migraciones para crear o actualizar la base de datos:**
- ```
-dotnet ef database update
- ```
+**3. Aplicar migraciones para crear la base de datos:**
+
+**Configurar la cadena de conexión**  
+   - Abre el archivo `appsettings.json` ubicado en el proyecto.  
+   - Verifica que la cadena de conexión a la base de datos SQL Server esté correctamente configurada para tu entorno local.  
+   - Ejemplo Windwos:
+
+   ```json
+   "ConnectionStrings": {
+     "DefaultConnection": "Server=localhost;Database=mandrilDB;Trusted_Connection=true;TrustServerCertificate=True;"
+   }
+```
+- Ejemplo Linux:
+```json
+"ConnectionStrings": {
+  "DefaultConnection": "Server=localhost;Database=mandrilDB;UserId=sa;Password=TuPassword123;TrustServerCertificate=True;"
+}
+
+```
+
+**4. Aplicar las migraciones correspondientes a **AuthDbCOntext** y **MandrilDbContext****
+
+En la terminal vaya hasta la solucion del proyecto y escriba
+```
+dotnet ef migrations --context MandrilDbContext Nombre de la migracion
+```
+```
+dotnet ef migrations --context AuthDbCOntext Nombre de la migracion
+```
+```
+dotnet ef database update --context MandrilDbContext
+```
+```
+dotnet ef database update --context AuthDbContext
+```
+
 **4. Ejecutar la aplicación:**
    
 dotnet run
@@ -175,9 +232,10 @@ Sigue estos pasos para abrir y ejecutar el proyecto en Visual Studio 2022:
 4. **Aplicar migraciones**
 Abre la Consola del Administrador de Paquetes desde Herramientas > Administrador de paquetes NuGet > Consola del Administrador de paquetes.
 
-Ejecuta el siguiente comando para crear o actualizar la base de datos:
+Ejecuta los siguientes comandos para crear o actualizar la base de datos:
 
- ```Update-Database ```
+ ```Update-Database -context MandrilDbCOntext ```
+```Update-Database -context AuthDbContext ```
 
 5. **Ejecutar la aplicación**
 Presiona F5 para iniciar la aplicación en modo depuración, o Ctrl + F5 para ejecutarla sin depurar.
