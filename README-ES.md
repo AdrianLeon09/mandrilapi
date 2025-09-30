@@ -181,10 +181,10 @@ dotnet restore
 
 En la terminal vaya hasta la solucion del proyecto y escriba
 ```
-dotnet ef migrations --context MandrilDbContext Nombre de la migracion
+dotnet ef migrations add NombreDeLaMigracion --context MandrilDbContext
 ```
 ```
-dotnet ef migrations --context AuthDbCOntext Nombre de la migracion
+dotnet ef migrations add NombreDeLaMigracion --context AuthDbContext
 ```
 ```
 dotnet ef database update --context MandrilDbContext
