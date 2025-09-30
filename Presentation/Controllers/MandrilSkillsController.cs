@@ -39,7 +39,7 @@ public class MandrilSkillsController(
         var user = await _userM.GetUserAsync(User);
         if (user is null)
         {
-            return BadRequest(MessageDefaultsAdmin.UserNotFound);
+            return BadRequest(MessageDefaultsUsers.UserNotFound);
         }
         else
         {
@@ -65,11 +65,16 @@ public class MandrilSkillsController(
 
         if (user is null)
         {
-            return BadRequest(MessageDefaultsAdmin.UserNotFound);
+            return NotFound(MessageDefaultsUsers.UserNotFound);
         }
         else
         {
             var relations = await _repositoryReadMandrilSkills.SelectAllMandrilWithSkillsFromUser(user.Id);
+            if(relations.Count is 0)
+            {
+                return NotFound(MessageDefaultsUsers.EmptyRelations);
+
+            } 
             return Ok(relations);
         }
     }
@@ -84,7 +89,7 @@ public class MandrilSkillsController(
         var user = await _userM.GetUserAsync(User);
         if (user is null)
         {
-            return BadRequest(MessageDefaultsAdmin.UserNotFound);
+            return NotFound(MessageDefaultsAdmin.UserNotFound);
         }
         {
             var relation = await
@@ -108,7 +113,7 @@ public class MandrilSkillsController(
 
         if (user is null)
         {
-            return BadRequest(MessageDefaultsAdmin.UserNotFound);
+            return NotFound(MessageDefaultsAdmin.UserNotFound);
         }
         else
         {

@@ -17,6 +17,7 @@ public class MessageDefaultsUsers
     public const string RelationNotFound =
         "The relationship between the mandrill and skill was not found or does not exist. Please verify the data and try again.";
      public const string UserNotFound = "The user could not be found.";
+    public const string EmptyRelations = "There are currently no relationships";
 
     // -------- Already exist --------
     public const string EmailAlreadyExist =
