@@ -3,138 +3,152 @@
 
 🇧🇷 ¿Fala português? Visite o arquivo [README-PT-BR.md](./README-PT-BR.md) em Português ; 
 
-**MandrilAPI** is a RESTful Web API developed in **C\# with ASP.NET Core** that simulates the management of a `Mandril` entity, which can be associated with a set of `Skills`.
+# MandrilAPI
 
-The application is structured following the principles of **Clean Architecture** and **separation of concerns**, making it ideal for learning how to scale and organize a project in a basic way.
+**MandrilAPI** is a RESTful Web API developed in **C\# with ASP.NET Core (.NET 8)** that simulates the management of a `Mandril` entity, which can be associated with a set of skills (`Skills`).
 
-The system includes three main controllers:
-
-  - `MandrilController`
-  - `SkillsController`
-  - `MandrilSkillsController`
-
-Each one manages its respective table in a **SQL Server database** through EF, with `MandrilSkills` being a **many-to-many** relationship table. The MandrilSkills table represents a many-to-many relationship between mandrills and skills, using composite primary keys. Additionally, it incorporates an extra column called PowerMS (MS = MandrilSkill), which indicates the assigned skill level from 0 to a maximum of 4.
-
-This intermediate table was modeled manually with Entity Framework, which allows for greater control over its structure and behavior, considering the possible future scalability of the system and the incorporation of new features.
+The application follows the principles of **clean architecture**, **separation of concerns**, and now includes a complete **authentication and authorization system based on JWT and ASP.NET Identity**.
 
 -----
 
-## What does this project offer?
+## 🆕 What's New and Recent Features
 
-This practice project was built with the aim of going beyond the basics. It includes essential concepts for professional backend development:
+  - **JWT authentication and authorization system**: User registration, login, and logout; generation and validation of JWT tokens.
+  - **User management**: Endpoints to get and update the authenticated user's data (name, last name, public username, email, date of birth).
+  - **Roles and policies**: Support for `Admin` and `User` roles, with endpoints protected by policies and roles.
+  - **Additional controllers**:
+      - `AccountController`: User registration, login, and logout.
+      - `UserDataController`: Querying and updating authenticated user's data.
+      - `AdminController`: Advanced management of relationships and users (administrators only).
+  - **Advanced validations**: Custom validations in DTOs for user registration and updates.
+  - **Swagger with JWT support**: Interactive documentation and testing of authenticated endpoints.
+  - **Custom error and success messages**: Clear and categorized messages for each operation.
 
-### Architecture and Design
+-----
 
-  - Implementation of **Clean Architecture**
+## Architecture and Design
+
+  - **Clean Architecture**
   - Well-defined modular layer structure
-  - Repository Pattern with read/write separation of concerns
-  - Dependency injection using interfaces
+  - Repository pattern with separation of read/write responsibilities
+  - Dependency injection through interfaces
+  - **ASP.NET Identity** for user and role management
+  - **JWT** for secure authentication and authorization
 
-### Database
+## Database
 
   - Persistence in SQL Server using Entity Framework Core
-  - Many-to-many relationship between `Mandril` and `Skills`
-  - Intermediate table `MandrilSkills` with a `PowerMS` field for skill level
+  - Many-to-many relationship between `Mandril` and `Skills` with an intermediate table `MandrilSkills` and a `PowerMS` field
   - Migrations and entity configuration
+  - User and role tables managed by Identity
 
-### RESTful API
+## RESTful API
 
-  - Three main controllers:
-      - `MandrilController`: Manages mandrills
-      - `SkillsController`: Manages skills
-      - `MandrilSkillsController`: Handles mandrill-skill relationships
+  - Main controllers:
+      - `MandrilController`: Mandril administration (Admin only)
+      - `SkillsController`: Skills administration (Admin only)
+      - `MandrilSkillsController`: Handling of mandril-skill relationships (authenticated users)
+      - `AccountController`: User registration, login, and logout
+      - `UserDataController`: Management of authenticated user's data
+      - `AdminController`: Advanced management of relationships and users (Admin only)
   - Endpoints following REST conventions
-  - Documentation with Swagger
+  - Documentation with Swagger (includes JWT authentication)
 
-### Code Quality
+## Code Quality
 
-  - Logging system (ILogger) for monitoring operations from the console
-  - Layer-based error handling with custom messages
-  - Business validations
-  - DTOs for secure data transfer
-  - Clean and documented code in English
+  - Logging system (ILogger) for monitoring operations
+  - Layered error handling with custom messages
+  - Business and DTO validations for secure data transfer
+  - Clean and documented code
+
+-----
 
 ## 🎯 Project Goals
 
-This project is designed to demonstrate:
-
 1.  Implementation of a scalable architecture in .NET
-2.  Good practices in API development
-3.  Handling database relationships
+2.  Good practices in the development of secure APIs
+3.  Handling of database relationships and user/role management
 4.  Common design patterns in enterprise applications
+
+-----
 
 ## 🚀 Upcoming Improvements
 
-  - Authentication/authorization system based on JWT and ASP.NET Identity.
-  - Development of a user interface in Angular
+  - Automated tests
 
 -----
 
-This project is **not intended to be advanced**, but it is ideal for any beginner who wants to learn initially:
-
-  - How to structure a real API in a professional manner
-  - What validations and errors should be considered in real-world projects
-  - How to relate entities with a database using C\# and ASP.NET Core
-
------
-
-## 🛠️ Technologies Used
+## 🛠️ Technologies used
 
   - .NET 8
   - ASP.NET Core Web API
   - Entity Framework Core
+  - ASP.NET Identity
+  - JWT (Json Web Token)
   - Swagger
-  - SqlServer
+  - SQL Server
   - ILogger
 
 -----
 
-## 📁 Project Structure
+-----
+
+## 📁 Project structure
 
 ```
-/Presentation
-├── Controllers
-│   ├── MandrilController.cs
-│   ├── SkillsController.cs
-│   └── SkillsMandrilController.cs
-├─ Program.cs
-/Application
-├── Interfaces
-│   ├── IMandrilSkillsReadRepository.cs
-│   └── IMandrilSkillsWriteRepository.cs
-├── Services
-│   ├── MessageDefaultsDevs.cs
-│   └── MessageDefaultsUsers.cs
-/Infrastructure
-├── Repositories
-│   ├── MandrilSkillsReadRepository.cs
-│   └── MandrilSkillsWriteRepository.cs
-├── DatabaseContext
-│   ├── MandrilDbContext.cs
-│   └── MandrilWithSkillsIntermediateTable.cs
-├── DTOs
-│   ├── MandrilDTO.cs
-│   ├── SkillDTO.cs
-│   └── PowerDTO.cs
-├── Migrations
-/Domain
-├── Models
-│   ├── Mandril.cs
-│   └── Skill.cs´
+📁 MandrilAPI (Project Root)
+├── 📁 Aplication
+│   ├── 📁 Interfaces
+│   │   ├── 📄 IMandrilSkillsReadRepository.cs
+│   │   └── 📄 IMandrilSkillsWriteRepository.cs
+│   └── 📁 Service
+│       ├── 📄 Functions.cs
+│       ├── 📄 MessageDefaultsAdmin.cs
+│       ├── 📄 MessageDefaultsDevs.cs
+│       └── 📄 MessageDefaultsUsers.cs
+├── 📁 Domain
+│   └── 📁 Models
+│       ├── 📄 Mandril.cs
+│       └── 📄 Skill.cs
+├── 📁 Infrastructure
+│   ├── 📁 Authentication
+│   │   ├── 📁 AuthDatabaseContext
+│   │   ├── 📁 AuthenticationDTOs
+│   │   ├── 📁 AuthModels
+│   │   └── 📄 GenerateJwt.cs
+│   ├── 📁 CustomAnnotations
+│   ├── 📁 DatabaseContext
+│   │   ├── 📄 MandrilDbContext.cs
+│   │   └── 📄 MandrilWithSkillsIntermediateTable.cs
+│   ├── 📁 ModelsDTOs
+│   │   ├── 📄 MandrilDto.cs
+│   │   ├── 📄 SkillDto.cs
+│   │   └── 📄 UpdatePowerRequestDto.cs
+│   └── 📁 Repositories
+│       ├── 📄 MandrilSkillsReadRepository.cs
+│       └── 📄 MandrilSkillsWriteRepository.cs
+├── 📁 Presentation
+│   ├── 📁 AuthenticationControllers
+│   ├── 📁 Controllers
+│   └── 📄 Program.cs
+├── 📄 appsettings.json
+├── 📄 README.md
+├── 📄 README-ES.md
+└── 📄 README-PT-BR.md
 ```
 
 ## 📚 Documentation with Swagger
 
-When you start the project, Swagger will automatically load at:
+When starting the project, Swagger is automatically loaded at:
 https://localhost:(port)/swagger
 
-There you can see and test all available endpoints.
+There you can see and test all the available endpoints.
 
-## 🧪 How to run the project
+# 🧪 How to run the project
 
-# How to run the project on Windows
+## How to run the project in Windows
 
-This project can be run either from the command line or from an IDE like Visual Studio or Rider.
+This project can be run both from the command line and from an IDE like Visual Studio or Rider.
 
 ## Option 1: From the command line (PowerShell or CMD)
 
@@ -148,16 +162,57 @@ git clone https://github.com/AdrianLeon09/mandrilapi
 cd mandrilapi 
 ```
 
-**3. Restore dependencies:**
+**2. Restore dependencies:**
 
 ```
 dotnet restore
 ```
 
-**3. Apply migrations to create or update the database:**
+**3. Apply migrations to create the database:**
+
+**Configure the connection string**
+
+  - Open the `appsettings.json` file located in the project.
+  - Verify that the connection string to the SQL Server database is correctly configured for your local environment.
+  - Windows Example:
+
+<!-- end list -->
+
+```json
+"ConnectionStrings": {
+  "DefaultConnection": "Server=localhost;Database=mandrilDB;Trusted_Connection=true;TrustServerCertificate=True;"
+}
+```
+
+  - Linux Example:
+
+<!-- end list -->
+
+```json
+"ConnectionStrings": {
+  "DefaultConnection": "Server=localhost;Database=mandrilDB;UserId=sa;Password=YourPassword123;TrustServerCertificate=True;"
+}
 
 ```
-dotnet ef database update
+
+**4. Apply the corresponding migrations to AuthDbContext and MandrilDbContext**
+
+In the terminal, go to the project solution and type
+
+```
+dotnet ef migrations add NameOfMigration --context MandrilDbContext
+```
+
+```
+dotnet ef migrations add NameOfMigration --context AuthDbContext
+```
+
+```
+dotnet ef database update --context MandrilDbContext
+```
+
+```
+dotnet ef database update --context AuthDbContext
 ```
 
 **4. Run the application:**
@@ -176,7 +231,7 @@ Follow these steps to open and run the project in Visual Studio 2022:
 
       - Start Visual Studio 2022.
 
-      - Select **Clone a repository** and enter ` https://github.com/AdrianLeon09/mandrilapi  `
+      - Select **Clone a repository**. and enter ` https://github.com/AdrianLeon09/mandrilapi  `
 
       - If you downloaded the repository directly:
 
@@ -201,29 +256,43 @@ Follow these steps to open and run the project in Visual Studio 2022:
     "ConnectionStrings": {
       "DefaultConnection": "Server=localhost;Database=mandrilDB;Trusted_Connection=true;TrustServerCertificate=True;"
     }
-
     ```
 
-4.  **Apply migrations**
-    Open the Package Manager Console from Tools \> NuGet Package Manager \> Package Manager Console.
+**4. Apply the corresponding migrations to AuthDbContext and MandrilDbContext**
 
-Run the following command to create or update the database:
+Open the Package Manager Console from Tools \> NuGet Package Manager \> Package Manager Console.
 
-` Update-Database  `
+Execute the following commands to create the migrations and update the database:
+
+```
+Add-Migration NameOfMigration -Context MandrilDbContext
+```
+
+```
+Add-Migration NameOfMigration -Context AuthDbContext
+```
+
+```
+Update-Database -context MandrilDbCOntext
+```
+
+```
+Update-Database -context AuthDbContext 
+```
 
 5.  **Run the application**
-    Press F5 to start the application in debug mode, or Ctrl + F5 to run it without debugging.
-    A browser window will open automatically with the Swagger documentation.
+    Press F5 to start the application in debugging mode, or Ctrl + F5 to run it without debugging.
+    A browser window will automatically open with the Swagger documentation.
 
-**(Optional - Access Swagger documentation manually)**
+**(Optional - Accessing Swagger documentation manually )**
 
-In your browser, go to the URL: `http://localhost:(port)/swagger/index.html`
-There you will be able to see the interactive API documentation and test the endpoints.
+In the browser, access the URL: `http://localhost:(port)/swagger/index.html`
+There you will be able to see the interactive documentation of the API and test the endpoints.
 
 **NOTES**
 
   - Make sure you have Visual Studio 2022 installed with the **ASP.NET and web development** workload.
 
-  - The assigned port may vary; check the one that appears in the browser's address bar when the application starts.
+  - The assigned port may vary; check the one that appears in the address bar of the browser when the application starts.
 
-  - If you make changes to the migrations, remember to run `Update-Database` again to update the database.
+  - If you make changes to the migrations, remember to apply Update-Database again to update the database.
