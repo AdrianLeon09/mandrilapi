@@ -20,7 +20,7 @@ Ideal for people in the learning process to gain an understanding of how to buil
 
   - **JWT authentication and authorization system**: User registration, login, and logout; generation and validation of JWT tokens.
   - **User management**: Endpoints to get and update the authenticated user's data (name, last name, public username, email, date of birth).
-  - **Roles and policies**: Support for `Admin` and `User` roles, with endpoints protected by policies and roles.
+  - **Roles and policies**: Support for **Admin** and **User** roles, with endpoints protected by policies and roles.
   - **Additional controllers**:
       - `AccountController`: User registration, login, and logout.
       - `UserDataController`: Querying and updating authenticated user's data.
@@ -302,7 +302,8 @@ https://localhost:(port)/swagger
 
 There you can see and test all available endpoints.
 
-![Captura de pantalla_30-9-2025_141253_localhost](https://github.com/user-attachments/assets/dac2c0e0-d06e-4baf-989c-65e3e82bd416)
+
+![Captura de pantalla_1-10-2025_45223_localhost](https://github.com/user-attachments/assets/123d4d06-c6f6-4358-9f01-d00a13d52c82)
 
 
 **As a first step when starting the API,** you must define a first user as **Admin**. To do this, we will register a first user in the **POST/api/Account/Register** endpoint.
