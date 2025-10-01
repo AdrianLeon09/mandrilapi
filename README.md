@@ -316,4 +316,15 @@ Once created, to grant Admin permissions, you must log in to the **identity data
 
 With this, we will have **all the access points** required to freely use the API.
 
+After logging in, the body of the POST /api/Account/login endpoint will return a JWT token, which we'll use to authorize our user on the endpoints.
+
+**NOTE:** To authorize in Swagger, you must type Bearer followed by the token, as seen in the video.
+
+
+
+https://github.com/user-attachments/assets/c93b2a21-3281-4065-8d6c-3ab37cee00ab
+
+
+
+
 
