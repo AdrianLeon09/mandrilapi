@@ -1,5 +1,10 @@
 # MandrilAPI
 
+🇪🇸 ¿Hablas español? → [Lee el siguiente README](https://github.com/AdrianLeon09/mandrilapi/blob/main/README-ES.md)
+
+🇧🇷 ¿Fala português? → [Leia o seguinte README](https://github.com/AdrianLeon09/mandrilapi/blob/main/README-PT-BR.md)
+
+
 **MandrilAPI** is a RESTful Web API developed in **C# with ASP.NET Core (.NET 8)** that simulates the management of a **Mandril** entity, which can be associated with a set of skills **Skills** that in turn is associated with a **User**.
 The application follows principles of **clean architecture**, **separation of responsibilities**, and now includes a complete **authentication and authorization system based on JWT and ASP.NET Identity**.
 
