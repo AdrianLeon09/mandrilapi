@@ -161,14 +161,10 @@ namespace MandrilAPI.Infrastructure.Repositories
                     
                 }
             ).ToList();
-            
-            
-            
-            
 
             if (relation.Count is 0)
             {
-                _logger.LogWarning(MessageDefaultsDevs.UserMandrilSkillsNotFound, userId);
+                _logger.LogWarning(MessageDefaultsDevs.RelationshipsNotFound, userId);
 
 
                 return group;
@@ -224,7 +220,7 @@ namespace MandrilAPI.Infrastructure.Repositories
 
             if (users.Count is 0)
             {
-                _logger.LogWarning(MessageDefaultsDevs.UserNotFound);
+                _logger.LogWarning(MessageDefaultsDevs.AllUsersNotFound);
                 return allUsers;
             }
             else
@@ -263,25 +259,34 @@ namespace MandrilAPI.Infrastructure.Repositories
             var group = relationsMandrilSkills.GroupBy(u => u.UserId)
                 .Select(userkey => new UserRelationshipsDto()
                 {
-                    
-                    PublicUserName = users.FirstOrDefault(s=> s.Id == userkey.Key).PublicUserName,
 
-                    Mandril = userkey.GroupBy(m=> new {mandrilid = m.MandrilId, mandrilName = m.Mandril.name })
-                        .Select(m => new RelationMandrilSkillsDto { Id = m.Key.mandrilid, mandrilName = m.Key.mandrilName, 
-                        
-                        Skills = userkey
-                            .GroupBy(s=>  new {skillId = s.SkillId, skillName = s.Skill.name })
-                            .Select(s => new SkillRelationDto() { Id = s.Key.skillId, Name = s.Key.skillName })
-                            .ToList()
-                        
-                    }).ToList()
+                    PublicUserName = users.FirstOrDefault(s => s.Id == userkey.Key).PublicUserName,
+
+                    Mandril = userkey.GroupBy(m => new { mandrilid = m.MandrilId, mandrilName = m.Mandril.name })
+                        .Select(m => new RelationMandrilSkillsDto
+                        {
+                            Id = m.Key.mandrilid, mandrilName = m.Key.mandrilName,
+
+                            Skills = userkey
+                                .GroupBy(s => new { skillId = s.SkillId, skillName = s.Skill.name })
+                                .Select(s => new SkillRelationDto() { Id = s.Key.skillId, Name = s.Key.skillName })
+                                .ToList()
+
+                        }).ToList()
                 }).ToList();
-        
-            
-            return group.ToList();
-            
-        }
 
+            if (relationsMandrilSkills.Count is 0 || group.Count is 0)
+            {
+                _logger.LogError(MessageDefaultsDevs.AllMandrilsWithSkillsNotFound);
+                return group;
+            }
+            else
+            {
+                _logger.LogInformation(MessageDefaultsDevs.AllRelationshipsRetrieved);
+                return group.ToList();
+
+            }
+        }
     }
 
 

@@ -26,7 +26,7 @@ public class AccountController(
   private readonly GenerateJwt _jwt = generateJwt;
   private readonly Functions _functions = functions;
 
-    [HttpPost("Register/")]
+    [HttpPost("register/")]
     public async Task<IActionResult> Register([FromBody] RegisterUserDto registerDto)
     {
 
@@ -66,7 +66,7 @@ public class AccountController(
         
     }
     
-    [HttpPost("Login/")]
+    [HttpPost("login/")]
     public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
     {
 
@@ -98,7 +98,7 @@ public class AccountController(
         }
     }
 
-    [HttpPost("Logout/")]
+    [HttpPost("logout/")]
     public async Task<IActionResult> Logout()
     {
         await _signInM.SignOutAsync();

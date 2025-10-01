@@ -57,7 +57,7 @@ public class MandrilSkillsController(
         }
     }
 
-    [HttpGet("mandrils/GetAllRelations/")]
+    [HttpGet("mandrils/get-allrelations/")]
 
     public async Task<IActionResult> GetAllRelations()
     {

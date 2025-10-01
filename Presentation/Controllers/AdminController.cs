@@ -36,7 +36,7 @@ public class AdminController(
     private readonly AuthDbContext _contextDbAuth = contextDbAuth;
 
 
-    [HttpPost("create-relation/mandril/{targetMandrilId}/skill/{targetSkillId}/")]
+    [HttpPost("user/created-user-relation/mandril/{targetMandrilId}/skill/{targetSkillId}/")]
     
     public async Task<IActionResult> AddSkillAndMandrilForUser(int targetMandrilId, int targetSkillId,
         [FromBody] PublicUserNameDto UserToAdd)
@@ -77,7 +77,7 @@ public class AdminController(
     }
 
 
-    [HttpDelete("delete-skills/mandril/{targetMandrilId}/skill/{targetSkillId}/")]
+    [HttpDelete("user/unassign-skill-from-mandril/mandril/{targetMandrilId}/skill/{targetSkillId}/")]
   
     public async Task<IActionResult> DeleteOneSkillFromMandrilUser(int targetMandrilId, int targetSkillId,
         PublicUserNameDto UserToDelete)
@@ -112,7 +112,7 @@ public class AdminController(
 
     }
 
-    [HttpDelete("delete-mandril/{targetMandrilId}/")]
+    [HttpDelete("user/delete-mandril/{targetMandrilId}/")]
   
     public async Task<IActionResult> DeleteOneMandrilForUser(int targetMandrilId,
         PublicUserNameDto userToDelete)
@@ -150,7 +150,7 @@ public class AdminController(
     }
 
 
-    [HttpPut("update-power/mandril/{targetMandrilId}/skill/{targetSkillId}/")]
+    [HttpPut("user/update-power/mandril/{targetMandrilId}/skill/{targetSkillId}/")]
    
     
     public async Task<IActionResult> UpdatePowerFromOneSkillInMandril(int targetMandrilId, int targetSkillId,
@@ -183,7 +183,7 @@ public class AdminController(
         }
     }
 
-    [HttpGet("GetAllUsers/")]
+    [HttpGet("get-allusers/")]
 
     public async Task<IActionResult> GetAllUsers()
     {
@@ -203,7 +203,7 @@ public class AdminController(
     }
 
 
-    [HttpGet("GetAllRelations")]
+    [HttpGet("get-allrelations")]
     
     public async Task<IActionResult> GetAllRelations()
     {

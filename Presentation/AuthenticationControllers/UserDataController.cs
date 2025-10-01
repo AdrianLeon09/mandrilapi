@@ -26,7 +26,7 @@ public class UserDataController(UserManager<ApplicationUser> userM, Functions fu
     private readonly Functions _fuctions = functions;
    
   
-    [HttpGet("GetUserData/")]
+    [HttpGet("get-userdata/")]
     
     public async Task<IActionResult> GetUserData()
     {
@@ -55,7 +55,7 @@ public class UserDataController(UserManager<ApplicationUser> userM, Functions fu
        
     }
  
-    [HttpPatch("UpdateFirstName/")]
+    [HttpPatch("update-FirstName/")]
    
     public async Task<IActionResult> UpdateFirstName([FromBody]UserFirstNameDto newFirstName)
     {
@@ -81,7 +81,7 @@ public class UserDataController(UserManager<ApplicationUser> userM, Functions fu
     }
 
 
-    [HttpPatch("UpdateLastName/")]
+    [HttpPatch("update-lastname/")]
    
     public async Task<IActionResult> UpdateLastName([FromBody]UserLastNameDto newLastName)
     {
@@ -105,7 +105,7 @@ public class UserDataController(UserManager<ApplicationUser> userM, Functions fu
 
     }
 
-    [HttpPatch("UpdatePublicUserName/")]
+    [HttpPatch("update-publicusername/")]
 
     public async Task<IActionResult> UpdateUserName([FromBody] PublicUserNameDto newPublicUserName)
     {

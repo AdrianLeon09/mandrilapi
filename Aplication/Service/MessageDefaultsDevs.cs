@@ -14,11 +14,10 @@
         public const string SkillNotFound = "The skill with ID {EntityID} was not found or does not exist.";
         public const string SkillsNotFound = "No skills were found.";
         public const string UserNotFound = "The user ID {UserID} was no found or does not exist.";
-        public const string UsersNotFound = "No users were found.";
-        public const string RelationshipsNotFound = "The relationships was not found.";
+        public const string AllUsersNotFound = "The users were not found or do not exist.";
+        public const string RelationshipsNotFound = "No relationships were found for user ID {userid}.";
         public const string UserMandrilSkillsNotFound = "The User {UserID} with mandril or Skill ID  was not found or does not exist.";
-        public const string MandrilsWithSkillsNotFound = "No mandrils with skills were found in the database.";
-        public const string MandrilsWithSkillsFromUserNotFound = "The User {UserID} with mandril or Skill ID  was not found or does not exist..";
+        public const string AllMandrilsWithSkillsNotFound = "No mandrils with skills were found in the database.";
         public const string RelationMandrilWithSkillNotFound = "Skill ID {targetSkillId} related to the specified mandril ID {targetMandrilId} was not found.";
         public const string RelationMandrilWithSkillAndUserNotFound = "Skill ID {targetSkillId} related to the specified mandril ID {targetMandrilId} For User ID {UserID} was not found.";
         public const string RelationMandrilUserNotFound = "The Mandril ID {targetMandrilId} associated with the user ID {UserID} was not found.";
@@ -45,9 +44,6 @@
         public const string AllMandrilsWithSkillsRetrieved = "All mandrils with their skills have been successfully retrieved.";
         public const string AllUsersRetrieved = "All users have been successfully retrieved.";
         public const string AllRelationshipsRetrieved = "All relationships have been successfully retrieved.";
-
-        // -------- Failed queries --------
-        public const string AllMandrilsWithSkillsError = "Unable to retrieve mandrils with their skills. Verify that the information exists or is accessible.";
 
         // -------- Relationships --------
         public const string RelationCreated = "A relationship has been created between Skill ID: {EntitySkillID} and Mandril ID: {EntityMandrilID} for User ID {UserID}.\n" +
