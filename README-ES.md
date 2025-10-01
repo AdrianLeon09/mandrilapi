@@ -272,13 +272,16 @@ Ahí podés ver y probar todos los endpoints disponibles
 **Como primer paso al iniciar la API** es requerido definir un primer usuario como **Admin**. para esto vamos a registrar un primer usuario en el endpoint **POST/api/Account/Register**
 Una vez creado para dar permisos de Admin es necesario entrar en la **base de datos de identity** que por defecto es **IdentityDB**. Ir a la tabla  **AspNetUserRoles** y definir el **IdRole** como **1**.
 
- - **NOTA** por defecto cada nuevo usuario registrado entra automaticamente al rol de **User**
+ - **NOTA:** por defecto cada nuevo usuario registrado entra automaticamente al rol de **User**
 
 ![Captura de tela 2025-09-30 180608](https://github.com/user-attachments/assets/420a4e8c-c91b-4007-a278-8231a74d59db)
 
 Con esto ya tendremos **todos los accesos** requeridos para usar la api con libertad. 
 
-Al hacer login el body del endpoint **POST/api/Account/login** retornara un token **JWT** que usaremos para tener la autorizacion necesaria a todos los endpoints
+Al hacer login el body del endpoint **POST/api/Account/login** retornara un token **JWT** que usaremos para tener la autorizacion necesaria a todos los endpoints.
+
+
+**NOTA:** Para Autorizarse en swagger es necesario escribir **Bearer** seguido del **token** como se ve en el video.
 
 
 
