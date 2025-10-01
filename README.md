@@ -307,7 +307,7 @@ There you can see and test all available endpoints.
 
 
 **As a first step when starting the API,** you must define a first user as **Admin**. To do this, we will register a first user in the **POST/api/Account/Register** endpoint.
-Once created, to grant Admin permissions, you must log in to the **identity database**, which is **IdentityDB** by default. Go to the **AspNetUserRoles** table and set the **IdRole** to **1**.
+Once created, to grant Admin permissions, from the identity database, which is called IdentityDB by default. Go to the AspNetUserRoles table and set the IdRole to 1.
 
 **NOTE** By default, each newly registered user automatically enters the **User** role.
 
