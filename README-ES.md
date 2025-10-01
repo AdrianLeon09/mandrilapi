@@ -266,7 +266,8 @@ https://localhost:(puerto)/swagger
 
 Ahí podés ver y probar todos los endpoints disponibles
 
-![Captura de pantalla_30-9-2025_141253_localhost](https://github.com/user-attachments/assets/9fdf0798-fea4-4c14-8b5e-9e07ffb65ef4)
+![Captura de pantalla_1-10-2025_45223_localhost](https://github.com/user-attachments/assets/93672263-68b3-4f22-9753-0471eacbd5f6)
+
 
 **Como primer paso al iniciar la API** es requerido definir un primer usuario como **Admin**. para esto vamos a registrar un primer usuario en el endpoint **POST/api/Account/Register**
 Una vez creado para dar permisos de Admin es necesario entrar en la **base de datos de identity** que por defecto es **IdentityDB**. Ir a la tabla  **AspNetUserRoles** y definir el **IdRole** como **1**.
