@@ -276,6 +276,17 @@ Una vez creado para dar permisos de Admin es necesario entrar en la **base de da
 
 ![Captura de tela 2025-09-30 180608](https://github.com/user-attachments/assets/420a4e8c-c91b-4007-a278-8231a74d59db)
 
-Con esto ya tendremos **todos los accesos** requeridos para usar la api con libertad.
+Con esto ya tendremos **todos los accesos** requeridos para usar la api con libertad. 
+
+Al hacer login el body del endpoint **POST/api/Account/login** retornara un token **JWT** que usaremos para tener la autorizacion necesaria a todos los endpoints
+
+
+
+https://github.com/user-attachments/assets/a4b7abaa-08b1-423c-9c9b-8b3c0d126196
+
+
+
+
+
 
 
