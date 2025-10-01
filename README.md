@@ -1,13 +1,18 @@
 # MandrilAPI
-🇪🇸 ¿Hablas español? Visita el archivo [README-ES.md](./README-ES.md) en Español
 
-🇧🇷 ¿Fala português? Visite o arquivo [README-PT-BR.md](./README-PT-BR.md) em Português ; 
+🇪🇸 ¿Hablas español? → [Lee el siguiente README](https://github.com/AdrianLeon09/mandrilapi/blob/main/README-ES.md)
 
-# MandrilAPI
+🇧🇷 ¿Fala português? → [Leia o seguinte README](https://github.com/AdrianLeon09/mandrilapi/blob/main/README-PT-BR.md)
 
-**MandrilAPI** is a RESTful Web API developed in **C\# with ASP.NET Core (.NET 8)** that simulates the management of a `Mandril` entity, which can be associated with a set of skills (`Skills`).
 
-The application follows the principles of **clean architecture**, **separation of concerns**, and now includes a complete **authentication and authorization system based on JWT and ASP.NET Identity**.
+**MandrilAPI** is a RESTful Web API developed in **C# with ASP.NET Core (.NET 8)** that simulates the management of a **Mandril** entity, which can be associated with a set of skills **Skills** that in turn is associated with a **User**.
+The application follows principles of **clean architecture**, **separation of responsibilities**, and now includes a complete **authentication and authorization system based on JWT and ASP.NET Identity**.
+
+# Use Cases.
+
+MandrilApi is a hands-on project focused entirely on implementing clean architecture and scalability concepts, as well as various frameworks. All of this is done from a perspective where a **Mandril** can be seen as a character with a **Skill**.
+This is nothing more than a template developed with the goal of adding programming concepts as if a business with real logic were being developed.
+Ideal for people in the learning process to gain an understanding of how to build a complete and functional REST API.
 
 -----
 
@@ -15,7 +20,7 @@ The application follows the principles of **clean architecture**, **separation o
 
   - **JWT authentication and authorization system**: User registration, login, and logout; generation and validation of JWT tokens.
   - **User management**: Endpoints to get and update the authenticated user's data (name, last name, public username, email, date of birth).
-  - **Roles and policies**: Support for `Admin` and `User` roles, with endpoints protected by policies and roles.
+  - **Roles and policies**: Support for **Admin** and **User** roles, with endpoints protected by policies and roles.
   - **Additional controllers**:
       - `AccountController`: User registration, login, and logout.
       - `UserDataController`: Querying and updating authenticated user's data.
@@ -136,13 +141,6 @@ The application follows the principles of **clean architecture**, **separation o
 ├── 📄 README-ES.md
 └── 📄 README-PT-BR.md
 ```
-
-## 📚 Documentation with Swagger
-
-When starting the project, Swagger is automatically loaded at:
-https://localhost:(port)/swagger
-
-There you can see and test all the available endpoints.
 
 # 🧪 How to run the project
 
@@ -296,3 +294,26 @@ There you will be able to see the interactive documentation of the API and test 
   - The assigned port may vary; check the one that appears in the address bar of the browser when the application starts.
 
   - If you make changes to the migrations, remember to apply Update-Database again to update the database.
+
+## 📚 Swagger Documentation
+
+When you start the project, Swagger automatically loads at:
+https://localhost:(port)/swagger
+
+There you can see and test all available endpoints.
+
+
+![Captura de pantalla_1-10-2025_45223_localhost](https://github.com/user-attachments/assets/123d4d06-c6f6-4358-9f01-d00a13d52c82)
+
+
+**As a first step when starting the API,** you must define a first user as **Admin**. To do this, we will register a first user in the **POST/api/Account/Register** endpoint.
+Once created, to grant Admin permissions, you must log in to the **identity database**, which is **IdentityDB** by default. Go to the **AspNetUserRoles** table and set the **IdRole** to **1**.
+
+**NOTE** By default, each newly registered user automatically enters the **User** role.
+
+![Captura de tela 2025-09-30 180608](https://github.com/user-attachments/assets/e609eaf4-f433-45d1-b997-f5169306c31c)
+
+
+With this, we will have **all the access points** required to freely use the API.
+
+

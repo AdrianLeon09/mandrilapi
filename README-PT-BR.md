@@ -1,10 +1,14 @@
-Claro, aqui está a tradução do arquivo Markdown para o português.
-
 # MandrilAPI
 
-**MandrilAPI** é uma API Web RESTful desenvolvida em **C\# com ASP.NET Core (.NET 8)** que simula o gerenciamento de uma entidade `Mandril`, que pode estar associada a um conjunto de habilidades (`Skills`).
+**MandrilAPI** é uma API Web RESTful desenvolvida em **C# com ASP.NET Core (.NET 8)** que simula o gerenciamento de uma entidade `Mandril`, que pode ser associada a um conjunto de habilidades (`Habilidades`) que, por sua vez, é associado a um **Usuário**.
+A aplicação segue os princípios de **arquitetura limpa**, **separação de responsabilidades** e agora inclui um **sistema completo de autenticação e autorização baseado em JWT e ASP.NET Identity**.
 
-A aplicação segue os princípios de **arquitetura limpa**, **separação de responsabilidades** e agora inclui um sistema completo de **autenticação e autorização baseado em JWT e ASP.NET Identity**.
+# Casos de Uso.
+
+MandrilApi é um projeto prático focado inteiramente na implementação de conceitos de arquitetura limpa e escalabilidade, bem como em diversos frameworks. Tudo isso é feito a partir de uma perspectiva em que um **Mandril** pode ser visto como um personagem com uma **Habilidade**.
+Tudo isso nada mais é do que um modelo desenvolvido com o objetivo de adicionar conceitos de programação como se um negócio com lógica real estivesse sendo desenvolvido.
+
+Ideal para pessoas em processo de aprendizagem para entender como criar uma API REST completa e funcional.
 
 -----
 
@@ -133,13 +137,6 @@ A aplicação segue os princípios de **arquitetura limpa**, **separação de re
 ├── 📄 README-ES.md
 └── 📄 README-PT-BR.md
 ```
-
-## 📚 Documentação com Swagger
-
-Ao iniciar o projeto, o Swagger é carregado automaticamente em:
-https://localhost:(porta)/swagger
-
-Lá você pode ver e testar todos os endpoints disponíveis.
 
 # 🧪 Como executar o projeto
 
@@ -291,3 +288,24 @@ Lá você poderá ver a documentação interativa da API e testar os endpoints.
   - A porta atribuída pode variar; verifique a que aparece na barra de endereços do navegador quando a aplicação é iniciada.
 
   - Se você fizer alterações nas migrações, lembre-se de aplicar `Update-Database` novamente para atualizar o banco de dados.
+
+    ## 📚 Documentação do Swagger
+
+Ao iniciar o projeto, o Swagger carrega automaticamente em:
+https://localhost:(porta)/swagger
+
+Lá, você pode ver e testar todos os endpoints disponíveis.
+
+![Captura de pantalla_1-10-2025_45223_localhost](https://github.com/user-attachments/assets/72339dc2-4e42-4920-8cd1-70dcf126e8c1)
+
+
+
+**Como primeiro passo ao iniciar a API,** você deve definir um primeiro usuário como **Admin**. Para isso, registraremos um primeiro usuário no endpoint **POST/api/Account/Register**.
+Uma vez criado, para conceder permissões de Admin, você deve efetuar login no **banco de dados de identidade**, que é o **IdentityDB** por padrão. Acesse a tabela **AspNetUserRoles** e defina o **IdRole** como **1**.
+
+**NOTA** Por padrão, cada usuário recém-registrado insere automaticamente a função **Usuário**.
+
+![Captura de tela 2025-09-30 180608](https://github.com/user-attachments/assets/c2d71966-185d-4aa7-bfa6-efba444e7a29)
+
+
+Com isso, teremos **todos os pontos de acesso** necessários para usar livremente a API.

@@ -1,9 +1,14 @@
 
 # MandrilAPI
 
-**MandrilAPI** es una API Web RESTful desarrollada en **C# con ASP.NET Core (.NET 8)** que simula el manejo de una entidad `Mandril`, la cual puede estar asociada a un conjunto de habilidades (`Skills`). 
+**MandrilAPI** es una API Web RESTful desarrollada en **C# con ASP.NET Core (.NET 8)** que simula el manejo de una entidad `Mandril`, la cual puede estar asociada a un conjunto de habilidades (`Skills`) que a su vez esta asociada por un **Usuario**. 
+La aplicación sigue principios de **arquitectura limpia**, **separación de responsabilidades** y ahora incluye un sistema completo de **autenticación y autorización basada en JWT y ASP.NET Identity**. 
+ 
+# Casos de Uso.
 
-La aplicación sigue principios de **arquitectura limpia**, **separación de responsabilidades** y ahora incluye un sistema completo de **autenticación y autorización basada en JWT y ASP.NET Identity**.
+MandrilApi es un proyecto de practica que esta enfocado 100% en la implementacion de conceptos de arquitectura limpia y escalabilidad asi como de distintos Frameworks, todo esto desde un punto de vista donde un **Mandril** puede verse como un personaje con una **Habilidad** , 
+Todo esto no es mas que una plantilla desarollada con el objetivo de agregar conceptos de la programacion como si se estuviera desarollando un negocio con logica real. 
+Ideal para personas en proceso de aprendizaje tener una idea de como se contruye una API REST completa y funcional.
 
 ---
 
@@ -64,12 +69,11 @@ La aplicación sigue principios de **arquitectura limpia**, **separación de res
 1. Implementación de arquitectura escalable en .NET
 2. Buenas prácticas en el desarrollo de APIs seguras
 3. Manejo de relaciones en base de datos y gestión de usuarios/roles
-4. Patrones de diseño comunes en aplicaciones empresariales
-
+4. Patrones de diseño comunes en aplicaciones empresariales 
 ---
 
 ## 🚀 Próximas Mejoras
-- Pruebas automatizadas
+- Testes Unitarios
 
 ---
 
@@ -129,15 +133,6 @@ La aplicación sigue principios de **arquitectura limpia**, **separación de res
 ├── 📄 README-ES.md
 └── 📄 README-PT-BR.md
 ````
-
-
-## 📚 Documentación con Swagger
-
-Al iniciar el proyecto, Swagger se carga automáticamente en:  
-https://localhost:(puerto)/swagger
-
-Ahí podés ver y probar todos los endpoints disponibles.
-
 # 🧪 Cómo ejecutar el proyecto
 
 ## Cómo ejecutar el proyecto en Windows
@@ -259,7 +254,28 @@ Allí podrás ver la documentación interactiva de la API y probar los endpoints
 
 **NOTAS**
 - Asegúrate de tener instalado Visual Studio 2022 con la carga de trabajo Desarrollo de ASP.NET y web.
-
+ 
 - El puerto asignado puede variar; verifica el que aparece en la barra de direcciones del navegador cuando se inicia la aplicación.
 
 - Si realizas cambios en las migraciones, recuerda aplicar nuevamente Update-Database para actualizar la base de datos.
+
+ ## 📚 Documentación con Swagger
+
+Al iniciar el proyecto, Swagger se carga automáticamente en:  
+https://localhost:(puerto)/swagger
+
+Ahí podés ver y probar todos los endpoints disponibles
+
+![Captura de pantalla_1-10-2025_45223_localhost](https://github.com/user-attachments/assets/93672263-68b3-4f22-9753-0471eacbd5f6)
+
+
+**Como primer paso al iniciar la API** es requerido definir un primer usuario como **Admin**. para esto vamos a registrar un primer usuario en el endpoint **POST/api/Account/Register**
+Una vez creado para dar permisos de Admin es necesario entrar en la **base de datos de identity** que por defecto es **IdentityDB**. Ir a la tabla  **AspNetUserRoles** y definir el **IdRole** como **1**.
+
+ - **NOTA** por defecto cada nuevo usuario registrado entra automaticamente al rol de **User**
+
+![Captura de tela 2025-09-30 180608](https://github.com/user-attachments/assets/420a4e8c-c91b-4007-a278-8231a74d59db)
+
+Con esto ya tendremos **todos los accesos** requeridos para usar la api con libertad.
+
+
