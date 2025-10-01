@@ -296,7 +296,8 @@ https://localhost:(porta)/swagger
 
 Lá, você pode ver e testar todos os endpoints disponíveis.
 
-![Captura de pantalla_30-9-2025_141253_localhost](https://github.com/user-attachments/assets/e0a76bee-8a98-4cfd-a749-d5eab542161e)
+![Captura de pantalla_1-10-2025_45223_localhost](https://github.com/user-attachments/assets/72339dc2-4e42-4920-8cd1-70dcf126e8c1)
+
 
 
 **Como primeiro passo ao iniciar a API,** você deve definir um primeiro usuário como **Admin**. Para isso, registraremos um primeiro usuário no endpoint **POST/api/Account/Register**.
