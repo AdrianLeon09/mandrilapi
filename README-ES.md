@@ -7,8 +7,7 @@ La aplicación sigue principios de **arquitectura limpia**, **separación de res
 # Casos de Uso.
 
 MandrilApi es un proyecto de practica que esta enfocado 100% en la implementacion de conceptos de arquitectura limpia y escalabilidad asi como de distintos Frameworks, todo esto desde un punto de vista donde un **Mandril** puede verse como un personaje con una **Habilidad** , 
-Todo esto no es mas que una plantilla desarollada con el objetivo de agregar conceptos de la programacion como si se estuviera desarollando un negocio con logica real. 
-Ideal para personas en proceso de aprendizaje tener una idea de como se contruye una API REST completa y funcional.
+Todo esto no es mas que una simulacion desarollada con el objetivo de agregar conceptos de la programacion como si se estuviera desarollando un negocio con logica real.
 
 ---
 
