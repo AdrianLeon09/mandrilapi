@@ -11,8 +11,7 @@ The application follows principles of **clean architecture**, **separation of re
 # Use Cases.
 
 MandrilApi is a hands-on project focused entirely on implementing clean architecture and scalability concepts, as well as various frameworks. All of this is done from a perspective where a **Mandril** can be seen as a character with a **Skill**.
-This is nothing more than a template developed with the goal of adding programming concepts as if a business with real logic were being developed.
-Ideal for people in the learning process to gain an understanding of how to build a complete and functional REST API.
+This is nothing more than a simulator developed with the goal of adding programming concepts as if a business with real logic were being developed.
 
 -----
 
