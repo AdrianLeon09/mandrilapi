@@ -6,7 +6,7 @@ A aplicação segue os princípios de **arquitetura limpa**, **separação de re
 # Casos de Uso.
 
 MandrilApi é um projeto prático focado inteiramente na implementação de conceitos de arquitetura limpa e escalabilidade, bem como em diversos frameworks. Tudo isso é feito a partir de uma perspectiva em que um **Mandril** pode ser visto como um personagem com uma **Habilidade**.
-Tudo isso nada mais é do que um modelo desenvolvido com o objetivo de adicionar conceitos de programação como se um negócio com lógica real estivesse sendo desenvolvido.
+Tudo isso nada mais é do que um simulador desenvolvido com o objetivo de adicionar conceitos de programação como se um negócio com lógica real estivesse sendo desenvolvido.
 
 -----
 
