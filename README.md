@@ -11,8 +11,7 @@ The application follows principles of **clean architecture**, **separation of re
 # Use Cases.
 
 MandrilApi is a hands-on project focused entirely on implementing clean architecture and scalability concepts, as well as various frameworks. All of this is done from a perspective where a **Mandril** can be seen as a character with a **Skill**.
-This is nothing more than a template developed with the goal of adding programming concepts as if a business with real logic were being developed.
-Ideal for people in the learning process to gain an understanding of how to build a complete and functional REST API.
+This is nothing more than a simulator developed with the goal of adding programming concepts as if a business with real logic were being developed.
 
 -----
 
@@ -307,7 +306,7 @@ There you can see and test all available endpoints.
 
 
 **As a first step when starting the API,** you must define a first user as **Admin**. To do this, we will register a first user in the **POST/api/Account/Register** endpoint.
-Once created, to grant Admin permissions, you must log in to the **identity database**, which is **IdentityDB** by default. Go to the **AspNetUserRoles** table and set the **IdRole** to **1**.
+Once created, to grant Admin permissions, from the identity database, which is called IdentityDB by default. Go to the AspNetUserRoles table and set the IdRole to 1.
 
 **NOTE** By default, each newly registered user automatically enters the **User** role.
 
@@ -315,5 +314,16 @@ Once created, to grant Admin permissions, you must log in to the **identity data
 
 
 With this, we will have **all the access points** required to freely use the API.
+
+After logging in, the body of the POST /api/Account/login endpoint will return a JWT token, which we'll use to authorize our user on the endpoints.
+
+**NOTE:** To authorize in Swagger, you must type Bearer followed by the token, as seen in the video.
+
+
+
+https://github.com/user-attachments/assets/c93b2a21-3281-4065-8d6c-3ab37cee00ab
+
+
+
 
 

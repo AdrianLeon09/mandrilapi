@@ -7,8 +7,7 @@ La aplicación sigue principios de **arquitectura limpia**, **separación de res
 # Casos de Uso.
 
 MandrilApi es un proyecto de practica que esta enfocado 100% en la implementacion de conceptos de arquitectura limpia y escalabilidad asi como de distintos Frameworks, todo esto desde un punto de vista donde un **Mandril** puede verse como un personaje con una **Habilidad** , 
-Todo esto no es mas que una plantilla desarollada con el objetivo de agregar conceptos de la programacion como si se estuviera desarollando un negocio con logica real. 
-Ideal para personas en proceso de aprendizaje tener una idea de como se contruye una API REST completa y funcional.
+Todo esto no es mas que una simulacion desarollada con el objetivo de agregar conceptos de la programacion como si se estuviera desarollando un negocio con logica real.
 
 ---
 
@@ -269,13 +268,27 @@ Ahí podés ver y probar todos los endpoints disponibles
 ![Captura de pantalla_1-10-2025_45223_localhost](https://github.com/user-attachments/assets/93672263-68b3-4f22-9753-0471eacbd5f6)
 
 
-**Como primer paso al iniciar la API** es requerido definir un primer usuario como **Admin**. para esto vamos a registrar un primer usuario en el endpoint **POST/api/Account/Register**
-Una vez creado para dar permisos de Admin es necesario entrar en la **base de datos de identity** que por defecto es **IdentityDB**. Ir a la tabla  **AspNetUserRoles** y definir el **IdRole** como **1**.
+**Como primer paso al iniciar la API** es requerido definir un primer usuario como **Admin**. para esto vamos a registrar un primer usuario en el endpoint **POST/api/Account/Register**.
+Para dar permisos de Admin es necesario entrar en la **base de datos de identity** que por defecto es llamada de **IdentityDB** en la API. Ir a la tabla  **AspNetUserRoles** y definir el **IdRole** como **1**.
 
- - **NOTA** por defecto cada nuevo usuario registrado entra automaticamente al rol de **User**
+ - **NOTA:** por defecto cada nuevo usuario registrado entra automaticamente al rol de **User**
 
 ![Captura de tela 2025-09-30 180608](https://github.com/user-attachments/assets/420a4e8c-c91b-4007-a278-8231a74d59db)
 
-Con esto ya tendremos **todos los accesos** requeridos para usar la api con libertad.
+Con esto ya tendremos **todos los accesos** requeridos para usar la api con libertad. 
+
+Al hacer login el body del endpoint **POST/api/Account/login** retornara un token **JWT** que usaremos para tener la autorizacion necesaria a todos los endpoints.
+
+
+**NOTA:** Para Autorizarse en swagger es necesario escribir **Bearer** seguido del **token** como se ve en el video.
+
+
+
+https://github.com/user-attachments/assets/a4b7abaa-08b1-423c-9c9b-8b3c0d126196
+
+
+
+
+
 
 
