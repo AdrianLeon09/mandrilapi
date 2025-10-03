@@ -89,7 +89,7 @@ public class AccountController(
             }
             else
             {
-                await _signInM.SignInAsync(user, false);
+                
                 var token = await _jwt.Token(user);
                 
                 return Ok(token);
