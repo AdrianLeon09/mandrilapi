@@ -41,44 +41,32 @@ public class AdminController(
     public async Task<IActionResult> AddSkillAndMandrilForUser(int targetMandrilId, int targetSkillId,
         [FromBody] PublicUserNameDto UserToAdd)
     {
-
         var user = await _userM.Users.FirstOrDefaultAsync(u =>
             EF.Functions.Collate(u.PublicUserName, "SQL_Latin1_General_CP1_CI_AS") == UserToAdd.PublicUserName);
 
-        if (user is null)
-        {
+        if (user is null) {
             return NotFound(MessageDefaultsAdmin.UserNotFound);
-        }
-        else
+        }else
         {
             var mandrilExists = await _repositoryReadMandrilSkills.GetOneMandrilsFromDb(targetMandrilId);
             var skillExists = await _repositoryReadMandrilSkills.GetOneSkillFromDb(targetSkillId);
-
-
             var relationExists =
                 await _repositoryReadMandrilSkills.GetOneMandrilWithOneSkillFromUser(targetMandrilId, targetSkillId, user.Id);
 
-            if (mandrilExists.Count is 0 || skillExists.Count is 0)
-            {
+            if (mandrilExists.Count is 0 || skillExists.Count is 0) {
                 return NotFound(MessageDefaultsAdmin.RelationCreationEntityNotFound);
-            }
-            else if (relationExists.Count > 0)
+            }else if (relationExists.Count > 0)
             {
                 return Conflict(MessageDefaultsAdmin.RelationAlreadyExist);
-            }
-            else
-            {
-
-               await _repositoryWriteMandrilSkills.AssignOneSkillToMandril(targetMandrilId, targetSkillId, user.Id);
+            }else
+            { 
+                await _repositoryWriteMandrilSkills.AssignOneSkillToMandril(targetMandrilId, targetSkillId, user.Id);
                 return Ok(MessageDefaultsAdmin.AssingSkillToMandrilSucceeded);
-
             }
         }
     }
-
-
+    
     [HttpDelete("user/unassign-skill-from-mandril/mandril/{targetMandrilId}/skill/{targetSkillId}/")]
-  
     public async Task<IActionResult> DeleteOneSkillFromMandrilUser(int targetMandrilId, int targetSkillId,
         PublicUserNameDto UserToDelete)
     {
@@ -88,47 +76,33 @@ public class AdminController(
         if (user is null)
         {
             return NotFound(MessageDefaultsAdmin.UserNotFound);
-        }
-        else
+        }else
         {
-
             var relation =
                     await _repositoryReadMandrilSkills.GetOneMandrilWithOneSkillFromUser(targetMandrilId, targetSkillId, user.Id);
 
             if (relation.Count is 0)
             {
-
                 return NotFound(MessageDefaultsAdmin.RelationNotFound);
-
             }
-            else
-            {
-
+            else {
                 await _repositoryWriteMandrilSkills.DeleteSkillFromMandrilForUser(targetMandrilId, targetSkillId, user.Id);
                 return Ok(MessageDefaultsAdmin.DeleteSkillSucceeded);
-
             }
         }
-
     }
 
     [HttpDelete("user/delete-mandril/{targetMandrilId}/")]
-  
     public async Task<IActionResult> DeleteOneMandrilForUser(int targetMandrilId,
         PublicUserNameDto userToDelete)
     {
         var user = await _userM.Users.FirstOrDefaultAsync(u =>
             EF.Functions.Collate(u.PublicUserName, "SQL_Latin1_General_CP1_CI_AS") == userToDelete.PublicUserName);
-
-        {
-            
+        
             if ( user is null)
             {
-
                 return NotFound(MessageDefaultsAdmin.RelationMandrilUserNotFound);
-
-            }
-            else
+            }else
             {
                 var relation =
                     await _repositoryReadMandrilSkills.SelectOneMandrilWithAllSkillsFromUser(targetMandrilId, user.Id);
@@ -139,20 +113,14 @@ public class AdminController(
                 }
                 else
                 {
-
                     await _repositoryWriteMandrilSkills.DeleteMandrilForUser(targetMandrilId, user.Id);
                     return Ok(MessageDefaultsAdmin.DeleteSkillSucceeded);
-
                 }
             }
-        }
-
     }
 
 
     [HttpPut("user/update-power/mandril/{targetMandrilId}/skill/{targetSkillId}/")]
-   
-    
     public async Task<IActionResult> UpdatePowerFromOneSkillInMandril(int targetMandrilId, int targetSkillId,
         [FromBody]UpdatePowerRequestDto updatePowerRequest)
     {
@@ -162,8 +130,7 @@ public class AdminController(
         if (user is null)
         {
             return NotFound(MessageDefaultsAdmin.UserNotFound);
-        }
-        else
+        }else
         {
             var relation =
                 await _repositoryReadMandrilSkills.GetOneMandrilWithOneSkillFromUser(targetMandrilId, targetSkillId, user.Id);
@@ -171,40 +138,30 @@ public class AdminController(
             if (relation.Count is 0)
             {
                 return NotFound(MessageDefaultsAdmin.RelationMandrilWithSkillAndUserNotFound);
-            }
-            else
+            }else
             {
-
-              await  _repositoryWriteMandrilSkills.UpdatePowerOfSkillForMandril(targetMandrilId, targetSkillId,
+                await  _repositoryWriteMandrilSkills.UpdatePowerOfSkillForMandril(targetMandrilId, targetSkillId,
                    updatePowerRequest.Power, user.Id);
                 return Ok(MessageDefaultsAdmin.SkillPowerUpdateSuccess);
-
             }
         }
     }
 
     [HttpGet("get-allusers/")]
-
     public async Task<IActionResult> GetAllUsers()
     {
         var users = await _repositoryReadMandrilSkills.GetAllUsersFromDb();
-
-
+        
         if (users.Count is 0)
         {
             return NotFound(MessageDefaultsAdmin.UserNotFound);
-        }
-        else
+        }else
         {
-            
             return Ok(users);
         }
-
     }
-
-
-    [HttpGet("get-allrelations")]
     
+    [HttpGet("get-allrelations")]
     public async Task<IActionResult> GetAllRelations()
     {
         var relations = await _repositoryReadMandrilSkills.GetAllRelationsFromDb();
@@ -212,12 +169,10 @@ public class AdminController(
         if (relations.Count is 0)
         {
             return NotFound(MessageDefaultsAdmin.RelationshipsNotFound);
-        }
-        else
+        }else
         {
             return Ok(relations);
         }
-
     }
 }
 

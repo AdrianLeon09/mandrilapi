@@ -27,7 +27,6 @@ public class UserDataController(UserManager<ApplicationUser> userM, Functions fu
    
   
     [HttpGet("get-userdata/")]
-    
     public async Task<IActionResult> GetUserData()
     {
         var user = await _userM.GetUserAsync(User);
@@ -35,49 +34,32 @@ public class UserDataController(UserManager<ApplicationUser> userM, Functions fu
         if (user is null)
         {
             return NotFound(MessageDefaultsUsers.UserNotFound);
-
-        }
-        else
+        }else
         {
-
          var userDto = new UserDataDto();
-           
             userDto.PublicUserName = user.PublicUserName ?? string.Empty;
             userDto.FirstName = user.FirstName ?? string.Empty;
             userDto.LastName = user.LastName ?? string.Empty;
             userDto.PublicUserName = user.PublicUserName ?? string.Empty;
             userDto.UserEmail = user.Email ?? string.Empty;
             userDto.DateOfBirth = user.DateOfBirth;
-
          return Ok(userDto);
-
         }
-       
     }
- 
+    
     [HttpPatch("update-FirstName/")]
-   
     public async Task<IActionResult> UpdateFirstName([FromBody]UserFirstNameDto newFirstName)
     {
-        
         var user = await _userM.GetUserAsync(User);
-
-        if(user is null)
-        {
-            return NotFound(MessageDefaultsUsers.UserNotFound);
-
-        }else
-        {
-
-        user.FirstName = newFirstName.FirstName;
-
-        await _userM.UpdateAsync(user);
-
-        return Ok(MessageDefaultsUsers.FirstNameUpdateSucceeded);
-        }
-
         
-     
+        if(user is null)
+        { 
+            return NotFound(MessageDefaultsUsers.UserNotFound);
+        }else {
+            user.FirstName = newFirstName.FirstName;
+            await _userM.UpdateAsync(user);
+            return Ok(MessageDefaultsUsers.FirstNameUpdateSucceeded);
+        }
     }
 
 
@@ -87,54 +69,34 @@ public class UserDataController(UserManager<ApplicationUser> userM, Functions fu
     {
         var user = await _userM.GetUserAsync(User);
         if (user is null) {
-
             return NotFound(MessageDefaultsUsers.UserNotFound);
-
+        }else { 
+            user.LastName = newLastName.LastName;
+            await _userM.UpdateAsync(user);
+            return Ok(MessageDefaultsUsers.LastNameUpdateSucceeded);
         }
-        else { 
-
-         user.LastName = newLastName.LastName;
-
-        await _userM.UpdateAsync(user);
-
-        return Ok(MessageDefaultsUsers.LastNameUpdateSucceeded);
-        
-        }
-
-        
-
     }
 
     [HttpPatch("update-publicusername/")]
-
     public async Task<IActionResult> UpdateUserName([FromBody] PublicUserNameDto newPublicUserName)
     {
         var user = await _userM.GetUserAsync(User);
 
-        if (user is null)
-        {
+        if (user is null) {
             return NotFound(MessageDefaultsUsers.UserNotFound);
-
         }
         else
         {
-
             var checkUsername = await _fuctions.IsPublicUsernameAvailableForUpdate(user, newPublicUserName.PublicUserName);
 
-            if (checkUsername)
-            {
+            if (checkUsername) {
                 return Conflict(MessageDefaultsUsers.PublicUsernameAlreadyExist);
-            }
-            else
+            }else
             {
                 user.PublicUserName = newPublicUserName.PublicUserName;
-
                 await _userM.UpdateAsync(user);
-
                 return Ok(MessageDefaultsUsers.PublicUserNameUpdateSucceeded);
-
             }
-
         }
     }
 }

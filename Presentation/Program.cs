@@ -46,18 +46,15 @@ namespace MandrilAPI.Presentation
             builder.Services.AddEndpointsApiExplorer();
 
             builder.Services.AddSwaggerGen(c =>
-
             {
                 c.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
                 {
-
                     Name = "Authorization",
                     Type = Microsoft.OpenApi.Models.SecuritySchemeType.ApiKey,
                     Scheme = "Bearer",
                     BearerFormat = "JWT",
                     In = Microsoft.OpenApi.Models.ParameterLocation.Header,
                     Description = "Write 'Bearer {token}'"
-
                 });
 
                 c.AddSecurityRequirement(new Microsoft.OpenApi.Models.OpenApiSecurityRequirement
@@ -76,12 +73,10 @@ namespace MandrilAPI.Presentation
                 });
             });
             
-            
             builder.Services.AddScoped<IMandrilSkillsReadRepository, MandrilSkillsReadRepository>();
             builder.Services.AddScoped<IMandrilSkillsWriteRepository, MandrilSkillsWriteRepository>();
             builder.Services.AddScoped<GenerateJwt>();
             builder.Services.AddScoped<Functions>();
-
             //JWT Autentication
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
@@ -96,7 +91,6 @@ namespace MandrilAPI.Presentation
                     IssuerSigningKey =
                         new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtSettings:Key"]))
                 };
-                
             });
         
         
@@ -109,19 +103,12 @@ namespace MandrilAPI.Presentation
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-
+            
             app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseAuthorization();
-            
             app.MapControllers();
-         
             app.Run();
-            
-            
-            
-            
-            
         }
     }
 }

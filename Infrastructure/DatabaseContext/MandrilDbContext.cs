@@ -12,7 +12,7 @@ public  class MandrilDbContext : DbContext
     
 public DbSet<Mandril> Mandrils { get; set; }
 public DbSet<Skill> Skills { get; set; }
- public DbSet<MandrilWithSkillsIntermediateTable> MandrilWithSkills { get; set; }
+public DbSet<MandrilWithSkillsIntermediateTable> MandrilWithSkills { get; set; }
  
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -31,7 +31,6 @@ public DbSet<Skill> Skills { get; set; }
         modelBuilder.Entity<Skill>()
             .HasIndex(s => s.name)
             .IsUnique();
-
     }
 };
   

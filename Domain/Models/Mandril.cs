@@ -14,9 +14,7 @@ namespace MandrilAPI.Domain.Models
             this.name = name;
             this.lastName = lastname;
         }
-        public Mandril()
-        {
-        }
+        public Mandril(){}
 
     }
 

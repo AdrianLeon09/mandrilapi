@@ -16,22 +16,18 @@ namespace MandrilAPI.Aplication.Service
             {
                 _logger.LogInformation(MessageDefaultsDevs.PublicUsernameAlreadyExists);
                 return true;
-
             } else { 
                 _logger.LogInformation(MessageDefaultsDevs.CheckPublicUsernamePassed);
-
                 return false; }
         }
 
         public async Task<bool> IsPublicUsernameAvailableForUpdate(ApplicationUser user ,string newPublicUsername)
         {
             
-
             if (await _userM.Users.AnyAsync(u => u.PublicUserName == newPublicUsername ))
             {
                 _logger.LogInformation(MessageDefaultsDevs.PublicUsernameAlreadyExists);
                 return true;
-
             }
             else
             {
@@ -48,11 +44,9 @@ namespace MandrilAPI.Aplication.Service
             {
                 _logger.LogInformation(MessageDefaultsDevs.EmailAlreadyExists);
                 return true;
-
             }
             else {
                 _logger.LogInformation(MessageDefaultsDevs.CheckEmailPassed);
-                
                 return false; }
         }
     }

@@ -14,7 +14,6 @@ namespace MandrilAPI.Infrastructure.Repositories
     public class MandrilSkillsWriteRepository(
         MandrilDbContext contextDb,
         ILogger<MandrilSkillsWriteRepository> logger,
-        AuthDbContext contextDbAuth,
         UserManager<ApplicationUser> usermanager,
         SignInManager<ApplicationUser> signinmanager) : IMandrilSkillsWriteRepository
     {
@@ -26,20 +25,15 @@ namespace MandrilAPI.Infrastructure.Repositories
         public async Task<Skill> AddNewSkillToDb(SkillDto newSkillDto)
         {
             Skill skill = new Skill();
-        
             var nameValidation = await _contextDb.Skills.FirstOrDefaultAsync(m => m.name == newSkillDto.Name);
-
-
-
+            
             if (nameValidation is not null)
             {
                 _logger.LogWarning(MessageDefaultsDevs.SkillAlreadyExists, skill.name);
                 return null;
-
             }
             else
             {
-
                 if (!string.IsNullOrWhiteSpace(newSkillDto.Name))
                 {
                     if (newSkillDto.Name.Length < 3)
@@ -62,7 +56,6 @@ namespace MandrilAPI.Infrastructure.Repositories
                     _logger.LogError(MessageDefaultsDevs.InvalidEntry);
                     return null;
                 }
-                
             }
 
             
@@ -70,16 +63,12 @@ namespace MandrilAPI.Infrastructure.Repositories
 
         public async Task<Mandril> AddNewMandrilToDb(MandrilDto newMandrilDto)
         {
-
             var nameValidation = await _contextDb.Mandrils.FirstOrDefaultAsync(m => m.name == newMandrilDto.name && m.lastName == newMandrilDto.lastName);
-
-
 
             if (nameValidation is not null)
             {
                 _logger.LogWarning(MessageDefaultsDevs.MandrilAlreadyExists, newMandrilDto.name, newMandrilDto.lastName);
                 return null;
-
             }
             else
             
@@ -102,11 +91,10 @@ namespace MandrilAPI.Infrastructure.Repositories
                     Mandril mandril = new Mandril();
                     mandril.name = newMandrilDto.name;
                     mandril.lastName = newMandrilDto.lastName;
-
-                   await _contextDb.Mandrils.AddAsync(mandril);
-                   await _contextDb.SaveChangesAsync();
+                    
+                    await _contextDb.Mandrils.AddAsync(mandril);
+                     await _contextDb.SaveChangesAsync();
                     _logger.LogInformation(MessageDefaultsDevs.MandrilCreated);
-
                     return mandril;
                 }
             }
@@ -134,11 +122,11 @@ namespace MandrilAPI.Infrastructure.Repositories
         public async Task<Mandril> DeleteOneMandrilFromDb(int targetMandrilId)
         {
             var mandril = await _contextDb.Mandrils.FirstOrDefaultAsync(m => m.id == targetMandrilId);
-
+            
             if (mandril is not null)
             {
                 _contextDb.Mandrils.Remove(mandril);
-              await  _contextDb.SaveChangesAsync();
+                await  _contextDb.SaveChangesAsync();
                 _logger.LogInformation(MessageDefaultsDevs.DeleteSuccess);
                 return mandril;
             }
@@ -170,7 +158,7 @@ namespace MandrilAPI.Infrastructure.Repositories
                     {
                         skill.name = newSkillDto.Name;
                          _contextDb.Skills.Update(skill);
-                      await  _contextDb.SaveChangesAsync();
+                        await  _contextDb.SaveChangesAsync();
                         _logger.LogInformation(MessageDefaultsDevs.SkillUpdateSuccess, targetSkillId);
                         return skill;
                     }
@@ -234,15 +222,11 @@ namespace MandrilAPI.Infrastructure.Repositories
             string userId)
         {
             var relation = new MandrilWithSkillsIntermediateTable();
-
             var mandrilExists = await _contextDb.Mandrils.FirstOrDefaultAsync(m => m.id == targetMandrilId);
             var skillExists = await _contextDb.Skills.FirstOrDefaultAsync(h => h.id == targetSkillId);
             var userExist = await _userM.Users.FirstOrDefaultAsync(u => EF.Functions.Collate(u.Id, "SQL_Latin1_General_CP1_CI_AS") == userId);
-
             var relationExist = await _contextDb.MandrilWithSkills.Where(r => r.MandrilId == targetMandrilId && 
-                                                                        r.SkillId == targetSkillId && EF.Functions.Collate(r.UserId,
-                                                                            "SQL_Latin1_General_CP1_CI_AS") == userId)
-                .ToListAsync();
+                                                                        r.SkillId == targetSkillId && EF.Functions.Collate(r.UserId, "SQL_Latin1_General_CP1_CI_AS") == userId).ToListAsync();
 
             if (userExist is null)
             {
@@ -259,8 +243,7 @@ namespace MandrilAPI.Infrastructure.Repositories
             {
                 _logger.LogWarning(MessageDefaultsDevs.RelationAlreadyExists, targetMandrilId, targetSkillId, userId);
                 return null;
-            }
-            else
+            }else
             {
                 relation.MandrilId = targetMandrilId;
                 relation.SkillId = targetSkillId;
@@ -268,9 +251,9 @@ namespace MandrilAPI.Infrastructure.Repositories
 
                 _logger.LogInformation(MessageDefaultsDevs.RelationCreated, targetMandrilId, targetSkillId, userId,
                     relation.PowerMS);
-             await  _contextDb.MandrilWithSkills.AddAsync(relation);
-               await _contextDb.SaveChangesAsync();
-                return relation;
+                 await  _contextDb.MandrilWithSkills.AddAsync(relation);
+                 await _contextDb.SaveChangesAsync();
+                 return relation;
             }
         }
 
@@ -285,15 +268,13 @@ namespace MandrilAPI.Infrastructure.Repositories
             if (relation is null)
             {
                 _logger.LogWarning(MessageDefaultsDevs.DatabaseNotFound);
-                _logger.LogWarning(MessageDefaultsDevs.RelationMandrilWithSkillNotFound, targetSkillId,
-                    targetMandrilId);
+                _logger.LogWarning(MessageDefaultsDevs.RelationMandrilWithSkillNotFound, targetSkillId, targetMandrilId);
                 _logger.LogWarning(MessageDefaultsDevs.DeleteError);
                 return null;
-            }
-            else
+            }else
             {
                 _contextDb.MandrilWithSkills.Remove(relation);
-              await  _contextDb.SaveChangesAsync();
+                await  _contextDb.SaveChangesAsync();
                 _logger.LogInformation(MessageDefaultsDevs.DeleteSuccess);
                 return relation;
             }
@@ -311,14 +292,11 @@ namespace MandrilAPI.Infrastructure.Repositories
                 relation.PowerMS = newPower;
                _contextDb.MandrilWithSkills.Update(relation);
                await _contextDb.SaveChangesAsync();
-                _logger.LogInformation(MessageDefaultsDevs.SkillPowerUpdateSuccess, targetSkillId, targetMandrilId,
-                    userId, newPower);
+                _logger.LogInformation(MessageDefaultsDevs.SkillPowerUpdateSuccess, targetSkillId, targetMandrilId, userId, newPower);
                 return relation;
-            }
-            else
+            }else
             {
-                _logger.LogWarning(MessageDefaultsDevs.RelationMandrilWithSkillAndUserNotFound, targetSkillId,
-                    targetMandrilId, userId);
+                _logger.LogWarning(MessageDefaultsDevs.RelationMandrilWithSkillAndUserNotFound, targetSkillId, targetMandrilId, userId);
                 _logger.LogWarning(MessageDefaultsDevs.RelationUpdateError, targetSkillId, targetMandrilId);
                 return null;
             }
@@ -327,8 +305,7 @@ namespace MandrilAPI.Infrastructure.Repositories
         public async Task<MandrilWithSkillsIntermediateTable> DeleteMandrilForUser(int targetMandrilId, string userId)
         {
 
-            var relation = await _contextDb.MandrilWithSkills
-                .FirstOrDefaultAsync(m =>
+            var relation = await _contextDb.MandrilWithSkills.FirstOrDefaultAsync(m =>
                     m.MandrilId == targetMandrilId &&
                     EF.Functions.Collate(m.UserId, "SQL_Latin1_General_CP1_CI_AS") == userId);
 
@@ -336,20 +313,16 @@ namespace MandrilAPI.Infrastructure.Repositories
             {
                 _logger.LogWarning(MessageDefaultsDevs.DatabaseNotFound);
                 _logger.LogWarning(MessageDefaultsDevs.RelationMandrilUserNotFound, targetMandrilId, userId);
-
                 _logger.LogWarning(MessageDefaultsDevs.DeleteError);
                 return null;
 
-            }
-
-            else
+            }else
             {
                 _contextDb.MandrilWithSkills.Remove(relation);
                await _contextDb.SaveChangesAsync();
                 _logger.LogInformation(MessageDefaultsDevs.DeleteSuccess);
                 return relation;
             }
-
         }
     }
 }

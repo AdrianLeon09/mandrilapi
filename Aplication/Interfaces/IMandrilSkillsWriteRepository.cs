@@ -18,7 +18,6 @@ namespace MandrilAPI.Aplication.Interfaces
       public Task<MandrilWithSkillsIntermediateTable> AssignOneSkillToMandril(int targetMandrilId, int targetSkillId, string userId);
       public Task<MandrilWithSkillsIntermediateTable> DeleteSkillFromMandrilForUser(int targetMandrilId,int targetSkillId, string userId);
       public Task<MandrilWithSkillsIntermediateTable> UpdatePowerOfSkillForMandril(int targetMandrilId,int targetSkillId, int newPower, string userId);
-
       public Task<MandrilWithSkillsIntermediateTable> DeleteMandrilForUser(int targetMandrilId, string userId);
     }
 }

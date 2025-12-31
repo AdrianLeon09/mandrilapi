@@ -35,9 +35,5 @@ public class RegisterUserDto
     [MinLength(6, ErrorMessage = MessageDefaultsUsers.PasswordTooShort)]
     public string Password { get; set; }
     
-    [Required(ErrorMessage = MessageDefaultsUsers.EntryInvalid)]
-    [Compare("Password", ErrorMessage = MessageDefaultsUsers.PasswordMismatch)]
-    public string ConfirmPassword { get; set;}
-    
     public DateTime DateOfBirth { get; set; }
 }

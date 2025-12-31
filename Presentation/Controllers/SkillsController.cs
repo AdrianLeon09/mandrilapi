@@ -9,20 +9,17 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MandrilAPI.Presentation.Controllers
 {
-   
+    
         [ApiController]
         [Route("api/[controller]")]
-        
         [Authorize( AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,
             Policy = "AdminOnly")]
         
 
         public class SkillsController(IMandrilSkillsReadRepository RepositoryRead, IMandrilSkillsWriteRepository RepositoryWrite) : ControllerBase
         {
-
             private readonly IMandrilSkillsReadRepository _repositoryReadMandrilSkills = RepositoryRead;
             private readonly IMandrilSkillsWriteRepository _repositoryWriteMandrilSkills = RepositoryWrite;
-            
             
             [HttpGet]
             public async Task<IActionResult> GetAllSkills()
@@ -31,12 +28,10 @@ namespace MandrilAPI.Presentation.Controllers
                 if (Skills.Count is 0)
                 {
                     return NotFound(MessageDefaultsAdmin.DataBaseNotFound);
-                }
-                else
+                }else
                 {
                     return Ok(Skills);
                 }
-
             }
 
             
@@ -49,7 +44,6 @@ namespace MandrilAPI.Presentation.Controllers
                 {
                     return NotFound(MessageDefaultsAdmin.SkillNotFound);
                 }
-                
                 return Ok(Skill);
             }
 
@@ -62,22 +56,17 @@ namespace MandrilAPI.Presentation.Controllers
                 if (qrySkill.Count is 0)
                 {
                     return NotFound(MessageDefaultsAdmin.SkillNotFound);
-                }
-                else
+                }else
                 {
                     skillDto.Name = skillDto.Name.Replace(" ", "");
-                    
                     if (skillDto.Name.Length < 3)
                     {
                         return BadRequest(MessageDefaultsAdmin.EntryInvalid);
-
                     }
                     else
                     {
-                        
-                     await  _repositoryWriteMandrilSkills.UpdateOneSkillToDb(targetSkillId, skillDto);
+                        await  _repositoryWriteMandrilSkills.UpdateOneSkillToDb(targetSkillId, skillDto);
                         return Ok(MessageDefaultsAdmin.SkillUpdateSucceeded);
-
                     }
                 }
             }
@@ -91,10 +80,8 @@ namespace MandrilAPI.Presentation.Controllers
                 {
                     return NotFound(MessageDefaultsAdmin.SkillNotFound);
                 }
-                else
-                {
+                else {
                     await  _repositoryWriteMandrilSkills.DeleteOneSkillFromDb(targetSkillId);
-
                     return Ok(MessageDefaultsAdmin.DeleteSkillSucceeded);
                 }
             }
@@ -103,37 +90,25 @@ namespace MandrilAPI.Presentation.Controllers
             [HttpPost]
             public async Task<ActionResult<Skill>> AddSkill([FromBody] SkillDto skillDto)
             {
-               
-               
                var skillInDb = await _repositoryReadMandrilSkills.GetAllSkillsFromDb();
-
                var validationName = skillInDb.Any(s =>
                    string.Equals(s.name, skillDto.Name, StringComparison.OrdinalIgnoreCase));
-            
-
+               
                 if (validationName is true)
                 {
                    return Conflict(MessageDefaultsAdmin.SkillAlreadyExist);
-
-                }
-                else
+                }else
                 {
-
                     if (skillDto.Name.Length < 3)
                     {
-
-                        return BadRequest(MessageDefaultsAdmin.DeleteSkillError + "\n" +
-                                          MessageDefaultsAdmin.DeleteNotSucceeded);
-                    }
-                    else
+                        return BadRequest(MessageDefaultsAdmin.DeleteSkillError + "\n" + MessageDefaultsAdmin.DeleteNotSucceeded);
+                    }else
                     {
                         await _repositoryWriteMandrilSkills.AddNewSkillToDb(skillDto);
-
                         return Ok(MessageDefaultsAdmin.SkillCreatedSuccess);
                     }
                 }
             }
-
         }
     }
 

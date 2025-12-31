@@ -14,26 +14,20 @@ namespace MandrilAPI.Infrastructure.CustomAnnotations
         {
             if (value is null)
             {
-
                 return new ValidationResult(MessageDefaultsUsers.NullObject);
             }
             else
             {
                 var valueString = value.ToString().Trim();
-         
                 if (valueString.Length < minLettersToValidate)
                 {
                     return new ValidationResult(MessageDefaultsUsers.EntryMinLength);
                 }
                 else
                 {
-                    
                     return ValidationResult.Success;
                 } 
             }
-            
-            
         }
-
     }
 }

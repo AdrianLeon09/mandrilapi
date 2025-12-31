@@ -18,13 +18,10 @@ public class GenerateJwt( IConfiguration config, UserManager<ApplicationUser> us
     public  async Task<string> Token(ApplicationUser user)
     {
         List<Claim> roleslist = new();
-
-
-        var roleUser = await _userManager.GetRolesAsync(user);
         
+        var roleUser = await _userManager.GetRolesAsync(user);
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["JwtSettings:Key"]));
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
         var token = new JwtSecurityToken(
             issuer: _config["JwtSettings:Issuer"],
             audience: _config["JwtSettings:Audience"],
@@ -32,10 +29,7 @@ public class GenerateJwt( IConfiguration config, UserManager<ApplicationUser> us
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id),
                 new Claim(ClaimTypes.Email, user.Email),
-                
-
             }.Union(roleUser.Select(x => new Claim(ClaimTypes.Role, x))),
-
             expires: DateTime.Now.AddMinutes(Convert.ToDouble(_config["JwtSettings:DurationInMinutes"])),
             signingCredentials: creds
 

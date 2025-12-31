@@ -15,24 +15,20 @@ namespace MandrilAPI.Infrastructure.Repositories
     public class MandrilSkillsReadRepository(
         MandrilDbContext contextDb,
         ILogger<MandrilSkillsReadRepository> logger,
-        AuthDbContext contextDbAuth,
         UserManager<ApplicationUser> usermanager,
         SignInManager<ApplicationUser> signinmanager) : IMandrilSkillsReadRepository
     {
+        
         protected readonly MandrilDbContext _contextDb = contextDb;
         private ILogger<MandrilSkillsReadRepository> _logger = logger;
-
         private readonly UserManager<ApplicationUser> _userM = usermanager;
         private readonly SignInManager<ApplicationUser> _signInM = signinmanager;
-
-
-
+        
         public async Task<IReadOnlyList<Skill>> GetOneSkillFromDb(int targetSkillId) // only admins
         {
             var Skill = await _contextDb.Skills.Where(h => h.id == targetSkillId)
                 .AsNoTracking()
                 .ToListAsync();
-
             if (Skill.Count is 0)
             {
                 _logger.LogWarning(MessageDefaultsDevs.SkillNotFound, targetSkillId);
@@ -108,8 +104,6 @@ namespace MandrilAPI.Infrastructure.Repositories
             int targetSkillId, string userId)
         {
             var user = await _userM.FindByIdAsync(userId);
-            
-            
             var relationMandrilSkill = await _contextDb.MandrilWithSkills.Include(m => m.Mandril).Include(h => h.Skill).Where(m =>
                 m.MandrilId == targetMandrilId && m.SkillId == targetSkillId &&
                 EF.Functions.Collate(m.UserId, "SQL_Latin1_General_CP1_CI_AS") == userId).AsNoTracking().ToListAsync();
@@ -117,7 +111,7 @@ namespace MandrilAPI.Infrastructure.Repositories
             var group = relationMandrilSkill.Select(s => new RelationMandrilSkillsDto()
             {
                 Id = s.MandrilId,
-                mandrilName = s.Mandril.name,
+                MandrilName = s.Mandril.name,
                 Skills = new List<SkillRelationDto>()
                 {
                     new SkillRelationDto()
@@ -148,30 +142,25 @@ namespace MandrilAPI.Infrastructure.Repositories
                 .Include(Skills => Skills.Skill)
                 .Where(u => EF.Functions.Collate(u.UserId, "SQL_Latin1_General_CP1_CI_AS") == userId).AsNoTracking()
                 .ToListAsync();
-
             var group = relation.GroupBy(u => new{Id = u.MandrilId ,mandrilname = u.Mandril.name }).Select(s => new RelationMandrilSkillsDto()
                 {
                     Id = s.Key.Id,
-                    mandrilName = s.Key.mandrilname,
+                    MandrilName = s.Key.mandrilname,
                     Skills = s.Select(m => new SkillRelationDto()
                     {
                         Id = m.SkillId,
                         Name = m.Skill.name
                     }).ToList()
-                    
                 }
             ).ToList();
 
             if (relation.Count is 0)
             {
                 _logger.LogWarning(MessageDefaultsDevs.RelationshipsNotFound, userId);
-
-
                 return group;
             }
             else
             {
-
                 _logger.LogInformation(MessageDefaultsDevs.AllMandrilsWithSkillsRetrieved);
                 return group;
             }
@@ -188,17 +177,14 @@ namespace MandrilAPI.Infrastructure.Repositories
             var group = groupRelation.GroupBy(m => new {Id = m.MandrilId, mandrilname = m.Mandril.name }).Select(s => new RelationMandrilSkillsDto()
             {
                 Id = s.Key.Id,
-                mandrilName = s.Key.mandrilname,
+                MandrilName = s.Key.mandrilname,
                 Skills = s.Select(m => new SkillRelationDto()
                 {
                     Id = m.SkillId,
                     Name = m.Skill.name
                 }).Distinct().ToList()
-
-
             }).ToList();
             
-
             if (groupRelation.Count is 0)
             {
                 _logger.LogWarning(MessageDefaultsDevs.UserMandrilSkillsNotFound, userId);
@@ -215,9 +201,7 @@ namespace MandrilAPI.Infrastructure.Repositories
         {
             var users = await _userM.Users.ToListAsync();
             var allUsers = new List<AllUsersDto>();
-
-
-
+            
             if (users.Count is 0)
             {
                 _logger.LogWarning(MessageDefaultsDevs.AllUsersNotFound);
@@ -237,13 +221,8 @@ namespace MandrilAPI.Infrastructure.Repositories
                     usersDto.Email = user.Email;
                     usersDto.NumberOfMandrils = Mandrils;
                     usersDto.CreateAt = user.CreatedAt;
-
-
-
                     allUsers.Add(usersDto);
-
                 }
-
                 _logger.LogInformation(MessageDefaultsDevs.AllUsersRetrieved);
                 return allUsers;
             }
@@ -252,21 +231,16 @@ namespace MandrilAPI.Infrastructure.Repositories
         public async Task<IReadOnlyList<UserRelationshipsDto>> GetAllRelationsFromDb() // only admins
         {
             var users = await _userM.Users.ToListAsync();
-
             var relationsMandrilSkills = await _contextDb.MandrilWithSkills.Include(mandriles => mandriles.Mandril)
                 .Include(mandrilSkills => mandrilSkills.Skill).ToListAsync();
-
             var group = relationsMandrilSkills.GroupBy(u => u.UserId)
                 .Select(userkey => new UserRelationshipsDto()
                 {
-
-                    PublicUserName = users.FirstOrDefault(s => s.Id == userkey.Key).PublicUserName,
-
+                    PublicUserName = users.FirstOrDefault(s => s.Id == userkey.Key)!.PublicUserName,
                     Mandril = userkey.GroupBy(m => new { mandrilid = m.MandrilId, mandrilName = m.Mandril.name })
                         .Select(m => new RelationMandrilSkillsDto
                         {
-                            Id = m.Key.mandrilid, mandrilName = m.Key.mandrilName,
-
+                            Id = m.Key.mandrilid, MandrilName = m.Key.mandrilName,
                             Skills = userkey
                                 .GroupBy(s => new { skillId = s.SkillId, skillName = s.Skill.name })
                                 .Select(s => new SkillRelationDto() { Id = s.Key.skillId, Name = s.Key.skillName })
@@ -284,12 +258,8 @@ namespace MandrilAPI.Infrastructure.Repositories
             {
                 _logger.LogInformation(MessageDefaultsDevs.AllRelationshipsRetrieved);
                 return group.ToList();
-
             }
         }
     }
-
-
-
 }
 
